@@ -7,7 +7,5 @@ chart-repos:
   - holaplex=https://holaplex.github.io/helm-charts
 helm-extra-args: --timeout 600s
 excluded-charts:
-  # If not running on GCE, will error: "Failed to get GCE config"
-  - holaplex-to-sd
 additional-commands:
   # - helm unittest --helm3 --strict --file unittests/*.yaml --file 'unittests/**/*.yaml' {{ .Path }}
