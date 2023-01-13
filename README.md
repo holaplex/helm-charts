@@ -12,7 +12,8 @@ Please refer to Helm's [documentation](https://helm.sh/docs/) to get started.
 Once Helm is set up properly, add the repo as follows:
 
 ```console
-helm repo add holaplex https://holaplex.github.io/helm-charts
+helm repo add holaplex https://charts.holaplex.com
+helm repo update
 ```
 
 You can then run `helm search repo holaplex` to see the charts.
@@ -27,7 +28,7 @@ We'd love to have you contribute! Please refer to our [contribution guidelines](
 
 ## License
 
-<!-- Keep full URL links to repo files because this README syncs from main to gh-pages..  -->
+<!-- Keep full URL links to repo files because this README syncs from main to gh-pages.  -->
 
 [Apache 2.0 License](https://github.com/holaplex/helm-charts/blob/main/LICENSE).
 
