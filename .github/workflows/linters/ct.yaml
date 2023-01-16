@@ -6,6 +6,7 @@ chart-dirs:
 chart-repos:
   - holaplex=https://holaplex.github.io/helm-charts
 helm-extra-args: --timeout 600s
+validate-maintainers: false
 excluded-charts:
 additional-commands:
   # - helm unittest --helm3 --strict --file unittests/*.yaml --file 'unittests/**/*.yaml' {{ .Path }}
