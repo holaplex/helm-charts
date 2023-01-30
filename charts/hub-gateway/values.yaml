@@ -16,7 +16,7 @@ routes:
   require_auth: true
   regex_uri: ["/graphql", "/"]
   policy: "hub/graphql/example"
-  schema_query: '{ _service { sdl } }'
+  schema_query: "{ _service { sdl } }"
 
 - name: ui-public
   subdomain: hub
@@ -24,6 +24,7 @@ routes:
   servicePort: 80
   methods:
     - GET
+    - POST
   paths:
     - /
     - /registration
@@ -44,6 +45,7 @@ routes:
   paths:
     - /organizations
 
+
 apisixPlugins:
   kratos:
     serviceName: kratos-public
@@ -56,6 +58,12 @@ apisixPlugins:
     files:
       - plugins/graphql.lua
   opa:
+    image: openpolicyagent/opa:0.48.0-rootless
+    s3:
+      bucketUrl: "http://your-bucket-url.s3.us-east-1.amazonaws.com"
+      region: us-east-1
+      accessKey: ""
+      secretKey: ""
     serviceName: opa
     servicePort: 8181
     files:
@@ -153,11 +161,15 @@ apisix:
   etcd:
     enabled: true
     fullnameOverride: apisix-etcd
+    image:
+      repository: bitnami/etcd
+      pullPolicy: IfNotPresent
+      tag: 3.5.7-debian-11-r3
     persistence:
       storageClass: "hostpath"
       size: 1Gi
     replicaCount: 1
     host:
-      - http://etcd:2379
+      - http://apisix-etcd:2379
     prefix: "/apisix"
     timeout: 30

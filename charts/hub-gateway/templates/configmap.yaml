@@ -2,6 +2,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: apisix-custom-plugins
+  labels:
+    {{- include "hub-gateway.labels" $ | nindent 4 }}
 data:
   {{- $files := .Files }}
   {{- range $key, $val := .Values.apisixPlugins }}
