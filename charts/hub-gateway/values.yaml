@@ -1,0 +1,163 @@
+domain: 127.0.0.1.nip.io
+port: 9080
+session_cookie_name: "hub_session"
+namespace: default
+
+routes: 
+- name: api
+  serviceName: federated-router
+  servicePort: 80
+  subdomain: api
+  paths: 
+    - /graphql
+  methods:
+    - GET
+    - POST
+  require_auth: true
+  regex_uri: ["/graphql", "/"]
+  policy: "hub/graphql/example"
+  schema_query: '{ _service { sdl } }'
+
+- name: ui-public
+  subdomain: hub
+  serviceName: hub
+  servicePort: 80
+  methods:
+    - GET
+  paths:
+    - /
+    - /registration
+    - /verification
+    - /login
+    - /recovery
+    - /holaplex.svg
+    - /_next/static/*
+    - /__nextjs_original-stack-frame
+    - /api/.ory/*
+
+- name: ui-private
+  subdomain: hub
+  serviceName: hub
+  servicePort: 80
+  methods:
+    - GET
+  paths:
+    - /organizations
+
+apisixPlugins:
+  kratos:
+    serviceName: kratos-public
+    servicePort: 80
+    files:
+      - plugins/kratos.lua
+  graphql:
+    serviceName: federated-router
+    servicePort: 80
+    files:
+      - plugins/graphql.lua
+  opa:
+    serviceName: opa
+    servicePort: 8181
+    files:
+      - plugins/opa-helper.lua
+      - plugins/opa-mod.lua
+
+apisix:
+  enabled: true
+  fullnameOverride: apisix
+  apisix:
+    enabled: true
+    image:
+      repository: apache/apisix
+      pullPolicy: IfNotPresent
+      tag: 3.1.0-debian
+    timezone: "UTC"
+    enableIpv6: false
+    httpRouter: radixtree_uri
+    
+  ingress-controller:
+    enabled: true
+    fullnameOverride: apisix-ingress-controlle
+    config:
+      apisix:
+        serviceName: apisix-admin
+        serviceNamespace: ingress-apisix
+        adminKey: c2IhapSVZaguYfqfyvcN6RTkeTPinI
+
+  gateway:
+    type: NodePort
+    externalTrafficPolicy: Cluster
+    http:
+      enabled: true
+      servicePort: 80
+      containerPort: 9080
+    stream:
+      enabled: true
+      only: false
+      tcp: 
+        - 9100
+      udp: 
+        - 9200
+
+  admin:
+    enabled: true
+    type: ClusterIP
+    allow:
+      ipList:
+        - 127.0.0.1/24
+        - 10.0.0.0/8
+        - 0.0.0.0/0
+    port: 9180
+    servicePort: 9180
+    cors: true
+    credentials:
+      admin: c2IhapSVZaguYfqfyvcN6RTkeTPinI
+      viewer: VduoK1H4ujZB4nus9QEfOjgUjTGkmB 
+
+  plugins:
+    - kratos
+    - opa-mod
+    - graphql
+    - mocking                       
+    - redirect
+    - serverless-pre-function 
+    - serverless-post-function 
+    - proxy-rewrite                  
+    - response-rewrite 
+
+  customPlugins:
+    enabled: true
+    plugins:
+      - name: "kratos"
+        configMap:
+          name: "hub-gateway-apisix-plugins"
+          mounts:
+            - key: "kratos.lua"
+              path: "/opts/custom_plugins/apisix/plugins/kratos.lua"
+            - key: "opa-mod.lua"
+              path: "/opts/custom_plugins/apisix/plugins/opa-mod.lua"
+            - key: "opa-helper.lua"
+              path: "/opts/custom_plugins/apisix/plugins/opa-mod/helper.lua"
+            - key: "graphql.lua"
+              path: "/opts/custom_plugins/apisix/plugins/graphql.lua"
+
+  logs:
+    enableAccessLog: true
+    accessLog: "/dev/stdout"
+    access_log_format: |-
+            {"@timestamp": "$time_iso8601", "client_ip": "$remote_addr", "status": "$status", "referer": "$http_referer" "upstream": "$upstream_scheme://$upstream_host$upstream_uri", "upstream_response_time": "$upstream_response_time"}
+    accessLogFormatEscape: json
+    errorLog: "/dev/stderr"
+    errorLogLevel: "warn"
+
+  etcd:
+    enabled: true
+    persistence:
+      storageClass: "hostpath"
+      size: 1Gi
+    replicaCount: 1
+    host:
+      - http://etcd:2379
+    prefix: "/apisix"
+    timeout: 30
+
