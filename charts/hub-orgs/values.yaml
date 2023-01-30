@@ -81,3 +81,4 @@ secrets:
 environment:
   port: "80"
   oryBaseUrl: "http://hydra-admin"
+  kafkaBrokers:

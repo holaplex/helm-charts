@@ -1,0 +1,70 @@
+{{- $apisixPlugins := .Values.apisixPlugins -}}
+{{- $namespace := .Release.Namespace -}}
+{{- $domain:= .Values.domain -}}
+{{- $sessionCookie := .Values.session_cookie_name -}}
+{{- with .Values.routes }}
+{{- range . }}
+apiVersion: apisix.apache.org/v2
+kind: ApisixRoute
+metadata:
+  name: {{ .name }}
+  namespace: {{ $namespace }}
+  labels:
+    {{- include "hub-gateway.labels" $ | nindent 4 }}
+spec:
+  http:
+  - name:  {{ .name }}
+    backends:
+    - serviceName: {{ .serviceName }}
+      servicePort: {{ .servicePort }}
+    match:
+      hosts:
+      - {{ print .subdomain "." $domain }}
+      paths:
+      {{ .paths | toYaml | nindent 7 }}
+      methods:
+      {{ .methods | toYaml | nindent 7 }}
+    plugins:
+    {{- if .require_auth}}
+    - name: kratos
+      enable: true
+      config:
+        host: {{ print "http://" $apisixPlugins.kratos.serviceName  "." $namespace ".svc:" $apisixPlugins.kratos.servicePort | quote }}
+        expose_user_data: true
+        expose_user_id: true
+        session_cookie_name: {{ $sessionCookie }}
+    {{ end }}
+    {{- if .regex_uri}}
+    - name: proxy-rewrite
+      enable: true
+      config:
+        regex_uri: 
+        {{ .regex_uri | toYaml | nindent 9 }}
+    {{ end }}
+    {{- if .schema_query}}
+    - name: graphql
+      enable: true
+      config:
+        #gql_data.schema and gql_data.query will be base64 encoded.
+        host: {{ print "http://" $apisixPlugins.graphql.serviceName  "." $namespace ".svc:" $apisixPlugins.graphql.servicePort | quote }}
+        schema_url: ""
+        #Schema query needs to be base64 encoded
+        schema_query: {{ .schema_query | b64enc }}
+        #Schema needs to be base64 encoded
+        schema: ""
+    {{- end }}
+    {{- if .policy}}
+    - name: opa-mod
+      enable: true
+      config:
+        host: {{ print "http://" $apisixPlugins.opa.serviceName  "." $namespace ".svc:" $apisixPlugins.opa.servicePort | quote }}
+        policy: {{ .policy }}
+        extra_inputs: true
+        inputs:
+          user_data: $kratos_user_data
+          #gql_data includes query, schema, operation, root_fields,
+          gql_data: $gql_data
+    {{ end }}
+---
+{{- end }}
+{{- end }}
