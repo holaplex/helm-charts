@@ -1,5 +1,5 @@
 {{- $apisixPlugins := .Values.apisixPlugins -}}
-{{- $namespace := .Values.namespace -}}
+{{- $namespace := .Release.Namespace -}}
 {{- $domain:= .Values.domain -}}
 {{- $sessionCookie := .Values.session_cookie_name -}}
 {{- with .Values.routes }}

@@ -77,7 +77,7 @@ apisix:
 
   ingress-controller:
     enabled: true
-    fullnameOverride: apisix-ingress-controlle
+    fullnameOverride: apisix-ingress-controller
     config:
       apisix:
         serviceName: apisix-admin
