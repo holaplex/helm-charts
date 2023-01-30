@@ -5,6 +5,7 @@ chart-dirs:
   - charts
 chart-repos:
   - holaplex=https://holaplex.github.io/helm-charts
+  - apisix=https://apache.github.io/apisix-helm-chart
 helm-extra-args: --timeout 600s
 validate-maintainers: false
 excluded-charts:
