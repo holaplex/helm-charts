@@ -33,7 +33,7 @@ jobs:
       - name: Add dependency chart repos
         run: |
           helm repo add holaplex https://holaplex.github.io/helm-charts
-          helm repo add apisix https://apache.github.io/apisix-helm-chart
+          helm repo add apisix https://charts.apiseven.com
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.5.0
