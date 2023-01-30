@@ -24,6 +24,7 @@ routes:
   servicePort: 80
   methods:
     - GET
+    - POST
   paths:
     - /
     - /registration
@@ -56,6 +57,12 @@ apisixPlugins:
     files:
       - plugins/graphql.lua
   opa:
+    image: openpolicyagent/opa:0.48.0-rootless
+    s3:
+      bucketUrl: "http://your-bucket-url.s3.us-east-1.amazonaws.com"
+      region: us-east-1
+      accessKey: ""
+      secretKey: ""
     serviceName: opa
     servicePort: 8181
     files:

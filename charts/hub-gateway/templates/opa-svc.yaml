@@ -1,0 +1,20 @@
+{{- $namespace := .Values.hubNamespace -}}
+{{- $apisixPlugins := .Values.apisixPlugins -}}
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ $apisixPlugins.opa.serviceName }}
+  namespace: {{ $namespace }}
+  labels:
+    {{- include "hub-gateway.labels" $ | nindent 4 }}
+    app: {{ $apisixPlugins.opa.serviceName }}
+spec:
+  type: ClusterIP
+  selector:
+    app: {{ $apisixPlugins.opa.serviceName }}
+  ports:
+    - name: http
+      protocol: TCP
+      port: {{ $apisixPlugins.opa.servicePort }}
+      targetPort: {{ $apisixPlugins.opa.servicePort }}
+
