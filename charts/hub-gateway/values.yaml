@@ -1,7 +1,7 @@
+hubNamespace: default
 domain: 127.0.0.1.nip.io
 port: 9080
-session_cookie_name: "hub_session"
-namespace: default
+sessionCookieName: "hub_session"
 
 routes:
 - name: api
@@ -152,6 +152,7 @@ apisix:
 
   etcd:
     enabled: true
+    fullnameOverride: apisix-etcd
     persistence:
       storageClass: "hostpath"
       size: 1Gi

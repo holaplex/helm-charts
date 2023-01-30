@@ -1,7 +1,7 @@
 {{- $apisixPlugins := .Values.apisixPlugins -}}
-{{- $namespace := .Release.Namespace -}}
+{{- $namespace := .Values.hubNamespace -}}
 {{- $domain:= .Values.domain -}}
-{{- $sessionCookie := .Values.session_cookie_name -}}
+{{- $sessionCookie := .Values.sessionCookieName -}}
 {{- with .Values.routes }}
 {{- range . }}
 apiVersion: apisix.apache.org/v2
