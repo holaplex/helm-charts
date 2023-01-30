@@ -9,6 +9,8 @@ kind: ApisixRoute
 metadata:
   name: {{ .name }}
   namespace: {{ $namespace }}
+  labels:
+    {{- include "hub-gateway.labels" $ | nindent 4 }}
 spec:
   http:
   - name:  {{ .name }}

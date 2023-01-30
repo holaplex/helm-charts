@@ -3,12 +3,12 @@ port: 9080
 session_cookie_name: "hub_session"
 namespace: default
 
-routes: 
+routes:
 - name: api
   serviceName: federated-router
   servicePort: 80
   subdomain: api
-  paths: 
+  paths:
     - /graphql
   methods:
     - GET
@@ -74,7 +74,7 @@ apisix:
     timezone: "UTC"
     enableIpv6: false
     httpRouter: radixtree_uri
-    
+
   ingress-controller:
     enabled: true
     fullnameOverride: apisix-ingress-controlle
@@ -94,9 +94,9 @@ apisix:
     stream:
       enabled: true
       only: false
-      tcp: 
+      tcp:
         - 9100
-      udp: 
+      udp:
         - 9200
 
   admin:
@@ -112,25 +112,25 @@ apisix:
     cors: true
     credentials:
       admin: c2IhapSVZaguYfqfyvcN6RTkeTPinI
-      viewer: VduoK1H4ujZB4nus9QEfOjgUjTGkmB 
+      viewer: VduoK1H4ujZB4nus9QEfOjgUjTGkmB
 
   plugins:
     - kratos
     - opa-mod
     - graphql
-    - mocking                       
+    - mocking
     - redirect
-    - serverless-pre-function 
-    - serverless-post-function 
-    - proxy-rewrite                  
-    - response-rewrite 
+    - serverless-pre-function
+    - serverless-post-function
+    - proxy-rewrite
+    - response-rewrite
 
   customPlugins:
     enabled: true
     plugins:
       - name: "kratos"
         configMap:
-          name: "hub-gateway-apisix-plugins"
+          name: "apisix-custom-plugins"
           mounts:
             - key: "kratos.lua"
               path: "/opts/custom_plugins/apisix/plugins/kratos.lua"
@@ -160,4 +160,3 @@ apisix:
       - http://etcd:2379
     prefix: "/apisix"
     timeout: 30
-
