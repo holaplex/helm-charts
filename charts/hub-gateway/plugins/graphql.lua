@@ -1,3 +1,4 @@
+--
 -- Licensed to the Apache Software Foundation (ASF) under one or more
 -- contributor license agreements.  See the NOTICE file distributed with
 -- this work for additional information regarding copyright ownership.
@@ -96,7 +97,7 @@ local function fetch_graphql_schema(conf, ctx)
     -- block by default when user is not found
     if not res then
         core.log.error("failed to get schema, err: ", err)
-        return 403
+        return 403, err
     end
 
     -- parse the results of the decision
@@ -104,13 +105,13 @@ local function fetch_graphql_schema(conf, ctx)
 
     if not data then
         core.log.error("invalid response body: ", res.body, " err: ", err)
-        return 503
+        return 503, res.body
     end
     local schema = ngx.encode_base64(data.data['_service']['sdl'])
     if not schema then
      core.log.error("invalid response from GraphQL: ", res.body,
                     " err: `_service.sdl` field does not exist")
-     return 503, "unable to get sdl"
+     return 503, res.body
 
     end
 
