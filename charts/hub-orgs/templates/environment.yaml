@@ -7,4 +7,5 @@ data:
   ORY_BASE_URL: {{ .oryBaseUrl }}
   PORT: {{ .port | quote }}
   KAFKA_BROKERS: {{ required "must set kafka brokers" .kafkaBrokers | quote }}
+  SVIX_BASE_URL: {{ required "must set svix base url" .svixBaseUrl | quote }}
   {{- end }}
