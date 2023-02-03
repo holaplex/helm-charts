@@ -1,7 +1,6 @@
-{{- if .Values.apisixPlugins.opa.serviceName }}
-{{- $opa := .Values.apisixPlugins.opa -}}
+{{- if .Values.apisixPlugins.opa.s3.secretKey }}
+{{- $s3 := .Values.apisixPlugins.opa.s3 -}}
 {{- $namespace := .Values.hubNamespace -}}
-{{- $s3 := $opa.s3 -}}
 apiVersion: v1
 kind: Secret
 metadata:
