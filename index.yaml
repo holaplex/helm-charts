@@ -98,6 +98,19 @@ entries:
   hub-orgs:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2023-02-03T15:54:48.764140605Z"
+    description: Helm chart for hub-orgs
+    digest: a283e24f891a7836227be13258af1b7dc15a375cf1c61aaa97d13e0b78fe983f
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-orgs
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-orgs-0.3.0/hub-orgs-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2023-01-27T10:09:15.851885675Z"
     description: Helm chart for hub-orgs
     digest: b6a03f20f3c349571440be0a879b057fec1cb8a826cc8047903ed709d386774c
@@ -122,4 +135,4 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/hub-orgs-0.1.0/hub-orgs-0.1.0.tgz
     version: 0.1.0
-generated: "2023-02-03T14:59:08.689326729Z"
+generated: "2023-02-03T15:54:48.764198908Z"
