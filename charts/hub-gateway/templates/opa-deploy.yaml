@@ -1,3 +1,4 @@
+{{- if .Values.apisixPlugins.opa.serviceName }}
 {{- $namespace := .Values.hubNamespace -}}
 {{- $apisixPlugins := .Values.apisixPlugins -}}
 apiVersion: apps/v1
@@ -57,3 +58,4 @@ spec:
         - name: config
           configMap:
             name: opa-config
+{{- end }}

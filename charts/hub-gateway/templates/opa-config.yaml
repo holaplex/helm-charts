@@ -1,3 +1,4 @@
+{{- if .Values.apisixPlugins.opa.serviceName }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -21,3 +22,4 @@ data:
         polling:
           min_delay_seconds: 30
           max_delay_seconds: 120
+{{ end }}
