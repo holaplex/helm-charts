@@ -16,7 +16,6 @@ routes:
   require_auth: true
   regex_uri: ["/graphql", "/"]
   policy: "hub/graphql/example"
-  schema_query: "{ _service { sdl } }"
 
 - name: ui-public
   subdomain: hub
@@ -52,11 +51,6 @@ apisixPlugins:
     servicePort: 80
     files:
       - plugins/kratos.lua
-  graphql:
-    serviceName: federated-router
-    servicePort: 80
-    files:
-      - plugins/graphql.lua
   opa:
     image: openpolicyagent/opa:0.48.0-rootless
     s3:
@@ -125,7 +119,6 @@ apisix:
   plugins:
     - kratos
     - opa-mod
-    - graphql
     - mocking
     - redirect
     - serverless-pre-function
@@ -146,8 +139,6 @@ apisix:
               path: "/opts/custom_plugins/apisix/plugins/opa-mod.lua"
             - key: "opa-helper.lua"
               path: "/opts/custom_plugins/apisix/plugins/opa-mod/helper.lua"
-            - key: "graphql.lua"
-              path: "/opts/custom_plugins/apisix/plugins/graphql.lua"
 
   logs:
     enableAccessLog: true
