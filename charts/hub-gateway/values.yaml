@@ -49,7 +49,7 @@ apisixPlugins:
     servicePort: 80
     files:
       - plugins/kratos.lua
-  hub-orgs:
+  hubOrgs:
     serviceName: hub-orgs
     servicePort: 80
     files:

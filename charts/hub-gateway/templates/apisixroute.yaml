@@ -47,7 +47,7 @@ spec:
     - name: hub-orgs
       enable: true
       config:
-        host: {{ print "http://" $apisixPlugins.hub-orgs.serviceName  "." $namespace ".svc:" $apisixPlugins.hub-orgs.servicePort "/v1" | quote }}
+        host: {{ print "http://" $apisixPlugins.hubOrgs.serviceName  "." $namespace ".svc:" $apisixPlugins.hubOrgs.servicePort "/v1" | quote }}
     {{- end }}
     {{- if .policy}}
     - name: opa-mod
