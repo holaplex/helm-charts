@@ -5,17 +5,25 @@ sessionCookieName: "hub_session"
 
 routes:
 - name: api
-  serviceName: federated-router
+  serviceName: hub-orgs
   servicePort: 80
-  subdomain: api
+  subdomain: '*.api'
   paths:
-    - /graphql
+    - /organization
+    - /projects
+    - /credentials
+    - /webhooks/*
   methods:
     - GET
     - POST
+    - DELETE
   require_auth: true
-  regex_uri: ["/graphql", "/"]
-  policy: "hub/graphql/example"
+  regex_uri: [ "^/(.*)", "/v1/$1" ]
+  headers:
+    X-Organization-Id: $org_id
+    X-Project-Id: $project_id
+    X-User-Id: $kratos_user_id
+  #policy: "hub/utils/echo"
 
 - name: ui-public
   subdomain: hub
@@ -35,22 +43,17 @@ routes:
     - /__nextjs_original-stack-frame
     - /api/.ory/*
 
-- name: ui-private
-  subdomain: hub
-  serviceName: hub
-  servicePort: 80
-  methods:
-    - GET
-  paths:
-    - /organizations
-
-
 apisixPlugins:
   kratos:
     serviceName: kratos-public
     servicePort: 80
     files:
       - plugins/kratos.lua
+  hub-orgs:
+    serviceName: hub-orgs
+    servicePort: 80
+    files:
+      - plugins/hub-orgs.lua
   opa:
     image: openpolicyagent/opa:0.48.0-rootless
     s3:

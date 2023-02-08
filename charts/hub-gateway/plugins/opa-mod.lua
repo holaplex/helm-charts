@@ -1,3 +1,4 @@
+--
 -- Licensed to the Apache Software Foundation (ASF) under one or more
 -- contributor license agreements.  See the NOTICE file distributed with
 -- this work for additional information regarding copyright ownership.
@@ -124,8 +125,7 @@ function _M.access(conf, ctx)
 
     -- block by default when decision is unavailable
     if not res then
-        core.log.error("failed to process OPA decision, err: ", err)
-        return 403
+        return 403, err
     end
 
     -- parse the results of the decision

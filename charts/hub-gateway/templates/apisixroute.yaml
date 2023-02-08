@@ -38,20 +38,16 @@ spec:
     - name: proxy-rewrite
       enable: true
       config:
+        headers:
+        {{ .headers | toYaml | nindent 9 }}
         regex_uri: 
         {{ .regex_uri | toYaml | nindent 9 }}
     {{ end }}
-    {{- if .schema_query}}
-    - name: graphql
+    {{- if .require_auth}}
+    - name: hub-orgs
       enable: true
       config:
-        #gql_data.schema and gql_data.query will be base64 encoded.
-        host: {{ print "http://" $apisixPlugins.graphql.serviceName  "." $namespace ".svc:" $apisixPlugins.graphql.servicePort | quote }}
-        schema_url: ""
-        #Schema query needs to be base64 encoded
-        schema_query: {{ .schema_query | b64enc | quote }}
-        #Schema needs to be base64 encoded
-        schema: ""
+        host: {{ print "http://" $apisixPlugins.hub-orgs.serviceName  "." $namespace ".svc:" $apisixPlugins.hub-orgs.servicePort "/v1" | quote }}
     {{- end }}
     {{- if .policy}}
     - name: opa-mod
@@ -62,8 +58,9 @@ spec:
         extra_inputs: true
         inputs:
           user_data: $kratos_user_data
-          #gql_data includes query, schema, operation, root_fields,
-          gql_data: $gql_data
+          org_id: $org_id
+          project_id: $project_id
+          affiliations: $hub_affiliations
     {{ end }}
 ---
 {{- end }}

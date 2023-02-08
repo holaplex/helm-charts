@@ -1,3 +1,4 @@
+--
 -- Licensed to the Apache Software Foundation (ASF) under one or more
 -- contributor license agreements.  See the NOTICE file distributed with
 -- this work for additional information regarding copyright ownership.
@@ -48,7 +49,7 @@ local schema = {
 
 local _M = {
     version = 0.1,
-    priority = 2000,
+    priority = 4000,
     name = "kratos",
     schema = schema,
 }
@@ -60,7 +61,7 @@ end
 
 local function build_json_error(code, status, reason)
 
-    core.request.set_header("content", "application/json")
+    core.response.set_header(ctx, "content", "application/json")
     local res = {
         error = {
           code = code,
@@ -121,24 +122,22 @@ function _M.access(conf, ctx)
 
     -- block by default when user is not found
     if not res then
-        core.log.error("failed to get user identity, err: ", err)
-        return 403
+        return 403, res.body
     end
 
     -- parse the user data
     local data, err = json.decode(res.body)
     if not data then
-        core.log.error("invalid response body: ", res.body, " err: ", err)
-        return 503
+        return 503, res.body
     end
 
     -- block if user id is not found
     if not data.id then
      local reason = res.body
      core.log.error(reason)
-      if ret_code == 301 then
-        core.response.set_header("Location", conf.redirect_uri)
-      end
+     if ret_code == 301 then
+       core.response.set_header("Location", conf.redirect_uri)
+     end
 
      return ret_code, reason
     end
@@ -147,7 +146,7 @@ function _M.access(conf, ctx)
     if conf.expose_user_data then
         local user_data = ngx.encode_base64(res.body)
         if not user_data then
-            return  false, 'invalid response'
+            return 503, res.body
         end
         core.ctx.register_var("kratos_user_data", function(ctx)
           return user_data
@@ -156,7 +155,7 @@ function _M.access(conf, ctx)
 
     -- Expose user id on $kratos_user_id variable and X-USER-ID header
     if conf.expose_user_id then
-      core.request.set_header("X-USER-ID", data.identity.id)
+      core.request.set_header(ctx, "X-USER-ID", data.identity.id)
       core.response.set_header("X-USER-ID", data.identity.id)
       core.ctx.register_var("kratos_user_id", function(ctx)
         return data.identity.id
