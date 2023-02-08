@@ -76,5 +76,5 @@ environment:
   queueType: "memory"
   waitForServices: true
   redisDsn: "redis://redis:6379"
-  #.Values.service.port will be used for listenPort
+  # .Values.service.port will be used for listenPort
   listenAddress: "0.0.0.0"
