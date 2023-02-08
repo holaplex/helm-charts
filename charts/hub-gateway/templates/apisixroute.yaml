@@ -19,7 +19,7 @@ spec:
       servicePort: {{ .servicePort }}
     match:
       hosts:
-      - {{ print .subdomain "." $domain }}
+      - {{ print .subdomain "." $domain | quote}}
       paths:
       {{ .paths | toYaml | nindent 7 }}
       methods:
@@ -33,6 +33,10 @@ spec:
         expose_user_data: true
         expose_user_id: true
         session_cookie_name: {{ $sessionCookie }}
+    - name: hub-orgs
+      enable: true
+      config:
+        host: {{ print "http://" $apisixPlugins.hubOrgs.serviceName  "." $namespace ".svc:" $apisixPlugins.hubOrgs.servicePort "/v1" | quote }}
     {{ end }}
     {{- if .regex_uri}}
     - name: proxy-rewrite
@@ -42,13 +46,7 @@ spec:
         {{ .headers | toYaml | nindent 9 }}
         regex_uri: 
         {{ .regex_uri | toYaml | nindent 9 }}
-    {{ end }}
-    {{- if .require_auth}}
-    - name: hub-orgs
-      enable: true
-      config:
-        host: {{ print "http://" $apisixPlugins.hubOrgs.serviceName  "." $namespace ".svc:" $apisixPlugins.hubOrgs.servicePort "/v1" | quote }}
-    {{- end }}
+    {{ end }} 
     {{- if .policy}}
     - name: opa-mod
       enable: true
