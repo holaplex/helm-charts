@@ -122,6 +122,7 @@ apisix:
   plugins:
     - kratos
     - opa-mod
+    - hub-orgs
     - mocking
     - redirect
     - serverless-pre-function
@@ -138,6 +139,8 @@ apisix:
           mounts:
             - key: "kratos.lua"
               path: "/opts/custom_plugins/apisix/plugins/kratos.lua"
+            - key: "hub-orgs.lua"
+              path: "/opts/custom_plugins/apisix/plugins/hub-orgs.lua"
             - key: "opa-mod.lua"
               path: "/opts/custom_plugins/apisix/plugins/opa-mod.lua"
             - key: "opa-helper.lua"
