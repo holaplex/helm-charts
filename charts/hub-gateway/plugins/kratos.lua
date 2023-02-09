@@ -49,7 +49,7 @@ local schema = {
 
 local _M = {
     version = 0.1,
-    priority = 4000,
+    priority = 1030,
     name = "kratos",
     schema = schema,
 }
@@ -153,10 +153,10 @@ function _M.access(conf, ctx)
         end)
     end
 
-    -- Expose user id on $kratos_user_id variable and X-USER-ID header
+    -- Expose user id on $kratos_user_id variable
     if conf.expose_user_id then
-      core.request.set_header(ctx, "X-USER-ID", data.identity.id)
-      core.response.set_header("X-USER-ID", data.identity.id)
+      core.request.set_header(ctx, "x-user-id", data.identity.id)
+      core.response.set_header("x-user-id", data.identity.id)
       core.ctx.register_var("kratos_user_id", function(ctx)
         return data.identity.id
       end)

@@ -13,19 +13,19 @@ metadata:
     {{- include "hub-gateway.labels" $ | nindent 4 }}
 spec:
   http:
-  - name:  {{ .name }}
+  - name: {{ .name }}
     backends:
     - serviceName: {{ .serviceName }}
       servicePort: {{ .servicePort }}
     match:
       hosts:
-      - {{ print .subdomain "." $domain | quote}}
+        - {{ print .subdomain "." $domain | quote }}
       paths:
       {{ .paths | toYaml | nindent 7 }}
       methods:
       {{ .methods | toYaml | nindent 7 }}
     plugins:
-    {{- if .require_auth}}
+    {{- if .require_auth }}
     - name: kratos
       enable: true
       config:
@@ -33,21 +33,21 @@ spec:
         expose_user_data: true
         expose_user_id: true
         session_cookie_name: {{ $sessionCookie }}
+    {{- end }}
+    {{- if .require_org }}
     - name: hub-orgs
       enable: true
       config:
         host: {{ print "http://" $apisixPlugins.hubOrgs.serviceName  "." $namespace ".svc:" $apisixPlugins.hubOrgs.servicePort "/v1" | quote }}
-    {{ end }}
-    {{- if .regex_uri}}
+    {{- end }}
+    {{- if .regex_uri }}
     - name: proxy-rewrite
       enable: true
       config:
-        headers:
-        {{ .headers | toYaml | nindent 9 }}
         regex_uri: 
         {{ .regex_uri | toYaml | nindent 9 }}
-    {{ end }} 
-    {{- if .policy}}
+    {{- end }} 
+    {{- if .policy }}
     - name: opa-mod
       enable: true
       config:
@@ -59,7 +59,7 @@ spec:
           org_id: $org_id
           project_id: $project_id
           affiliations: $hub_affiliations
-    {{ end }}
+    {{- end }}
 ---
 {{- end }}
 {{- end }}
