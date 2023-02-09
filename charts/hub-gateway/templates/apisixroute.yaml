@@ -42,8 +42,6 @@ spec:
     - name: proxy-rewrite
       enable: true
       config:
-        headers:
-        {{ .headers | toYaml | nindent 9 }}
         regex_uri: 
         {{ .regex_uri | toYaml | nindent 9 }}
     {{ end }} 

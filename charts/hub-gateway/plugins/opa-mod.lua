@@ -85,7 +85,7 @@ local schema = {
 
 local _M = {
     version = 0.1,
-    priority = 2002,
+    priority = 1000,
     name = "opa-mod",
     schema = schema,
 }

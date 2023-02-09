@@ -7,7 +7,7 @@ routes:
 - name: api
   serviceName: hub-orgs
   servicePort: 80
-  subdomain: '*.api'
+  subdomain: 'api'
   paths:
     - /organization
     - /projects
@@ -19,11 +19,7 @@ routes:
     - DELETE
   require_auth: true
   regex_uri: [ "^/(.*)", "/v1/$1" ]
-  headers:
-    X-Organization-Id: $org_id
-    X-Project-Id: $project_id
-    X-User-Id: $kratos_user_id
-  #policy: "hub/utils/echo"
+  policy: "hub/api/orgs"
 
 - name: ui-public
   subdomain: hub

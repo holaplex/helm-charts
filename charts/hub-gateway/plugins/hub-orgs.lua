@@ -29,7 +29,7 @@ local schema = {
 
 local _M = {
     version = 0.1,
-    priority = 3000,
+    priority = 1005,
     name = "hub-orgs",
     schema = schema,
 }
@@ -72,38 +72,20 @@ function _M.access(conf, ctx)
         keepalive = conf.keepalive,
         ssl_verify = conf.ssl_verify
     }
+    local org_id = ngx.var['cookie__hub_org'] or headers['x-organization-id']
+    if not org_id then
+        local res = build_json_error(401, "Unauthorized", "X-Organization-Id header not found")
+        core.log.error("Failed to get org id from header or cookie")
+        return 401, res
+    end
 
-    -- Get slug from header
-    local org_slug = string.lower(string.match(headers.host, "([^.]+)."))
-
-    -- make the call - get org id
-    local endpoint = conf.host .. "/organizations/" .. org_slug
+    -- make the call - get affiliations
+    local endpoint = conf.host .. "/affiliations"
     local httpc = http.new()
     httpc:set_timeout(conf.timeout)
     local res, err = httpc:request_uri(endpoint, params)
 
-    -- return 503 if error on response or when parsing
-    if not res then
-        local res = build_json_error(500, "Internal server error", "Unable to get organizations")
-        return 500, res
-    end
-
-    local org , err = json.decode(res.body)
-    if not org then
-        local res = build_json_error(404, "Not found", "No organization found with slug: " .. org_slug)
-        core.log.error("Failed to parse organization data. invalid response body: ", res.body, " err: ", err)
-        return 404, res
-    end
-
-    if conf.keepalive then
-        params.keepalive_timeout = conf.keepalive_timeout
-        params.keepalive_pool = conf.keepalive_pool
-    end
-
-
-    -- make the call - get affiliations
-    local endpoint = conf.host .. "/affiliations"
-    local res, err = httpc:request_uri(endpoint, params)
+    core.log.error("Getting affiliations from hub-orgs for user: ", user_id)
     -- return 503 if error on response or when parsing
     if not res then
         local res = build_json_error(500, "Internal server error", "Unable to get affiliations")
@@ -119,13 +101,15 @@ function _M.access(conf, ctx)
 
     -- Expose org_id and affiliations on variables: org_id, hub_affiliations
     core.ctx.register_var("org_id", function(ctx)
-      return org.id
+      return org_id
     end)
 
     local affiliations = ngx.encode_base64(res.body)
     core.ctx.register_var("hub_affiliations", function(ctx)
       return affiliations
     end)
+
+    core.response.set_header("x-organization-id", org_id)
 end
 
 return _M
