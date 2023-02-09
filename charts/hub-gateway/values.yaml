@@ -18,7 +18,7 @@ routes:
     - POST
     - DELETE
   require_auth: true
-  regex_uri: [ "^/(.*)", "/v1/$1" ]
+  regex_uri: ["^/(.*)", "/v1/$1"]
   policy: "hub/api/orgs"
 
 - name: login-callback
