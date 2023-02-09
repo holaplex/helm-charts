@@ -21,6 +21,17 @@ routes:
   regex_uri: [ "^/(.*)", "/v1/$1" ]
   policy: "hub/api/orgs"
 
+- name: login-callback
+  serviceName: hub-orgs
+  servicePort: 80
+  subdomain: 'hub'
+  paths:
+    - /login/callback
+  methods:
+    - GET
+    - POST
+  require_auth: true
+
 - name: ui-public
   subdomain: hub
   serviceName: hub
