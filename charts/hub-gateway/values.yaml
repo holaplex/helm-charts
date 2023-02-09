@@ -10,10 +10,19 @@ routes:
   subdomain: api
   paths:
     - /v1/organization
+    - /v1/organizations
     - /v1/projects
+    - /v1/projects/*
+    - /v1/affiliations
+    - /v1/members
     - /v1/credentials
+    - /v1/credentials/*
     - /v1/webhook/events
     - /v1/webhooks/*
+    - /v1/members
+    - /v1/members/*
+    - /v1/invites
+    - /v1/invites/*
   methods:
     - GET
     - POST
