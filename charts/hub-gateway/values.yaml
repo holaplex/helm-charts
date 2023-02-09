@@ -7,30 +7,43 @@ routes:
 - name: api
   serviceName: hub-orgs
   servicePort: 80
-  subdomain: 'api'
+  subdomain: api
   paths:
-    - /organization
-    - /projects
-    - /credentials
-    - /webhooks/*
+    - /v1/organization
+    - /v1/projects
+    - /v1/credentials
+    - /v1/webhook/events
+    - /v1/webhooks/*
   methods:
     - GET
     - POST
     - DELETE
   require_auth: true
-  regex_uri: ["^/(.*)", "/v1/$1"]
+  require_org: true
   policy: "hub/api/orgs"
 
-- name: login-callback
+- name: hub-browser-api
   serviceName: hub-orgs
   servicePort: 80
-  subdomain: 'hub'
+  subdomain: hub
   paths:
-    - /login/callback
+    - /browser/login
+    - /browser/organizations/*
   methods:
-    - GET
     - POST
   require_auth: true
+
+- name: ui-private
+  subdomain: hub
+  serviceName: hub
+  servicePort: 80
+  require_auth: true
+  require_org: true
+  methods:
+    - GET
+  paths:
+    - /organization/*
+    - /projects/*
 
 - name: ui-public
   subdomain: hub
