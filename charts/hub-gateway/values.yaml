@@ -5,31 +5,19 @@ sessionCookieName: "hub_session"
 
 routes:
 - name: api
-  serviceName: hub-orgs
+  serviceName: federated-router
   servicePort: 80
   subdomain: api
   paths:
-    - /v1/organization
-    - /v1/organizations
-    - /v1/projects
-    - /v1/projects/*
-    - /v1/affiliations
-    - /v1/members
-    - /v1/credentials
-    - /v1/credentials/*
-    - /v1/webhook/events
-    - /v1/webhooks/*
-    - /v1/members
-    - /v1/members/*
-    - /v1/invites
-    - /v1/invites/*
+    - /graphql
   methods:
-    - GET
     - POST
-    - DELETE
-  require_auth: true
-  require_org: true
-  policy: "hub/api/orgs"
+    - OPTIONS
+  cors: true
+  setUserHeader: true
+  regexUri:
+    - "/graphql"
+    - "/"
 
 - name: hub-browser-api
   serviceName: hub-orgs
@@ -40,24 +28,26 @@ routes:
     - /browser/organizations/*
   methods:
     - POST
-  require_auth: true
+  setUserHeader: true
 
 - name: ui-private
   subdomain: hub
   serviceName: hub
   servicePort: 80
-  require_auth: true
-  require_org: true
+  setUserHeader: true
   methods:
     - GET
   paths:
-    - /organization/*
+    - /settings
+    - /members
+    - /projects
     - /projects/*
 
 - name: ui-public
   subdomain: hub
   serviceName: hub
   servicePort: 80
+  websocket: true
   methods:
     - GET
     - POST
@@ -68,7 +58,9 @@ routes:
     - /login
     - /recovery
     - /holaplex.svg
+    - /holaplex-small.svg
     - /_next/static/*
+    - /_next/webpack-hmr
     - /__nextjs_original-stack-frame
     - /api/.ory/*
 
@@ -78,23 +70,6 @@ apisixPlugins:
     servicePort: 80
     files:
       - plugins/kratos.lua
-  hubOrgs:
-    serviceName: hub-orgs
-    servicePort: 80
-    files:
-      - plugins/hub-orgs.lua
-  opa:
-    image: openpolicyagent/opa:0.48.0-rootless
-    s3:
-      bucketUrl: "http://your-bucket-url.s3.us-east-1.amazonaws.com"
-      region: us-east-1
-      accessKey: ""
-      secretKey: ""
-    serviceName: opa
-    servicePort: 8181
-    files:
-      - plugins/opa-helper.lua
-      - plugins/opa-mod.lua
 
 apisix:
   enabled: true
@@ -150,9 +125,8 @@ apisix:
 
   plugins:
     - kratos
-    - opa-mod
-    - hub-orgs
     - mocking
+    - cors
     - redirect
     - serverless-pre-function
     - serverless-post-function
@@ -168,12 +142,6 @@ apisix:
           mounts:
             - key: "kratos.lua"
               path: "/opts/custom_plugins/apisix/plugins/kratos.lua"
-            - key: "hub-orgs.lua"
-              path: "/opts/custom_plugins/apisix/plugins/hub-orgs.lua"
-            - key: "opa-mod.lua"
-              path: "/opts/custom_plugins/apisix/plugins/opa-mod.lua"
-            - key: "opa-helper.lua"
-              path: "/opts/custom_plugins/apisix/plugins/opa-mod/helper.lua"
 
   logs:
     enableAccessLog: true
