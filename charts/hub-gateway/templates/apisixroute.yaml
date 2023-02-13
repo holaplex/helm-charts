@@ -17,6 +17,7 @@ spec:
     backends:
     - serviceName: {{ .serviceName }}
       servicePort: {{ .servicePort }}
+    websocket: {{ .websocket | default false }}
     match:
       hosts:
         - {{ print .subdomain "." $domain | quote }}
@@ -25,7 +26,11 @@ spec:
       methods:
       {{ .methods | toYaml | nindent 7 }}
     plugins:
-    {{- if .require_auth }}
+    {{- if .cors }}
+    - name: cors
+      enable: true
+    {{- end }}
+    {{- if .setUserHeader }}
     - name: kratos
       enable: true
       config:
@@ -34,32 +39,13 @@ spec:
         expose_user_id: true
         session_cookie_name: {{ $sessionCookie }}
     {{- end }}
-    {{- if .require_org }}
-    - name: hub-orgs
-      enable: true
-      config:
-        host: {{ print "http://" $apisixPlugins.hubOrgs.serviceName  "." $namespace ".svc:" $apisixPlugins.hubOrgs.servicePort "/v1" | quote }}
-    {{- end }}
-    {{- if .regex_uri }}
+    {{- if .regexUri }}
     - name: proxy-rewrite
       enable: true
       config:
         regex_uri: 
-        {{ .regex_uri | toYaml | nindent 9 }}
+        {{ .regexUri | toYaml | nindent 9 }}
     {{- end }} 
-    {{- if .policy }}
-    - name: opa-mod
-      enable: true
-      config:
-        host: {{ print "http://" $apisixPlugins.opa.serviceName  "." $namespace ".svc:" $apisixPlugins.opa.servicePort | quote }}
-        policy: {{ .policy }}
-        extra_inputs: true
-        inputs:
-          user_data: $kratos_user_data
-          org_id: $org_id
-          project_id: $project_id
-          affiliations: $hub_affiliations
-    {{- end }}
 ---
 {{- end }}
 {{- end }}
