@@ -7,8 +7,8 @@ data:
   RUST_LOG: {{ .logLevel }}
   PORT: {{ .port | quote }}
   SECRET_PATH: "/app/secret.key"
-  KAFKA_BROKERS: {{ required "must set kafka brokers" .kafkaBrokers | quote }}
-  KAFKA_SSL: {{ required "must set kafka ssl" .kafkaSsl | quote }}
+  KAFKA_BROKERS: {{- default "redpanda-0:9093" .kafkaBrokers | quote }}
+  KAFKA_SSL: {{- default "false" .kafkaSsl | quote }}
   FIREBLOCKS_ENDPOINT: {{ required "must set fireblocks api endpoint" .fireblocksEndpoint | quote }}
   SOLANA_ENDPOINT: {{ required "must set solana rpc api endpoint" .solanaEndpoint | quote }}
   {{- end }}
