@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "hub-treasuries.fullname" . }}
+data:
+  {{- with .Values.environment }}
+  RUST_LOG: {{ .logLevel }}
+  PORT: {{ .port | quote }}
+  SECRET_PATH: "/app/secret.key"
+  KAFKA_BROKERS: {{ required "must set kafka brokers" .kafkaBrokers | quote }}
+  KAFKA_SSL: {{ default "false" .kafkaSsl | quote }}
+  FIREBLOCKS_ENDPOINT: {{ required "must set fireblocks api endpoint" .fireblocksEndpoint | quote }}
+  SOLANA_ENDPOINT: {{ required "must set solana rpc api endpoint" .solanaEndpoint | quote }}
+  {{- end }}

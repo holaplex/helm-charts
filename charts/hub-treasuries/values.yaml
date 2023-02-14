@@ -1,4 +1,4 @@
-# Default values for hub-orgs.
+# Default values for hub-treasuries.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -6,13 +6,13 @@ replicaCount: 1
 
 migrate:
   image:
-    repository: holaplex/hub-orgs-migrations
+    repository: holaplex/hub-treasuries-migrations
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: "latest"
 
 image:
-  repository: holaplex/hub-orgs
+  repository: holaplex/hub-treasuries
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
@@ -75,13 +75,15 @@ affinity: {}
 secrets:
   enabled: true
   entries:
-    oryAuthToken: ""
     databaseUrl: ""
-    svixAuthToken: ""
+    fireblocksApiKey: ""
+    fireblocksPrivateKey: |
+      ""
 
 environment:
-  port: "80"
-  oryBaseUrl: "http://hydra-admin"
+  logLevel: "info"
+  port: 80
+  solanaEndpoint: "https://api.devnet.solana.com"
+  fireblocksEndpoint: "https://api.fireblocks.io"
   kafkaBrokers:
   kafkaSsl: false
-  svixBaseUrl:
