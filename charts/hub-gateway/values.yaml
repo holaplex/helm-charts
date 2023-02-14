@@ -40,6 +40,7 @@ routes:
   paths:
     - /settings
     - /members
+    - /members/*
     - /organizations/new
     - /projects
     - /projects/*
