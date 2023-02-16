@@ -155,11 +155,17 @@ function _M.access(conf, ctx)
     end
 
     -- Expose user id on $kratos_user_id variable
+    -- Expose user email on $kratos_user_email variable
     if conf.expose_user_id then
         core.request.set_header(ctx, "x-user-id", data.identity.id)
         core.response.set_header("x-user-id", data.identity.id)
+        core.request.set_header(ctx, "x-user-email", data.identity.traits.email)
+        core.response.set_header("x-user-email", data.identity.traits.email)
         core.ctx.register_var("kratos_user_id", function(ctx)
             return data.identity.id
+        end)
+        core.ctx.register_var("kratos_user_email", function(ctx)
+            return data.identity.traits.email
         end)
     end
 end
