@@ -66,6 +66,8 @@ routes:
     - GET
   paths:
     - /settings
+    - /webhooks
+    - /webhooks/*
     - /members
     - /members/*
     - /organizations/new
