@@ -3,6 +3,26 @@ entries:
   hub-gateway:
   - apiVersion: v2
     appVersion: "0.2"
+    created: "2023-02-16T08:00:01.59184342Z"
+    dependencies:
+    - condition: apisix.enabled
+      name: apisix
+      repository: https://charts.apiseven.com
+      version: 1.1.0
+    description: Helm chart for hub-gateway
+    digest: 1bfec2982b2f9c3631b9851880957a2e4bb25f03772cf43b40e8ba74a470f228
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-gateway
+    sources:
+    - https://github.com/holaplex/helm-charts
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-gateway-0.3.0/hub-gateway-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
+    appVersion: "0.2"
     created: "2023-02-14T14:42:47.750320127Z"
     dependencies:
     - condition: apisix.enabled
@@ -356,4 +376,4 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/svix-0.0.1/svix-0.0.1.tgz
     version: 0.0.1
-generated: "2023-02-14T14:49:37.614207372Z"
+generated: "2023-02-16T08:00:01.59195572Z"
