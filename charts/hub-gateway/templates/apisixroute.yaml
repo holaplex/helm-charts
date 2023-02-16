@@ -1,6 +1,6 @@
 {{- $apisixPlugins := .Values.apisixPlugins -}}
 {{- $namespace := .Values.hubNamespace -}}
-{{- $domain:= .Values.domain -}}
+{{- $domain := .Values.domain -}}
 {{- $sessionCookie := .Values.sessionCookieName -}}
 {{- with .Values.routes }}
 {{- range . }}
@@ -20,16 +20,12 @@ spec:
     websocket: {{ .websocket | default false }}
     match:
       hosts:
-        - {{ print .subdomain "." $domain | quote }}
+        - {{ .host | default (printf "%s.%s" .subdomain $domain) | quote }}
       paths:
-      {{ .paths | toYaml | nindent 7 }}
+      {{- .paths | toYaml | nindent 8 }}
       methods:
-      {{ .methods | toYaml | nindent 7 }}
+      {{- .methods | toYaml | nindent 8 }}
     plugins:
-    {{- if .cors }}
-    - name: cors
-      enable: true
-    {{- end }}
     {{- if .setUserHeader }}
     - name: kratos
       enable: true
@@ -44,7 +40,7 @@ spec:
       enable: true
       config:
         regex_uri: 
-        {{ .regexUri | toYaml | nindent 9 }}
+        {{- .regexUri | toYaml | nindent 10 }}
     {{- end }} 
 ---
 {{- end }}

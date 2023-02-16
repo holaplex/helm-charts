@@ -13,7 +13,34 @@ routes:
   methods:
     - POST
     - OPTIONS
-  cors: true
+  setUserHeader: true
+  regexUri:
+    - "/graphql"
+    - "/"
+
+- name: api-internal
+  serviceName: federated-router
+  servicePort: 80
+  host: apisix-gateway-internal.ingress-apisix.svc.cluster.local
+  paths:
+    - /graphql
+  methods:
+    - POST
+    - OPTIONS
+  setUserHeader: true
+  regexUri:
+    - "/graphql"
+    - "/"
+
+- name: hub-browser-graphql
+  serviceName: federated-router
+  servicePort: 80
+  subdomain: hub
+  paths:
+    - /graphql
+  methods:
+    - POST
+    - OPTIONS
   setUserHeader: true
   regexUri:
     - "/graphql"
@@ -44,6 +71,8 @@ routes:
     - /organizations/new
     - /projects
     - /projects/*
+    - /treasuries
+    - /treasuries/*
 
 - name: ui-public
   subdomain: hub
