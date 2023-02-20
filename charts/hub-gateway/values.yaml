@@ -14,7 +14,7 @@ routes:
   methods:
     - POST
     - OPTIONS
-  kratos:
+  oauth2:
     enabled: true
   regexUri:
     - "/graphql"
@@ -29,7 +29,7 @@ routes:
   methods:
     - POST
     - OPTIONS
-  kratos:
+  session:
     enabled: true
   regexUri:
     - "/graphql"
@@ -44,7 +44,7 @@ routes:
   methods:
     - POST
     - OPTIONS
-  kratos:
+  session:
     enabled: true
   sessionJson:
     enabled: true
@@ -61,7 +61,7 @@ routes:
     - /browser/organizations/*
   methods:
     - POST
-  kratos:
+  session:
     enabled: true
   sessionRedirect:
     enabled: true
@@ -70,7 +70,7 @@ routes:
   subdomain: hub
   serviceName: hub
   servicePort: 80
-  kratos:
+  session:
     enabled: true
   sessionRedirect:
     enabled: true
@@ -93,7 +93,7 @@ routes:
   subdomain: hub
   serviceName: hub
   servicePort: 80
-  kratos:
+  session:
     enabled: true
   sessionRedirect:
     enabled: true
@@ -124,12 +124,30 @@ routes:
     - /__nextjs_original-stack-frame
     - /api/.ory/*
 
+- name: hub-auth-api
+  serviceName: hydra-public
+  servicePort: 4444
+  subdomain: api 
+  paths:
+    - /auth
+  methods:
+    - POST
+  regexUri:
+    - "/auth"
+    - "/oauth2/token"
+
+
 apisixPlugins:
-  kratos:
+  session:
     serviceName: kratos-public
     servicePort: 80
     files:
-      - plugins/kratos.lua
+      - plugins/session.lua
+  oauth2:
+    serviceName: hydra-admin
+    servicePort: 4445
+    files:
+      - plugins/oauth2.lua
   sessionRedirect:
     files:
       - plugins/session-redirect.lua
@@ -190,9 +208,6 @@ apisix:
       viewer: VduoK1H4ujZB4nus9QEfOjgUjTGkmB
 
   plugins:
-    - kratos
-    - session-redirect
-    - session-json
     - mocking
     - cors
     - redirect
@@ -204,14 +219,28 @@ apisix:
   customPlugins:
     enabled: true
     plugins:
-      - name: "kratos"
+      - name: "session"
         configMap:
-          name: "apisix-custom-plugins"
+          name: "session-plugin"
           mounts:
-            - key: "kratos.lua"
-              path: "/opts/custom_plugins/apisix/plugins/kratos.lua"
+            - key: "session.lua"
+              path: "/opts/custom_plugins/apisix/plugins/session.lua"
+      - name: "oauth2"
+        configMap:
+          name: "oauth2-plugin"
+          mounts:
+            - key: "oauth2.lua"
+              path: "/opts/custom_plugins/apisix/plugins/oauth2.lua"
+      - name: "session-redirect"
+        configMap:
+          name: "session-redirect-plugin"
+          mounts:
             - key: "session-redirect.lua"
               path: "/opts/custom_plugins/apisix/plugins/session-redirect.lua"
+      - name: "session-json"
+        configMap:
+          name: "session-json-plugin"
+          mounts:
             - key: "session-json.lua"
               path: "/opts/custom_plugins/apisix/plugins/session-json.lua"
 

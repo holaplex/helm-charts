@@ -27,15 +27,24 @@ spec:
       methods:
       {{- .methods | toYaml | nindent 8 }}
     plugins:
-    {{- with .kratos }}
+    {{- with .session }}
     {{- if .enabled | default false }}
-    - name: kratos
+    - name: session
       enable: true
       config:
-        host: {{ print "http://" $apisixPlugins.kratos.serviceName  "." $namespace ".svc:" $apisixPlugins.kratos.servicePort | quote }}
+        host: {{ print "http://" $apisixPlugins.session.serviceName  "." $namespace ".svc:" $apisixPlugins.session.servicePort | quote }}
         expose_user_data: true
         expose_user_id: true
         session_cookie_name: {{ $sessionCookie }}
+    {{- end }}
+    {{- end }}
+    {{- with .oauth2 }}
+    {{- if .enabled | default false }}
+    - name: oauth2
+      enable: true
+      config:
+        host: {{ print "http://" $apisixPlugins.oauth2.serviceName  "." $namespace ".svc:" $apisixPlugins.oauth2.servicePort | quote }}
+        expose_client_id: true
     {{- end }}
     {{- end }}
     {{- with .sessionRedirect }}
