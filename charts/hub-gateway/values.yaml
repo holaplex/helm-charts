@@ -2,6 +2,7 @@ hubNamespace: default
 domain: 127.0.0.1.nip.io
 port: 9080
 sessionCookieName: "hub_session"
+loginUri: "http://hub.127.0.0.1.nip.io:9080/login"
 
 routes:
 - name: api
@@ -13,7 +14,8 @@ routes:
   methods:
     - POST
     - OPTIONS
-  setUserHeader: true
+  kratos:
+    enabled: true
   regexUri:
     - "/graphql"
     - "/"
@@ -27,7 +29,8 @@ routes:
   methods:
     - POST
     - OPTIONS
-  setUserHeader: true
+  kratos:
+    enabled: true
   regexUri:
     - "/graphql"
     - "/"
@@ -41,7 +44,10 @@ routes:
   methods:
     - POST
     - OPTIONS
-  setUserHeader: true
+  kratos:
+    enabled: true
+  sessionJson:
+    enabled: true
   regexUri:
     - "/graphql"
     - "/"
@@ -55,13 +61,19 @@ routes:
     - /browser/organizations/*
   methods:
     - POST
-  setUserHeader: true
+  kratos:
+    enabled: true
+  sessionRedirect:
+    enabled: true
 
 - name: ui-private
   subdomain: hub
   serviceName: hub
   servicePort: 80
-  setUserHeader: true
+  kratos:
+    enabled: true
+  sessionRedirect:
+    enabled: true
   methods:
     - GET
   paths:
@@ -70,11 +82,26 @@ routes:
     - /webhooks/*
     - /members
     - /members/*
+    - /organizations
     - /organizations/new
     - /projects
     - /projects/*
     - /treasuries
     - /treasuries/*
+
+- name: ui-private-invite
+  subdomain: hub
+  serviceName: hub
+  servicePort: 80
+  kratos:
+    enabled: true
+  sessionRedirect:
+    enabled: true
+    redirectTo: true
+  methods:
+    - GET
+  paths:
+    - /invites/*
 
 - name: ui-public
   subdomain: hub
@@ -103,6 +130,12 @@ apisixPlugins:
     servicePort: 80
     files:
       - plugins/kratos.lua
+  sessionRedirect:
+    files:
+      - plugins/session-redirect.lua
+  sessionJson:
+    files:
+      - plugins/session-json.lua
 
 apisix:
   enabled: true
@@ -158,6 +191,8 @@ apisix:
 
   plugins:
     - kratos
+    - session-redirect
+    - session-json
     - mocking
     - cors
     - redirect
@@ -175,6 +210,10 @@ apisix:
           mounts:
             - key: "kratos.lua"
               path: "/opts/custom_plugins/apisix/plugins/kratos.lua"
+            - key: "session-redirect.lua"
+              path: "/opts/custom_plugins/apisix/plugins/session-redirect.lua"
+            - key: "session-json.lua"
+              path: "/opts/custom_plugins/apisix/plugins/session-json.lua"
 
   logs:
     enableAccessLog: true

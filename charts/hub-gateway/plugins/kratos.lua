@@ -66,8 +66,8 @@ local schema = {
 
 local _M = {
     version = 0.1,
-    priority = 1030,
-    name = "kratos",
+    priority = 2,
+    name = "session",
     schema = schema
 }
 
@@ -75,23 +75,8 @@ function _M.check_schema(conf)
     return core.schema.check(schema, conf)
 end
 
-local function build_json_error(code, status, reason)
-
-    core.response.set_header(ctx, "content", "application/json")
-    local res = {
-        error = {
-            code = code,
-            status = status,
-            reason = reason
-        }
-    }
-    return json.encode(res)
-end
-
 function _M.access(conf, ctx)
-    local ret_code
     local headers = core.request.headers()
-    local method_name = ngx.req.get_method()
 
     local session_cookie_name = string.lower(conf.session_cookie_name or "ory_kratos_session")
     local cookie_header = string.lower("cookie_" .. session_cookie_name)
@@ -101,7 +86,6 @@ function _M.access(conf, ctx)
     local session_token = headers[session_cookie_name] or cookie_value
 
     if not session_token then
-        local res = build_json_error(ret_code, "Unauthorized", "Missing " .. session_cookie_name .. " header or cookie")
         return
     end
 
@@ -157,10 +141,10 @@ function _M.access(conf, ctx)
     -- Expose user id on $kratos_user_id variable
     -- Expose user email on $kratos_user_email variable
     if conf.expose_user_id then
-        core.request.set_header(ctx, "x-user-id", data.identity.id)
-        core.response.set_header("x-user-id", data.identity.id)
-        core.request.set_header(ctx, "x-user-email", data.identity.traits.email)
-        core.response.set_header("x-user-email", data.identity.traits.email)
+        core.request.set_header(ctx, "X-USER-ID", data.identity.id)
+        core.response.set_header("X-USER-ID", data.identity.id)
+        core.request.set_header(ctx, "X-USER-EMAIL", data.identity.traits.email)
+        core.response.set_header("X-USER-EMAIL", data.identity.traits.email)
         core.ctx.register_var("kratos_user_id", function(ctx)
             return data.identity.id
         end)

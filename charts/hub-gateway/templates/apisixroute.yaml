@@ -2,6 +2,7 @@
 {{- $namespace := .Values.hubNamespace -}}
 {{- $domain := .Values.domain -}}
 {{- $sessionCookie := .Values.sessionCookieName -}}
+{{- $loginUri := .Values.loginUri -}}
 {{- with .Values.routes }}
 {{- range . }}
 apiVersion: apisix.apache.org/v2
@@ -26,7 +27,8 @@ spec:
       methods:
       {{- .methods | toYaml | nindent 8 }}
     plugins:
-    {{- if .setUserHeader }}
+    {{- with .kratos }}
+    {{- if .enabled | default false }}
     - name: kratos
       enable: true
       config:
@@ -34,6 +36,16 @@ spec:
         expose_user_data: true
         expose_user_id: true
         session_cookie_name: {{ $sessionCookie }}
+    {{- end }}
+    {{- end }}
+    {{- with .sessionRedirect }}
+    {{- if .enabled }}
+    - name: session-redirect
+      enable: true
+      config:
+        login_uri: {{ $loginUri }}
+        redirect_to: {{ .redirectTo | default false }}
+    {{- end }}
     {{- end }}
     {{- if .regexUri }}
     - name: proxy-rewrite
