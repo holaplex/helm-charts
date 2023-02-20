@@ -127,7 +127,7 @@ routes:
 - name: hub-auth-api
   serviceName: hydra-public
   servicePort: 4444
-  subdomain: api 
+  subdomain: api
   paths:
     - /auth
   methods:
