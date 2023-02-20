@@ -1,16 +1,17 @@
+{{- $files := .Files }}
+{{- range $key, $val := .Values.apisixPlugins }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: apisix-custom-plugins
+  name: {{ print $key "-plugin" | kebabcase | lower }}
   labels:
     {{- include "hub-gateway.labels" $ | nindent 4 }}
 data:
-  {{- $files := .Files }}
-  {{- range $key, $val := .Values.apisixPlugins }}
     {{- with $val.files}}
       {{- range . }}
         {{ (splitList "/" .) | last | nindent 2}}: |-
         {{ $.Files.Get . | nindent 8 }}
       {{- end }}
     {{- end }} 
-  {{- end }}
+---
+{{- end }}
