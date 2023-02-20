@@ -69,11 +69,11 @@ function _M.check_schema(conf)
 end
 
 function _M.access(conf, ctx)
-    local api_token = core.request.header(ctx, "X-API-TOKEN")
+    local api_token = core.request.header(ctx, "Authorization")
 
     if not api_token then
         return 401, json.encode({
-          message = "X-API-TOKEN header not found, please generate a token from The Hub web UI and try again"
+          message = "Authorization header not found" 
         })
     end
 
@@ -114,7 +114,7 @@ function _M.access(conf, ctx)
     -- block if token is not active
     if not data.active then
         return 401, json.encode({
-            message = "Token is not valid anymore. Please get a new one from the Hub Web UI"
+            message = "Authorization token is not valid anymore. Please get a new one from the Hub web UI"
         })
     end
 
