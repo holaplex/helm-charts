@@ -83,11 +83,13 @@ routes:
     - /members
     - /members/*
     - /organizations
-    - /organizations/new
+    - /organizations/*
     - /projects
     - /projects/*
     - /treasuries
     - /treasuries/*
+    - /credentials
+    - /credentials/*
 
 - name: ui-private-invite
   subdomain: hub
