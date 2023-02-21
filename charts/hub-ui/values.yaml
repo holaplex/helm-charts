@@ -66,5 +66,5 @@ tolerations: []
 affinity: {}
 
 environment:
-  kratosEndpoint: http://kratos-public:80/
+  kratosPublicEndpoint: http://kratos-public:80/
   port: "3000"

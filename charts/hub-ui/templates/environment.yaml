@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: {{ include "hub-ui.fullname" . }}
 data:
-  KRATOS_ENDPOINT: {{ .Values.environment.kratosAdminEndpoint }}
+  KRATOS_ENDPOINT: {{ .Values.environment.kratosPublicEndpoint }}
   PORT: "{{ .Values.environment.port }}"
