@@ -38,7 +38,7 @@ spec:
                 name: {{ include "hub-ui.fullname" . }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: {{ .Values.environment.port }}
               protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
