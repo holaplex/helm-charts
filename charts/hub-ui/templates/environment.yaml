@@ -6,5 +6,5 @@ data:
   {{- with .Values.environment }}
   PORT: {{ .port | quote }}
   KRATOS_ENDPOINT: {{ .kratosPublicEndpoint | quote }}
-  GRAPHQL_ENDPOINT: {{ .internalGraphQlEndpoint | quote }}
+  GRAPHQL_ENDPOINT: {{ .internalGraphqlEndpoint | quote }}
   {{- end }}
