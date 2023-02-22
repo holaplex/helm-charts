@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "hub-ui.fullname" . }}
+data:
+  {{- with .Values.environment }}
+  PORT: {{ .port | quote }}
+  KRATOS_ENDPOINT: {{ .kratosPublicEndpoint | quote }}
+  GRAPHQL_ENDPOINT: {{ .internalGraphqlEndpoint | quote }}
+  {{- end }}

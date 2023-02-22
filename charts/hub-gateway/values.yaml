@@ -185,13 +185,17 @@ apisix:
       enabled: true
       servicePort: 80
       containerPort: 9080
+    tls:
+      enabled: false
+      servicePort: 443
+      containerPort: 9080
     stream:
-      enabled: true
+      enabled: false
       only: false
-      tcp:
-        - 9100
-      udp:
-        - 9200
+      tcp: []
+      # - 9100
+      udp: []
+      # - 9200
 
   admin:
     enabled: true
