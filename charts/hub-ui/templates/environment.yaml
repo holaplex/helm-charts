@@ -4,6 +4,7 @@ metadata:
   name: {{ include "hub-ui.fullname" . }}
 data:
   {{- with .Values.environment }}
-  KRATOS_ENDPOINT: {{ .kratosPublicEndpoint | quote }}
   PORT: {{ .port | quote }}
+  KRATOS_ENDPOINT: {{ .kratosPublicEndpoint | quote }}
+  GRAPHQL_ENDPOINT: {{ .internalGraphQlEndpoint | quote }}
   {{- end }}
