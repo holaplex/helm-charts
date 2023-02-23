@@ -78,10 +78,12 @@ secrets:
     oryAuthToken: ""
     databaseUrl: ""
     svixAuthToken: ""
+    kafkaPassword: ""
 
 environment:
   port: "80"
   oryBaseUrl: "http://hydra-admin"
   kafkaBrokers:
+  kafkaUsername: ""
   kafkaSsl: false
   svixBaseUrl:
