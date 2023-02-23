@@ -418,6 +418,19 @@ entries:
   hub-orgs:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2023-02-23T22:24:06.382903112Z"
+    description: Helm chart for hub-orgs
+    digest: 62dfac5e25b73bcd20434daab1eb4e19fcaf7baaf0858259626b280247f2dcc7
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-orgs
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-orgs-0.3.2/hub-orgs-0.3.2.tgz
+    version: 0.3.2
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2023-02-14T14:49:37.440849204Z"
     description: Helm chart for hub-orgs
     digest: b7f4eb420f34a662f2fee87986c0aac876bc48b72f2214f972e9924ace75af03
@@ -510,4 +523,4 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/svix-0.0.1/svix-0.0.1.tgz
     version: 0.0.1
-generated: "2023-02-23T01:54:47.534556909Z"
+generated: "2023-02-23T22:24:06.383155914Z"
