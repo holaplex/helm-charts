@@ -1,0 +1,53 @@
+customNamespaces:
+  files:
+    - policies/namespaces.keto.ts
+
+keto:
+  replicaCount: 1
+  image:
+    repository: oryd/keto
+    pullPolicy: Always
+    tag: v0.11.0-alpha.0
+
+  service:
+    metrics:
+      enabled: true
+
+  secret:
+    enabled: true
+
+  deployment:
+    extraVolumes:
+      - configMap:
+          defaultMode: 420
+          name: keto-namespaces
+        name: keto-namespaces-volume
+    extraVolumeMounts:
+      - mountPath: /app/namespaces
+        name: keto-namespaces-volume
+        readOnly: true
+
+  keto:
+    automigration:
+      enabled: true
+      type: initContainer
+    config:
+      dsn: memory
+      log:
+        level: info
+        format: json
+        leak_sensitive_values: false
+      serve:
+        read:
+          port: 4466
+        write:
+          port: 4467
+        metrics:
+          port: 4468
+      namespaces:
+        location: file:///app/namespaces/
+
+  pdb:
+    enabled: false
+    spec:
+      minAvailable: 1
