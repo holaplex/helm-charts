@@ -6,6 +6,7 @@ chart-dirs:
 chart-repos:
   - holaplex=https://holaplex.github.io/helm-charts
   - apisix=https://charts.apiseven.com
+  - ory=https://k8s.ory.sh/helm/charts
 helm-extra-args: --timeout 600s
 validate-maintainers: false
 excluded-charts:
