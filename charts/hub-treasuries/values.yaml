@@ -76,6 +76,7 @@ secrets:
   enabled: true
   entries:
     databaseUrl: ""
+    kafkaPassword: ""
     fireblocksApiKey: ""
     fireblocksPrivateKey: |
       ""
@@ -85,5 +86,6 @@ environment:
   port: 80
   solanaEndpoint: "https://api.devnet.solana.com"
   fireblocksEndpoint: "https://api.fireblocks.io"
-  kafkaBrokers:
+  kafkaBrokers: "hub-eventbus-cluster-0.hub-eventbus-cluster.default.svc.cluster.local.:9093"
   kafkaSsl: false
+  kafkaUsername: ""
