@@ -1,4 +1,4 @@
-customNamespaces: 
+customNamespaces:
   files:
     - policies/namespaces.keto.ts
 
@@ -17,7 +17,7 @@ keto:
     enabled: true
 
   deployment:
-    extraVolumes: 
+    extraVolumes:
       - configMap:
           defaultMode: 420
           name: keto-namespaces
