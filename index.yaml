@@ -1,5 +1,19 @@
 apiVersion: v1
 entries:
+  hub-credentials:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-02-27T12:10:46.220403824Z"
+    description: Helm chart for hub-credentials
+    digest: 0b8ed2ddcab697b2f7f311274455f33c9ca6c9e17525f4f4bd8d754055eaabdd
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-credentials
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-credentials-0.1.0/hub-credentials-0.1.0.tgz
+    version: 0.1.0
   hub-gateway:
   - apiVersion: v2
     appVersion: "0.3"
@@ -404,6 +418,19 @@ entries:
   hub-identities:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-02-27T12:10:46.390921778Z"
+    description: Helm chart for hub-identities
+    digest: 91ff43d286d32e1a76996e385f7570a17d34f19246bcf38aaaaa352edeb2b3cd
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-identities
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-identities-0.2.0/hub-identities-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-01-16T13:13:32.415059433Z"
     description: Helm chart for hub-identities
     digest: cb10085b23507e4de1fff6ead7194eb92ead959e2562d80378d3b1acca5d8dca
@@ -416,6 +443,19 @@ entries:
     - https://github.com/holaplex/helm-charts/releases/download/hub-identities-0.1.0/hub-identities-0.1.0.tgz
     version: 0.1.0
   hub-orgs:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-02-27T12:10:46.587459351Z"
+    description: Helm chart for hub-orgs
+    digest: f1b3464f134fcdeaf782a66b5e774c902168e3d89eea85f0a6f4143ebe3d46fd
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-orgs
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-orgs-0.4.0/hub-orgs-0.4.0.tgz
+    version: 0.4.0
   - apiVersion: v2
     appVersion: 1.16.0
     created: "2023-02-23T22:24:06.382903112Z"
@@ -523,4 +563,4 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/svix-0.0.1/svix-0.0.1.tgz
     version: 0.0.1
-generated: "2023-02-23T22:24:06.383155914Z"
+generated: "2023-02-27T12:10:46.587658949Z"
