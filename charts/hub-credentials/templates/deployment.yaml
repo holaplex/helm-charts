@@ -1,16 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "hub-identities.fullname" . }}
+  name: {{ include "hub-credentials.fullname" . }}
   labels:
-    {{- include "hub-identities.labels" . | nindent 4 }}
+    {{- include "hub-credentials.labels" . | nindent 4 }}
+    app.kubernetes.io/component: api
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "hub-identities.selectorLabels" . | nindent 6 }}
+      {{- include "hub-credentials.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: api
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,26 +20,27 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "hub-identities.selectorLabels" . | nindent 8 }}
+        {{- include "hub-credentials.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: api
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "hub-identities.serviceAccountName" . }}
+      serviceAccountName: {{ include "hub-credentials.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: api
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
             - configMapRef:
-                name: {{ include "hub-identities.fullname" . }}
+                name: {{ include "hub-credentials.fullname" . }}
             - secretRef:
-                name: {{ include "hub-identities.fullname" . }}
+                name: {{ include "hub-credentials.fullname" . }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}

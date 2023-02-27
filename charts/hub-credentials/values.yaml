@@ -1,11 +1,11 @@
-# Default values for hub-identities.
+# Default values for hub-credentials.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: holaplex/hub-identities
+  repository: holaplex/hub-credentials
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
@@ -65,11 +65,12 @@ tolerations: []
 
 affinity: {}
 
-environment:
-  oryBaseUrl: http://kratos-admin
-  port: "80"
-
 secrets:
   enabled: true
   entries:
     oryAuthToken: ""
+
+environment:
+  port: "80"
+  oryAdminBaseUrl: "http://hydra-admin:4445"
+  oryPublicBaseUrl: "http://hydra-public:4444"
