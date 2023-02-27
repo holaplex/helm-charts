@@ -85,3 +85,5 @@ environment:
   kafkaUsername: ""
   kafkaSsl: false
   svixBaseUrl: http://svix
+  ketoReadUrl: http://keto-read
+  ketoWriteUrl: http://keto-write
