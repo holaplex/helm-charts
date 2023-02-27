@@ -4,7 +4,6 @@ metadata:
   name: {{ include "hub-orgs.fullname" . }}
 data:
   {{- with .Values.environment }}
-  ORY_BASE_URL: {{ .oryBaseUrl }}
   PORT: {{ .port | quote }}
   KAFKA_BROKERS: {{ required "must set kafka brokers" .kafkaBrokers | quote }}
   KAFKA_USERNAME: {{ .kafkaUsername | quote }}
