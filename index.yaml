@@ -17,6 +17,19 @@ entries:
   hub-customers:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-02-28T13:48:48.608839118Z"
+    description: Helm chart for hub-customers
+    digest: 964221e7978de302e56d0d943297ae3c4dc34b5be4579b7eca00fe794d881abc
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-customers
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-customers-0.1.1/hub-customers-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-02-28T12:15:44.254863545Z"
     description: Helm chart for hub-customers
     digest: 4c68d882f813ce3dc29bd1dc1ec0c486f04731a33cfecce290c66edd19fa05f2
@@ -636,4 +649,4 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/svix-0.0.1/svix-0.0.1.tgz
     version: 0.0.1
-generated: "2023-02-28T12:15:44.255000548Z"
+generated: "2023-02-28T13:48:48.608932719Z"
