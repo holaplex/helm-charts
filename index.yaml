@@ -417,6 +417,19 @@ entries:
     version: 0.1.0
   hub-identities:
   - apiVersion: v2
+    appVersion: 0.2.1
+    created: "2023-02-28T02:34:08.747383223Z"
+    description: Helm chart for hub-identities
+    digest: 9935c038fa7b209af93b093f73c7e09ade0b3f6dc5c323100997ed8001a30e1f
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-identities
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-identities-0.2.1/hub-identities-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
     appVersion: 0.1.0
     created: "2023-02-27T12:10:46.390921778Z"
     description: Helm chart for hub-identities
@@ -609,4 +622,4 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/svix-0.0.1/svix-0.0.1.tgz
     version: 0.0.1
-generated: "2023-02-27T22:26:17.389927329Z"
+generated: "2023-02-28T02:34:08.747728923Z"
