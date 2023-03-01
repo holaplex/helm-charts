@@ -35,6 +35,7 @@ jobs:
           helm repo add holaplex https://holaplex.github.io/helm-charts
           helm repo add apisix https://charts.apiseven.com
           helm repo add ory https://k8s.ory.sh/helm/charts
+          helm repo add bitnami https://charts.bitnami.com/bitnami
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.5.0

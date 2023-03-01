@@ -65,6 +65,9 @@ tolerations: []
 
 affinity: {}
 
+redis:
+  enabled: false
+
 secrets:
   enabled: true
   entries:
