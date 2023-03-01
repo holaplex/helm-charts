@@ -1,4 +1,4 @@
-# Default values for hub-orgs.
+# Default values for hub-webhooks.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -6,13 +6,13 @@ replicaCount: 1
 
 migrate:
   image:
-    repository: holaplex/hub-orgs-migrations
+    repository: holaplex/hub-webhooks-migrations
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: "latest"
 
 image:
-  repository: holaplex/hub-orgs
+  repository: holaplex/hub-webhooks
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
@@ -84,5 +84,7 @@ environment:
   kafkaBrokers: "hub-eventbus-cluster-0.hub-eventbus-cluster.default.svc.cluster.local.:9093"
   kafkaUsername: ""
   kafkaSsl: false
-  ketoReadUrl: http://keto-read
-  ketoWriteUrl: http://keto-write
+  svixBaseUrl: http://hub-webhooks-svix
+
+svix:
+  enabled: false
