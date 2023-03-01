@@ -42,6 +42,11 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
+          volumeMounts:
+            - name: solana-keypair
+              mountPath: /app/keypair.json
+              subPath: keypair.json
+              readOnly: true 
           livenessProbe:
             httpGet:
               path: /health
@@ -52,6 +57,11 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: solana-keypair
+          secret:
+            secretName: {{ print (include "hub-nfts.fullname" .) "-keypair" }}
+            optional: false
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -77,11 +77,13 @@ secrets:
   entries:
     databaseUrl: ""
     kafkaPassword: ""
+    solanaKeyPair: |
+      ""
 
 environment:
   port: "80"
   kafkaBrokers: "hub-eventbus-cluster-0.hub-eventbus-cluster.default.svc.cluster.local.:9093"
   kafkaUsername: ""
   kafkaSsl: false
-  keyPairPath: "./keypair.json"
+  keyPairPath: "/app/keypair.json"
   solanaEndpoint: "https://api.devnet.solana.com"
