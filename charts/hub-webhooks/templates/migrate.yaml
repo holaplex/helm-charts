@@ -1,0 +1,34 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{ .Release.Name }}-migrate-db"
+  labels:
+    {{- include "hub-webhooks.labels" . | nindent 4 }}
+    app.kubernetes.io/component: migrations
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    metadata:
+      name: "{{ .Release.Name }}-migrate-db"
+      labels:
+        {{- include "hub-webhooks.labels" . | nindent 8 }}
+        app.kubernetes.io/component: migrations
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: migrate
+        {{- with .Values.migrate.image }}
+        imagePullPolicy: {{ .pullPolicy }}
+        image: "{{ .repository }}:{{ .tag }}"
+        {{- end }}
+        command: ["bin/migration"]
+        args: ["-u", "$(DATABASE_URL)"]
+        env:
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: {{ include "hub-webhooks.fullname" . }}
+                key: DATABASE_URL
+                optional: false
