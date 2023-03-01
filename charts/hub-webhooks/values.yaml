@@ -86,13 +86,5 @@ environment:
   kafkaSsl: false
   svixBaseUrl: http://hub-webhooks-svix
 
-postgresql:
-  enabled: false
-
 svix:
-  enabled: true
-  environment:
-    logLevel: "info"
-    queueType: "redis"
-    waitForServices: true
-    redisDsn: "redis://svix-redis-master:6379"
+  enabled: false 
