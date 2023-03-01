@@ -23,7 +23,7 @@ spec:
         imagePullPolicy: {{ .pullPolicy }}
         image: "{{ .repository }}:{{ .tag }}"
         {{- end }}
-        command: ["bin/migration"]
+        command: ["/usr/local/bin/migration"]
         args: ["-u", "$(DATABASE_URL)"]
         env:
           - name: DATABASE_URL
