@@ -87,4 +87,4 @@ environment:
   svixBaseUrl: http://hub-webhooks-svix
 
 svix:
-  enabled: false 
+  enabled: false
