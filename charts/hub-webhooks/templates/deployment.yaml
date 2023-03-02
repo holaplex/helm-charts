@@ -27,6 +27,14 @@ spec:
       serviceAccountName: {{ include "hub-webhooks.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- if .Values.svix.enabled }}
+      initContainers:
+        - name: wait-for-svix
+          image: {{ .Values.initContainer.image }}:{{ .Values.initContainer.tag }}
+          command: ['sh', '-c', "until curl -s -f -o /dev/null {{ .Values.environment.svixBaseUrl}}; do echo waiting for svix-server; sleep 2; done;"]
+          securityContext:
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:

@@ -72,6 +72,10 @@ tolerations: []
 
 affinity: {}
 
+initContainer:
+  image: curlimages/curl
+  tag: latest
+
 secrets:
   enabled: true
   entries:
