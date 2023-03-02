@@ -76,17 +76,17 @@ function _M.check_schema(conf)
 end
 
 function _M.access(conf, ctx)
-    local headers = core.request.headers()
-
     local session_cookie_name = string.lower(conf.session_cookie_name or "ory_kratos_session")
     local cookie_header = string.lower("cookie_" .. session_cookie_name)
     local cookie_value = ngx.var[cookie_header]
 
-    -- Try to get session token from cookie header and $session_cookie_name 
-    local session_token = headers[session_cookie_name] or cookie_value
+    -- Try to get session token from $session_cookie_name cookie
+    local session_token = cookie_value
 
     if not session_token then
-        return
+        return 401, json.encode({
+          message = "session_cookie not found not found"
+        })
     end
 
     local kratos_cookie = session_cookie_name .. "=" .. session_token
@@ -113,25 +113,34 @@ function _M.access(conf, ctx)
 
     -- block by default when user is not found
     if not res then
-        return
+        return 401, json.encode({
+              message = err
+            })
     end
 
     -- parse the user data
     local data, err = json.decode(res.body)
     if not data then
-        return
+        return 401, json.encode({
+              message = err
+            })
+
     end
 
     -- block if user id is not found
     if not data.id then
-        return
+        return 401, json.encode({
+              message = err
+            })
     end
 
     -- Expose user data response on $kratos_user_data variable
     if conf.expose_user_data then
         local user_data = ngx.encode_base64(res.body)
         if not user_data then
-            return
+            return 401, json.encode({
+              message = "Error while reading user_data"
+            })
         end
         core.ctx.register_var("kratos_user_data", function(ctx)
             return user_data
