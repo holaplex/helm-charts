@@ -73,7 +73,7 @@ function _M.access(conf, ctx)
 
     if not api_token then
         return 401, json.encode({
-          message = "Authorization header not found" 
+          message = "Authorization header not found"
         })
     end
 
@@ -126,6 +126,34 @@ function _M.access(conf, ctx)
             return data.client_id
         end)
     end
+
+    -- Get kratos user id from hydra client contacts
+    local params = {
+        method = "GET",
+        headers = {
+            ["Accept"] = "application/json"
+        },
+        keepalive = conf.keepalive,
+        ssl_verify = conf.ssl_verify
+    }
+
+    if conf.keepalive then
+        params.keepalive_timeout = conf.keepalive_timeout
+        params.keepalive_pool = conf.keepalive_pool
+    end
+
+    local endpoint = conf.host .. "/admin/clients/" .. data.client_id
+
+    local res, err = httpc:request_uri(endpoint, params)
+
+    local data, err = json.decode(res.body)
+    if not data then
+        return 401, err
+    end
+
+    core.request.set_header(ctx, "X-USER-ID", data.contacts[1])
+    core.response.set_header("X-USER-ID", data.contacts[1])
+
 end
 
 return _M
