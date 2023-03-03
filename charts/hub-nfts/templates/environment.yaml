@@ -10,4 +10,6 @@ data:
   KEYPAIR_PATH: {{ required "must set key pair path" .keyPairPath | quote }}
   KAFKA_USERNAME: {{ required "must set kafka username" .kafkaUsername | quote }}
   KAFKA_SSL: {{ required "must set kafka ssl" .kafkaSsl | quote }}
+  IPFS_ENDPOINT: {{ required "must set ipfs endpoint" .ipfsEndpoint | quote }}
+  NFT_STORAGE_API_ENDPOINT: {{ required "must set nft storage api endpoint" .nftStorageApiEndpoint | quote }}
   {{- end }}
