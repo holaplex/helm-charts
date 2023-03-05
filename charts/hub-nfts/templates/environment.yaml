@@ -7,7 +7,7 @@ data:
   PORT: {{ .port | quote }}
   KAFKA_BROKERS: {{ required "must set kafka brokers" .kafkaBrokers | quote }}
   SOLANA_ENDPOINT: {{ required "must set solana endpoint" .solanaEndpoint | quote }}
-  SOLANA_KEYPAIR_PATH: {{ required "must set key pair path" .keyPairPath | quote }}
+  SOLANA_KEYPAIR_PATH: {{ required "must set key pair path" .solanaKeyPairPath | quote }}
   KAFKA_USERNAME: {{ required "must set kafka username" .kafkaUsername | quote }}
   KAFKA_SSL: {{ required "must set kafka ssl" .kafkaSsl | quote }}
   IPFS_ENDPOINT: {{ required "must set ipfs endpoint" .ipfsEndpoint | quote }}
