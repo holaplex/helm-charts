@@ -86,7 +86,7 @@ environment:
   kafkaBrokers: "hub-eventbus-cluster-0.hub-eventbus-cluster.default.svc.cluster.local.:9093"
   kafkaUsername: ""
   kafkaSsl: false
-  keyPairPath: "/app/keypair.json"
+  solanaKeyPairPath: "/app/keypair.json"
   solanaEndpoint: "https://api.devnet.solana.com"
   nftStorageApiEndpoint: "https://api.nft.storage"
   ipfsEndpoint: "https://ipfs.io/ipfs/"
