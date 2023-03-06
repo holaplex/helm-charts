@@ -78,6 +78,7 @@ secrets:
     databaseUrl: ""
     kafkaPassword: ""
     nftStorageAuthToken: ""
+    solanaEndpoint: "https://api.devnet.solana.com"
     solanaKeyPair: |
       ""
 
@@ -87,6 +88,5 @@ environment:
   kafkaUsername: ""
   kafkaSsl: false
   solanaKeyPairPath: "/app/keypair.json"
-  solanaEndpoint: "https://api.devnet.solana.com"
   nftStorageApiEndpoint: "https://api.nft.storage"
   ipfsEndpoint: "https://ipfs.io/ipfs/"
