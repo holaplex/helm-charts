@@ -89,4 +89,4 @@ environment:
   kafkaBrokers: "hub-eventbus-cluster-0.hub-eventbus-cluster.default.svc.cluster.local.:9093"
   kafkaSsl: false
   kafkaUsername: ""
-  fireblocksSupportedAssetIds: "SOL_TEST,POLY_TEST"
+  fireblocksSupportedAssetIds: "SOL_TEST,MATIC_TEST"
