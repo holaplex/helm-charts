@@ -31,5 +31,10 @@ sources:
 
 dependencies:
   - name: keto
+    condition: keto.enabled
     version: 0.28.0
     repository: https://k8s.ory.sh/helm/charts
+  - name: opa
+    condition: opa.enabled
+    version: 0.1.0
+    repository: https://charts.holaplex.com
