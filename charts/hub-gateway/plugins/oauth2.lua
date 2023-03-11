@@ -127,7 +127,7 @@ function _M.access(conf, ctx)
         core.response.set_header("X-CLIENT-ID", data.client_id)
     end
    
-    -- Lookup full hydra client data
+    -- Get full hydra client data
     local params = {
         method = "GET",
         headers = {
@@ -155,7 +155,6 @@ function _M.access(conf, ctx)
     core.request.set_header(ctx, "X-USER-ID", data.contacts[1])
     core.response.set_header("X-USER-ID", data.contacts[1])
 
-    -- Expose hydra client owner id on $oauth2_client_owner variable
     if conf.expose_owner then
         if not data.owner then
           core.log.error("unable to get owner from response:", json.encode(data))
