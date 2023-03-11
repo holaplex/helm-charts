@@ -61,7 +61,7 @@ spec:
     - name: authz 
       enable: true
       config:
-        host: {{ print "http://" $apisixPlugins.authz.serviceName  "." $namespace ".svc:" $apisixPlugins.authz.servicePort | quote }}
+        host: {{ print "http://" $apisixPlugins.authz.serviceName "-opa"  "." $namespace ".svc:" $apisixPlugins.authz.servicePort | quote }}
         policy: {{ .policy }}
         keto_endpoint: {{ print "http://" $apisixPlugins.authz.serviceName  "-keto-read." $namespace ".svc:" $apisixPlugins.authz.servicePort | quote }}
         with_route: false
