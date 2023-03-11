@@ -49,10 +49,6 @@ local schema = {
             minimum = 1,
             default = 5
         },
-        expose_user_data = {
-            type = "boolean",
-            default = false
-        },
         expose_user_id = {
             type = "boolean",
             default = false
@@ -77,6 +73,7 @@ end
 
 function _M.access(conf, ctx)
     local session_cookie_name = string.lower(conf.session_cookie_name or "ory_kratos_session")
+
     local cookie_header = string.lower("cookie_" .. session_cookie_name)
     local cookie_value = ngx.var[cookie_header]
 
@@ -134,32 +131,12 @@ function _M.access(conf, ctx)
             })
     end
 
-    -- Expose user data response on $kratos_user_data variable
-    if conf.expose_user_data then
-        local user_data = ngx.encode_base64(res.body)
-        if not user_data then
-            return 401, json.encode({
-              message = "Error while reading user_data"
-            })
-        end
-        core.ctx.register_var("kratos_user_data", function(ctx)
-            return user_data
-        end)
-    end
-
-    -- Expose user id on $kratos_user_id variable
-    -- Expose user email on $kratos_user_email variable
+    -- Expose user email and id on headers
     if conf.expose_user_id then
         core.request.set_header(ctx, "X-USER-ID", data.identity.id)
         core.response.set_header("X-USER-ID", data.identity.id)
         core.request.set_header(ctx, "X-USER-EMAIL", data.identity.traits.email)
         core.response.set_header("X-USER-EMAIL", data.identity.traits.email)
-        core.ctx.register_var("kratos_user_id", function(ctx)
-            return data.identity.id
-        end)
-        core.ctx.register_var("kratos_user_email", function(ctx)
-            return data.identity.traits.email
-        end)
     end
 end
 
