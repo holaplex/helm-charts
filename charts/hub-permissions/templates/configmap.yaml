@@ -6,7 +6,7 @@ metadata:
   labels:
     {{- include "hub-permissions.labels" $ | nindent 4 }}
 data:
-    {{- with .Values.customNamespaces.files}}
+    {{- with .Values.ketoNamespaces.files}}
       {{- range . }}
         {{ (splitList "/" .) | last | nindent 2}}: |-
         {{ $.Files.Get . | nindent 8 }}
