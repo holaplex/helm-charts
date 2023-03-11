@@ -130,7 +130,7 @@ function _M.build_opa_input(conf, ctx, subsystem)
     local cookie_value = ngx.var[var_name]
 
     -- Prepare object
-    local org_id = core.request.header(ctx, 'X-CLIENT-OWNER-ID') or cookie_value 
+    local org_id = core.request.header(ctx, 'X-CLIENT-OWNER-ID') or cookie_value
     data.keto.object = org_id or "undefined"
     
     -- prepare subject
