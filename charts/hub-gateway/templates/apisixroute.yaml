@@ -64,9 +64,9 @@ spec:
         host: {{ print "http://" $apisixPlugins.authz.serviceName  "." $namespace ".svc:" $apisixPlugins.authz.servicePort | quote }}
         policy: {{ .policy }}
         keto_endpoint: {{ print "http://" $apisixPlugins.authz.serviceName  "-keto-read." $namespace ".svc:" $apisixPlugins.authz.servicePort | quote }}
-        with_route: true
-        with_service: true
-        extra_inputs: false
+        with_route: false
+        with_service: false
+        with_consumer: false
     {{- end }}
     {{- end }}
     {{- if .regexUri }}

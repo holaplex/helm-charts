@@ -21,12 +21,7 @@ local json        = require("apisix.core.json")
 local ngx         = ngx
 local ngx_time    = ngx.time
 local re_match    = ngx.re.match
-local pairs       = pairs
-local ipairs      = ipairs
 local type        = type
-local lrucache = core.lrucache.new({
-    type = "plugin",
-})
 local _M = {}
 
 
@@ -43,7 +38,7 @@ local function build_var(conf, ctx)
 end
 
 local function build_http_request(conf, ctx)
-    local request = {
+    return {
         scheme  = core.request.get_scheme(ctx),
         method  = core.request.get_method(),
         host    = core.request.get_host(ctx),
@@ -52,11 +47,6 @@ local function build_http_request(conf, ctx)
         headers = core.request.headers(ctx),
         query   = core.request.get_uri_args(ctx),
     }
-
-    if conf.with_body then
-        request.body = core.request.get_body()
-    end
-    return request
 end
 
 
@@ -110,65 +100,6 @@ local function build_http_consumer(conf, ctx)
     return nil
 end
 
-local function check_set_inputs(inputs)
-    for field, value in pairs(inputs) do
-        if type(field) ~= 'string' then
-            return false, 'invalid type as input field'
-        end
-
-        if type(value) ~= 'string' and type(value) ~= 'number' then
-            return false, 'invalid type as input value'
-        end
-
-        if #field == 0 then
-            return false, 'invalid field length in input'
-        end
-    end
-
-    return true
-end
-
-local function is_new_inputs_conf(inputs)
-    return
-        (inputs.add and type(inputs.add) == "table") or
-        (inputs.set and type(inputs.set) == "table") or
-        (inputs.remove and type(inputs.remove) == "table")
-end
-
-local function build_extra_inputs(inputs)
-    local set = {}
-    local add = {}
-    if is_new_inputs_conf(inputs) then
-        if inputs.add then
-            for _, value in ipairs(inputs.add) do
-                local m, err = re_match(value, [[^([^:\s]+)\s*:\s*([^:]+)$]], "jo")
-                if not m then
-                    return nil, err
-                end
-                core.table.insert_tail(add, m[1], m[2])
-            end
-        end
-
-        if inputs.set then
-            for field, value in pairs(inputs.set) do
-                --reform header from object into array, so can avoid use pairs, which is NYI
-                core.table.insert_tail(set, field, value)
-            end
-        end
-
-    else
-        for field, value in pairs(inputs) do
-            core.table.insert_tail(set, field, value)
-        end
-    end
-
-    return {
-        add = add,
-        set = set,
-        remove = inputs.remove or {},
-    }
-end
-
 function _M.build_opa_input(conf, ctx, subsystem)
     local data = {
         type    = subsystem,
@@ -201,8 +132,7 @@ function _M.build_opa_input(conf, ctx, subsystem)
     -- Prepare object
     local org_id = core.request.header(ctx, 'X-CLIENT-OWNER-ID') or cookie_value 
     data.keto.object = org_id or "undefined"
-    -- relation will be assigned by OPA, based on the GraphQL operation
-
+    
     -- prepare subject
     data.keto.subject_set.namespace = "User"
     if core.request.header(ctx, 'X-CLIENT-ID') then
@@ -213,33 +143,9 @@ function _M.build_opa_input(conf, ctx, subsystem)
         data.keto.subject_set.object = core.request.header(ctx, 'X-USER-ID')
     end
 
-    if conf.extra_inputs then
-      if conf.inputs then
-          if not is_new_inputs_conf(conf.inputs) then
-              local ok, err = check_set_inputs(conf.inputs)
-              if not ok then
-                  return false
-              end
-          end
-      end
-    
-      local input_op, err = core.lrucache.plugin_ctx(lrucache, ctx, nil, build_extra_inputs, conf.inputs)
-        if not input_op then
-            core.log.error("failed to create inputs: ", err)
-            return 503, "failed to create inputs"
-        end
-      local field_cnt = #input_op.set
-      for i = 1, field_cnt, 2 do
-          local val = core.utils.resolve_var(input_op.set[i+1], ctx.var)
-          data.extra[input_op.set[i]] = val
-      end
-
-    end
-
     return {
         input = data,
     }
 end
-
 
 return _M

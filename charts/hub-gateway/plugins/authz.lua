@@ -44,41 +44,6 @@ local schema = {
         with_route = {type = "boolean", default = false},
         with_service = {type = "boolean", default = false},
         with_consumer = {type = "boolean", default = false},
-        with_body = {type = "boolean", default = false},
-        extra_inputs = {type = "boolean", default = false},
-        inputs = {
-            description = "extra inputs for opa",
-            anyOf = {
-                {
-                    type = "object",
-                    minProperties = 1,
-                    patternProperties = {
-                        ["^[^:]+$"] = {
-                            oneOf = {
-                                {type = "string"},
-                                {type = "number"},
-                            }
-                        }
-                    },
-                },
-                {
-                    properties = {
-                        set = {
-                            type = "object",
-                            minProperties = 1,
-                            patternProperties = {
-                                ["^[^:]+$"] = {
-                                    oneOf = {
-                                        {type = "string"},
-                                        {type = "number"},
-                                    }
-                                }
-                            },
-                        },
-                    },
-                }
-            }
-        }
     },
     required = {"host", "policy"}
 }
