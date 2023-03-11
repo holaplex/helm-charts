@@ -918,6 +918,22 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/hub-webhooks-0.1.0/hub-webhooks-0.1.0.tgz
     version: 0.1.0
+  opa:
+  - apiVersion: v2
+    appVersion: 0.48.0
+    created: "2023-03-11T18:28:58.818493065Z"
+    description: Helm chart for opa
+    digest: e30b75bd87e7f4ac4f39cb840c9e8f6d9c852230e9b290d831d8c91e85879645
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: opa
+    sources:
+    - https://github.com/holaplex/helm-charts
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/opa-0.1.0/opa-0.1.0.tgz
+    version: 0.1.0
   svix:
   - apiVersion: v2
     appVersion: 0.1.0
@@ -950,4 +966,4 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/svix-0.0.1/svix-0.0.1.tgz
     version: 0.0.1
-generated: "2023-03-09T11:50:09.177188783Z"
+generated: "2023-03-11T18:28:58.818575865Z"
