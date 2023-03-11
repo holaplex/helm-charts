@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "opa.fullname" $ }}
+data:
+  config.yaml: |
+    services:
+      s3:
+        url: "${AWS_BUCKET_URL}"
+        credentials:
+          s3_signing:
+            environment_credentials: {}
+    decision_logs:
+      console: true
+    bundles:
+      authz:
+        service: s3
+        resource: bundle.tar.gz
+        persist: false
+        polling:
+          min_delay_seconds: 30
+          max_delay_seconds: 120
