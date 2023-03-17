@@ -36,6 +36,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "hub-ui.fullname" . }}
+            - secretRef:
+                name: {{ include "hub-ui.fullname" . }}
           ports:
             - name: http
               containerPort: {{ .Values.environment.port }}
