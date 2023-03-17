@@ -834,6 +834,19 @@ entries:
   hub-ui:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-03-17T15:12:16.648083961Z"
+    description: Helm chart for hub-ui
+    digest: 0ed59bd04882d70f4b59b30574574712a92862efa3f1c1c296079646ebc7f6ae
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-ui
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-ui-0.2.0/hub-ui-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-02-22T13:25:38.690416862Z"
     description: Helm chart for hub-ui
     digest: 9b19d572d63edaa76b2362d88d06d6b80d15757a5aa6b362a5df3a0a922783df
@@ -966,4 +979,4 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/svix-0.0.1/svix-0.0.1.tgz
     version: 0.0.1
-generated: "2023-03-11T18:28:58.818575865Z"
+generated: "2023-03-17T15:12:16.648386067Z"
