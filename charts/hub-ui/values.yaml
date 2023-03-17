@@ -69,7 +69,7 @@ environment:
   port: 3000
   kratosPublicEndpoint: http://kratos-public
   internalGraphqlEndpoint: http://apisix-gateway-internal.ingress-apisix.svc.cluster.local/graphql
-  ifpsGateway: https://nftstorage.link/ipfs
+  ipfsGateway: https://nftstorage.link/ipfs
 
 secrets:
   enabled: true
