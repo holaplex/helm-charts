@@ -7,4 +7,5 @@ data:
   PORT: {{ .port | quote }}
   KRATOS_ENDPOINT: {{ .kratosPublicEndpoint | quote }}
   GRAPHQL_ENDPOINT: {{ .internalGraphqlEndpoint | quote }}
+  IPFS_GATEWAY: {{ .ipfsGateway | quote }}
   {{- end }}
