@@ -3,6 +3,19 @@ entries:
   hub-credentials:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-03-22T15:56:54.581132746Z"
+    description: Helm chart for hub-credentials
+    digest: ee1590942d2d1568b3ccd70a9d79f639fd17e9059b3e6c52ac93a2783d134752
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-credentials
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-credentials-0.2.1/hub-credentials-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-03-22T11:23:32.429874406Z"
     description: Helm chart for hub-credentials
     digest: ffc2faaad5c6f10d2afbedf8756299387c46e5e759d97a43777590dde3997234
@@ -1018,4 +1031,4 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/svix-0.0.1/svix-0.0.1.tgz
     version: 0.0.1
-generated: "2023-03-22T11:23:32.430126409Z"
+generated: "2023-03-22T15:56:54.581268852Z"
