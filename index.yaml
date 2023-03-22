@@ -748,6 +748,30 @@ entries:
   hub-permissions:
   - apiVersion: v2
     appVersion: "0.1"
+    created: "2023-03-22T20:33:56.502915381Z"
+    dependencies:
+    - condition: keto.enabled
+      name: keto
+      repository: https://k8s.ory.sh/helm/charts
+      version: 0.28.0
+    - condition: opa.enabled
+      name: opa
+      repository: https://charts.holaplex.com
+      version: 0.1.0
+    description: Helm chart for hub-permissions
+    digest: 934b373efb399ab85168a4bc28db41d45909038e7d711729ba1cbfa90e7a522f
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-permissions
+    sources:
+    - https://github.com/holaplex/helm-charts
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-permissions-0.1.0/hub-permissions-0.1.0.tgz
+    version: 0.1.0
+  - apiVersion: v2
+    appVersion: "0.1"
     created: "2023-02-27T22:06:07.992505625Z"
     dependencies:
     - name: keto
@@ -1031,4 +1055,4 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/svix-0.0.1/svix-0.0.1.tgz
     version: 0.0.1
-generated: "2023-03-22T15:56:54.581268852Z"
+generated: "2023-03-22T20:33:56.503105783Z"
