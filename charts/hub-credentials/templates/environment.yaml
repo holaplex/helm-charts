@@ -7,4 +7,9 @@ data:
   ORY_ADMIN_BASE_URL: {{ .oryAdminBaseUrl }}
   ORY_PUBLIC_BASE_URL: {{ .oryPublicBaseUrl }}
   PORT: {{ .port | quote }}
+  KAFKA_BROKERS: {{ .kafkaBrokers | quote }}
+  {{- if .kafkaSsl }}
+  KAFKA_USERNAME: {{ required "must set kafka username" .kafkaUsername | quote }}
+  KAFKA_SSL: "true"
+  {{- end }}
   {{- end }}
