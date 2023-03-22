@@ -8,8 +8,6 @@ data:
   ORY_PUBLIC_BASE_URL: {{ .oryPublicBaseUrl }}
   PORT: {{ .port | quote }}
   KAFKA_BROKERS: {{ .kafkaBrokers | quote }}
-  {{- if .kafkaSsl }}
   KAFKA_USERNAME: {{ required "must set kafka username" .kafkaUsername | quote }}
-  KAFKA_SSL: "true"
-  {{- end }}
+  KAFKA_SSL: {{ required "must set kafka ssl" .kafkaSsl | quote }}
   {{- end }}
