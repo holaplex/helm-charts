@@ -8,6 +8,7 @@ chart-repos:
   - apisix=https://charts.apiseven.com
   - ory=https://k8s.ory.sh/helm/charts
   - bitnami=https://charts.bitnami.com/bitnami
+  - influxdata=https://helm.influxdata.com
 helm-extra-args: --timeout 600s
 validate-maintainers: false
 excluded-charts:
