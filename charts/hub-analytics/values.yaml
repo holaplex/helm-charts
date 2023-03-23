@@ -94,7 +94,6 @@ influxdb2:
   enterprise:
     enabled: false
 
-  
   adminUser:
     organization: "holaplex"
     bucket: "hub-analytics"
@@ -131,4 +130,3 @@ influxdb2:
     annotations: {}
     podAnnotations: {}
     daysToRetain: 7
-  
