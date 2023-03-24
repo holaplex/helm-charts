@@ -16,6 +16,9 @@ routes:
     - OPTIONS
   oauth2:
     enabled: true
+  authz:
+    enabled: true
+    policy: 'hub/graphql/main'
   regexUri:
     - "/graphql"
     - "/"
@@ -31,6 +34,9 @@ routes:
     - OPTIONS
   session:
     enabled: true
+  authz:
+    enabled: true
+    policy: 'hub/graphql/main'
   regexUri:
     - "/graphql"
     - "/"
@@ -48,6 +54,9 @@ routes:
     enabled: true
   sessionJson:
     enabled: true
+  authz:
+    enabled: true
+    policy: 'hub/graphql/main'
   regexUri:
     - "/graphql"
     - "/"
@@ -156,7 +165,12 @@ apisixPlugins:
   sessionJson:
     files:
       - plugins/session-json.lua
-
+  authz:
+    serviceName: hub-permissions
+    servicePort: 80
+    files:
+      - plugins/authz.lua
+      - plugins/authz-helper.lua
 apisix:
   enabled: true
   fullnameOverride: apisix
@@ -249,6 +263,14 @@ apisix:
           mounts:
             - key: "session-json.lua"
               path: "/opts/custom_plugins/apisix/plugins/session-json.lua"
+      - name: "authz"
+        configMap:
+          name: "authz-plugin"
+          mounts:
+            - key: "authz.lua"
+              path: "/opts/custom_plugins/apisix/plugins/authz.lua"
+            - key: "authz-helper.lua"
+              path: "/opts/custom_plugins/apisix/plugins/authz/helper.lua"
 
   logs:
     enableAccessLog: true

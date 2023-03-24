@@ -33,7 +33,6 @@ spec:
       enable: true
       config:
         host: {{ print "http://" $apisixPlugins.session.serviceName  "." $namespace ".svc:" $apisixPlugins.session.servicePort | quote }}
-        expose_user_data: true
         expose_user_id: true
         session_cookie_name: {{ $sessionCookie }}
     {{- end }}
@@ -45,6 +44,7 @@ spec:
       config:
         host: {{ print "http://" $apisixPlugins.oauth2.serviceName  "." $namespace ".svc:" $apisixPlugins.oauth2.servicePort | quote }}
         expose_client_id: true
+        expose_owner: true
     {{- end }}
     {{- end }}
     {{- with .sessionRedirect }}
@@ -54,6 +54,19 @@ spec:
       config:
         login_uri: {{ $loginUri }}
         redirect_to: {{ .redirectTo | default false }}
+    {{- end }}
+    {{- end }}
+    {{- with .authz }}
+    {{- if .enabled }}
+    - name: authz 
+      enable: true
+      config:
+        host: {{ print "http://" $apisixPlugins.authz.serviceName "-opa"  "." $namespace ".svc:" $apisixPlugins.authz.servicePort | quote }}
+        policy: {{ .policy }}
+        keto_endpoint: {{ print "http://" $apisixPlugins.authz.serviceName  "-keto-read." $namespace ".svc:" $apisixPlugins.authz.servicePort | quote }}
+        with_route: false
+        with_service: false
+        with_consumer: false
     {{- end }}
     {{- end }}
     {{- if .regexUri }}

@@ -53,6 +53,10 @@ local schema = {
             type = "boolean",
             default = false
         },
+        expose_owner = {
+            type = "boolean",
+            default = false
+        },
     },
     required = {"host"}
 }
@@ -118,16 +122,12 @@ function _M.access(conf, ctx)
         })
     end
 
-    -- Expose hydra_client_id id on $hydra_client_id variable
     if conf.expose_client_id then
         core.request.set_header(ctx, "X-CLIENT-ID", data.client_id)
         core.response.set_header("X-CLIENT-ID", data.client_id)
-        core.ctx.register_var("hydra_client_id", function(ctx)
-            return data.client_id
-        end)
     end
-
-    -- Get kratos user id from hydra client contacts
+   
+    -- Lookup full hydra client data
     local params = {
         method = "GET",
         headers = {
@@ -149,11 +149,15 @@ function _M.access(conf, ctx)
     local data, err = json.decode(res.body)
     if not data then
         return 401, err
+    end 
+
+    -- Expose hydra client owner id on request header
+    if conf.expose_owner then
+        if not data.owner then
+          core.log.error("unable to get owner from response:", json.encode(data))
+        end
+        core.request.set_header(ctx, "X-CLIENT-OWNER-ID", data.owner)
     end
-
-    core.request.set_header(ctx, "X-USER-ID", data.contacts[1])
-    core.response.set_header("X-USER-ID", data.contacts[1])
-
 end
 
 return _M
