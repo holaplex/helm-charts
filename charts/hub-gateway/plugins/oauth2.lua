@@ -149,11 +149,7 @@ function _M.access(conf, ctx)
     local data, err = json.decode(res.body)
     if not data then
         return 401, err
-    end
-
-    -- Get kratos user id from hydra client contacts and expose on x-user-id header
-    core.request.set_header(ctx, "X-USER-ID", data.contacts[1])
-    core.response.set_header("X-USER-ID", data.contacts[1])
+    end 
 
     -- Expose hydra client owner id on request header
     if conf.expose_owner then

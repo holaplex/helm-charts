@@ -106,11 +106,7 @@ function _M.build_opa_input(conf, ctx, subsystem)
         request = build_http_request(conf, ctx),
         var     = build_var(conf, ctx),
         graphql = build_graphql_data(conf, ctx),
-        keto = {
-          endpoint = conf.keto_endpoint,
-          subject_set = {},
-        },
-        extra   =  {},
+        keto_endpoint = conf.keto_endpoint
     }
 
     if conf.with_route then
@@ -125,24 +121,6 @@ function _M.build_opa_input(conf, ctx, subsystem)
         data.service = build_http_service(conf, ctx)
     end
     
-    local cookie_name = "_hub_org"
-    local var_name = "cookie_" .. cookie_name
-    local cookie_value = ngx.var[var_name]
-
-    -- Prepare object
-    local org_id = core.request.header(ctx, 'X-CLIENT-OWNER-ID') or cookie_value
-    data.keto.object = org_id or "undefined"
-    
-    -- prepare subject
-    data.keto.subject_set.namespace = "User"
-    if core.request.header(ctx, 'X-CLIENT-ID') then
-        data.keto.subject_set.relation = "oauth2"
-        data.keto.subject_set.object = core.request.header(ctx, 'X-CLIENT-ID')
-      else
-        data.keto.subject_set.relation = "session"
-        data.keto.subject_set.object = core.request.header(ctx, 'X-USER-ID')
-    end
-
     return {
         input = data,
     }
