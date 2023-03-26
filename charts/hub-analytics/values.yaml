@@ -1,0 +1,132 @@
+# Default values for hub-analytics.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: holaplex/hub-analytics
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+secrets:
+  enabled: true
+  entries:
+    kafkaPassword: ""
+    influxdbPassword: ""
+    influxdbToken: ""
+
+environment:
+  logLevel: "info"
+  kafkaBrokers: "hub-eventbus-cluster-0.hub-eventbus-cluster.default.svc.cluster.local.:9093"
+  kafkaSsl: false
+  kafkaUsername: ""
+  influxdbUrl: http://hub-analytics-influxdb2
+  influxdbOrg: holaplex
+  influxdbBucket: hub-analytics
+
+influxdb2:
+  enabled: true
+  image:
+    repository: influxdb
+    tag: 2.6.1
+    pullPolicy: IfNotPresent
+
+  persistence:
+    enabled: true
+    # storageClass: "-"
+    accessMode: ReadWriteOnce
+    size: 8Gi
+    mountPath: /var/lib/influxdb2
+
+  enterprise:
+    enabled: false
+
+  adminUser:
+    organization: "holaplex"
+    bucket: "hub-analytics"
+    user: "admin"
+    retention_policy: "0s"
+    existingSecret: hub-analytics
+
+  ingress:
+    enabled: false
+
+  pdb:
+    create: false
+    minAvailable: 1
+
+  backup:
+    enabled: false
+    resources:
+      requests:
+        ephemeral-storage: "8Gi"
+    persistence:
+      enabled: false
+      # storageClass: "-"
+      annotations:
+      accessMode: ReadWriteOnce
+      size: 8Gi
+    schedule: "0 0 * * *"
+
+  backupRetention:
+    enabled: false
+    resources:
+      requests:
+      schedule: "0 0 * * *"
+    startingDeadlineSeconds:
+    annotations: {}
+    podAnnotations: {}
+    daysToRetain: 7
