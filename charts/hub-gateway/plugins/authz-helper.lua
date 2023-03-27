@@ -85,7 +85,7 @@ local function build_graphql_data(conf, ctx)
     local input = json.decode(core.request.get_body())
     return {
         query = input['query'],
-        variables = input['variables'],
+        variables = input['variables'] or {},
         operation = ctx.var.graphql_operation,
 
     }
