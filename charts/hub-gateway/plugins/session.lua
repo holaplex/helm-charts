@@ -81,9 +81,7 @@ function _M.access(conf, ctx)
     local session_token = cookie_value
 
     if not session_token then
-        return 401, json.encode({
-          message = "session_cookie not found not found"
-        })
+        return 
     end
 
     local kratos_cookie = session_cookie_name .. "=" .. session_token
