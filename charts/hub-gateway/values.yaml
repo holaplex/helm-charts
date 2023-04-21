@@ -189,7 +189,7 @@ apisixPlugins:
     files:
       - plugins/credits.lua
   orgLookup:
-    query: 
+    query:
       cookieName: "_hub_org"
       headerName: "X-Client-Owner-Id"
     output:
