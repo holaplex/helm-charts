@@ -2,6 +2,7 @@ hubNamespace: default
 domain: 127.0.0.1.nip.io
 port: 9080
 sessionCookieName: "hub_session"
+orgCookieName: "_hub_org"
 loginUri: "http://hub.127.0.0.1.nip.io:9080/login"
 
 routes:
