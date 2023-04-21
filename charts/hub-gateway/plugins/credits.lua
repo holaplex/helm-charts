@@ -72,11 +72,10 @@ function _M.access(conf, ctx)
         return
     end
 
-    -- Check if query is createOrganization
     local input = json.decode(core.request.get_body())
     local graphql_query = input['query']
 
-    -- Check if graphql_query contains createOrganization query
+    -- Check if query is createOrganization
     if graphql_query:match("createOrganization") then
         core.log.error("Creating Organization. Unable to continue.")
         return
