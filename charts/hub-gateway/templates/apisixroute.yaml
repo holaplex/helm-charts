@@ -2,6 +2,7 @@
 {{- $namespace := .Values.hubNamespace -}}
 {{- $domain := .Values.domain -}}
 {{- $sessionCookie := .Values.sessionCookieName -}}
+{{- $orgCookie := .Values.orgCookieName -}}
 {{- $loginUri := .Values.loginUri -}}
 {{- with .Values.routes }}
 {{- range . }}
@@ -75,7 +76,7 @@ spec:
       enable: true
       config:
         host: {{ print "http://" $apisixPlugins.session.serviceName  "." $namespace ".svc:" $apisixPlugins.session.servicePort | quote }}
-        org_cookie_name: {{ $sessionCookie }}
+        org_cookie_name: {{ $orgCookie }}
     {{- end }}
     {{- end }}
     {{- if .regexUri }}
