@@ -62,7 +62,7 @@ local schema = {
 
 local _M = {
     version = 0.1,
-    priority = 3,
+    priority = 5,
     name = "session",
     schema = schema
 }
@@ -131,10 +131,9 @@ function _M.access(conf, ctx)
 
     -- Expose user email and id on headers
     if conf.expose_user_id then
-        core.request.set_header(ctx, "X-USER-ID", data.identity.id)
-        core.response.set_header("X-USER-ID", data.identity.id)
-        core.request.set_header(ctx, "X-USER-EMAIL", data.identity.traits.email)
-        core.response.set_header("X-USER-EMAIL", data.identity.traits.email)
+        core.request.set_header(ctx, "X-User-Id", data.identity.id)
+        core.response.set_header("X-User-Id", data.identity.id)
+        core.request.set_header(ctx, "X-User-Email", data.identity.traits.email)
     end
 end
 

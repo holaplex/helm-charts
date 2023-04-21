@@ -49,16 +49,13 @@ local schema = {
             minimum = 1,
             default = 5
         },
-        org_cookie_name = {
-            type = "string"
-        },
     },
     required = {"host"}
 }
 
 local _M = {
     version = 0.1,
-    priority = 2,
+    priority = 3,
     name = "credits",
     schema = schema
 }
@@ -68,16 +65,14 @@ function _M.check_schema(conf)
 end
 
 function _M.access(conf, ctx)
-    local org_cookie_name = conf.org_cookie_name or "_hub_org"
-    local cookie_header = "cookie_" .. org_cookie_name
-    local cookie_value = ngx.var[cookie_header]
-    
 
     -- return early if operation is query
     local operation = ctx.var.graphql_operation
     if not operation or operation == "query" then
         return
     end
+
+    local org_id = core.request.header(ctx, "X-ORGANIZATION-ID")
 
     local params = {
         method = "GET",
@@ -90,7 +85,8 @@ function _M.access(conf, ctx)
         params.keepalive_pool = conf.keepalive_pool
     end
 
-    local endpoint = conf.host .. "/internal/organizations/" .. cookie_value
+    local endpoint = conf.host .. "/internal/organizations/" .. org_id 
+
     local httpc = http.new()
     httpc:set_timeout(conf.timeout)
     local res, err = httpc:request_uri(endpoint, params)
@@ -109,9 +105,10 @@ function _M.access(conf, ctx)
         return 500, json.encode({ message = err })
     end
 
-    if conf.expose_user_id then
-        core.request.set_header(ctx, "X-CREDIT-BALANCE", data.balance)
-        core.response.set_header(ctx, "X-CREDIT-BALANCE", data.balance)
+    -- respond the credit balance to the user too
+    if conf.expose_credit_balance then
+        core.request.set_header(ctx, "X-Credit-Balance", data.balance)
+        core.response.set_header(ctx, "X-Credit-Balance", data.balance)
     end
 end
 

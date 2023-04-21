@@ -2,7 +2,6 @@ hubNamespace: default
 domain: 127.0.0.1.nip.io
 port: 9080
 sessionCookieName: "hub_session"
-orgCookieName: "_hub_org"
 loginUri: "http://hub.127.0.0.1.nip.io:9080/login"
 
 routes:
@@ -20,6 +19,8 @@ routes:
   authz:
     enabled: true
     policy: 'hub/graphql/main'
+  orgLookup:
+    enabled: true
   credits:
     enabled: true
   regexUri:
@@ -40,6 +41,8 @@ routes:
   authz:
     enabled: true
     policy: 'hub/graphql/main'
+  orgLookup:
+    enabled: true
   credits:
     enabled: true
   regexUri:
@@ -62,6 +65,8 @@ routes:
   authz:
     enabled: true
     policy: 'hub/graphql/main'
+  orgLookup:
+    enabled: true
   credits:
     enabled: true
   regexUri:
@@ -183,6 +188,14 @@ apisixPlugins:
     servicePort: 80
     files:
       - plugins/credits.lua
+  orgLookup:
+    query: 
+      cookieName: "_hub_org"
+      headerName: "X-Client-Owner-Id"
+    output:
+      headerName: "X-Organization-Id"
+    files:
+      - plugins/org-lookup.lua
 
 apisix:
   enabled: true
@@ -243,6 +256,7 @@ apisix:
   plugins:
     - mocking
     - cors
+    - request-id
     - redirect
     - serverless-pre-function
     - serverless-post-function
@@ -290,6 +304,12 @@ apisix:
           mounts:
             - key: "credits.lua"
               path: "/opts/custom_plugins/apisix/plugins/credits.lua"
+      - name: "org-lookup"
+        configMap:
+          name: "org-lookup-plugin"
+          mounts:
+            - key: "org-lookup.lua"
+              path: "/opts/custom_plugins/apisix/plugins/org-lookup.lua"
 
   logs:
     enableAccessLog: true

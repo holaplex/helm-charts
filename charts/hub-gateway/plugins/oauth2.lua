@@ -63,7 +63,7 @@ local schema = {
 
 local _M = {
     version = 0.1,
-    priority = 4,
+    priority = 5,
     name = "oauth2",
     schema = schema
 }
@@ -123,8 +123,8 @@ function _M.access(conf, ctx)
     end
 
     if conf.expose_client_id then
-        core.request.set_header(ctx, "X-CLIENT-ID", data.client_id)
-        core.response.set_header("X-CLIENT-ID", data.client_id)
+        core.request.set_header(ctx, "X-Client-Id", data.client_id)
+        core.response.set_header("X-Client-Id", data.client_id)
     end
    
     -- Lookup full hydra client data
@@ -156,11 +156,11 @@ function _M.access(conf, ctx)
         if not data.owner then
           core.log.error("unable to get owner from response:", json.encode(data))
         end
-        core.request.set_header(ctx, "X-CLIENT-OWNER-ID", data.owner)
+        core.request.set_header(ctx, "X-Client-Owner-Id", data.owner)
 
         -- Get kratos user id from hydra client contacts and expose on x-user-id header
-        core.request.set_header(ctx, "X-USER-ID", data.contacts[1])
-        core.response.set_header("X-USER-ID", data.contacts[1])
+        core.request.set_header(ctx, "X-User-Id", data.contacts[1])
+        core.response.set_header("X-User-Id", data.contacts[1])
     end
 end
 

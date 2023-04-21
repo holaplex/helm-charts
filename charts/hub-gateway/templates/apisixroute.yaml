@@ -28,6 +28,9 @@ spec:
       methods:
       {{- .methods | toYaml | nindent 8 }}
     plugins:
+    - name: request-id
+      config:
+        include_in_response: true
     {{- with .session }}
     {{- if .enabled | default false }}
     - name: session
@@ -70,13 +73,22 @@ spec:
         with_consumer: false
     {{- end }}
     {{- end }}
+    {{- with .orgLookup }}
+    {{- if .enabled }}
+    - name: org-lookup
+      enable: true
+      config:
+        from_cookie_name: {{ $apisixPlugins.orgLookup.query.cookieName }}
+        from_header_name: {{ $apisixPlugins.orgLookup.query.headerName }}
+        to_header_name: {{ $apisixPlugins.orgLookup.output.headerName }}
+    {{- end }}
+    {{- end }}
     {{- with .credits }}
     {{- if .enabled }}
     - name: credits
       enable: true
       config:
-        host: {{ print "http://" $apisixPlugins.session.serviceName  "." $namespace ".svc:" $apisixPlugins.session.servicePort | quote }}
-        org_cookie_name: {{ $orgCookie }}
+        host: {{ print "http://" $apisixPlugins.credits.serviceName  "." $namespace ".svc:" $apisixPlugins.session.servicePort | quote }}
     {{- end }}
     {{- end }}
     {{- if .regexUri }}
