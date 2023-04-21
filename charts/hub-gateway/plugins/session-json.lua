@@ -15,8 +15,6 @@
 -- limitations under the License.
 --
 local core = require("apisix.core")
-local http = require("resty.http")
-local json = require("apisix.core.json")
 
 local schema = {
     type = "object",
@@ -34,9 +32,8 @@ function _M.check_schema(conf)
     return core.schema.check(schema, conf)
 end
 
-function _M.access(conf, ctx)
+function _M.access(ctx)
     local user_id = core.request.header(ctx, "X-USER-ID")
-    local uri = ctx.var.uri
 
     if not user_id then
         core.response.set_header("Content-Type", "application/json")

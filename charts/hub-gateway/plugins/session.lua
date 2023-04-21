@@ -81,7 +81,7 @@ function _M.access(conf, ctx)
     local session_token = cookie_value
 
     if not session_token then
-        return 
+        return
     end
 
     local kratos_cookie = session_cookie_name .. "=" .. session_token
@@ -114,8 +114,8 @@ function _M.access(conf, ctx)
     end
 
     -- parse the user data
-    local data, err = json.decode(res.body)
-    if not data then
+    local data, err_json = json.decode(res.body)
+    if err_json then
         return 401, json.encode({
               message = err
             })

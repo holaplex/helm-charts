@@ -72,7 +72,17 @@ function _M.access(conf, ctx)
         return
     end
 
-    local org_id = core.request.header(ctx, "X-ORGANIZATION-ID")
+    -- Check if query is createOrganization
+    local input = json.decode(core.request.get_body())
+    local graphql_query = input['query']
+
+    -- Check if graphql_query contains createOrganization query
+    if graphql_query:match("createOrganization") then
+        core.log.error("Creating Organization. Unable to continue.")
+        return
+    end
+
+    local org_id = core.request.header(ctx, "X-Organization-Id")
 
     local params = {
         method = "GET",
@@ -85,7 +95,7 @@ function _M.access(conf, ctx)
         params.keepalive_pool = conf.keepalive_pool
     end
 
-    local endpoint = conf.host .. "/internal/organizations/" .. org_id 
+    local endpoint = conf.host .. "/internal/organizations/" .. org_id
 
     local httpc = http.new()
     httpc:set_timeout(conf.timeout)
@@ -96,9 +106,10 @@ function _M.access(conf, ctx)
         return 500, json.encode({ message = err })
     end
 
-    local data, err = json.decode(res.body)
-    if not data then
-        return 500, json.encode({ message = err })
+    local data, err_json = json.decode(res.body)
+
+    if err_json then
+      return 500, json.encode({ message = err })
     end
 
     if not data.balance then

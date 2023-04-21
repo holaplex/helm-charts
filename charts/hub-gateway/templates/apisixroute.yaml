@@ -29,6 +29,7 @@ spec:
       {{- .methods | toYaml | nindent 8 }}
     plugins:
     - name: request-id
+      enable: true
       config:
         include_in_response: true
     {{- with .session }}

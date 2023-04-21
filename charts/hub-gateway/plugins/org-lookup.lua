@@ -15,8 +15,6 @@
 -- limitations under the License.
 --
 local core = require("apisix.core")
-local http = require("resty.http")
-local json = require("apisix.core.json")
 
 local schema = {
     type = "object",
@@ -27,11 +25,11 @@ local schema = {
         },
         query_header_name = {
             type = "string",
-            default = "X-CLIENT-OWNER-ID"
+            default = "X-Client-Owner-Id"
         },
         output_header_name = {
             type = "string",
-            default = "X-ORGANIZATION-ID"
+            default = "X-Organization-Id"
         },
     },
 }
@@ -55,9 +53,14 @@ function _M.access(conf, ctx)
     local cookie_value = ngx.var[cookie_header]
     local client_owner = core.request.header(ctx, conf.query_header_name)
 
-    local org_id = cookie_value or client_owner_header
-    
-    -- Move value to header in conf.to_header_name
+    local org_id = cookie_value or client_owner
+
+    -- Return if no org id is found
+    if not org_id then
+      return
+    end
+
+    -- Move value to header in conf.output_header_name
     core.request.set_header(ctx, conf.output_header_name, org_id)
 end
 
