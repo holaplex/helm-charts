@@ -69,6 +69,15 @@ spec:
         with_consumer: false
     {{- end }}
     {{- end }}
+    {{- with .credits }}
+    {{- if .enabled }}
+    - name: credits
+      enable: true
+      config:
+        host: {{ print "http://" $apisixPlugins.session.serviceName  "." $namespace ".svc:" $apisixPlugins.session.servicePort | quote }}
+        org_cookie_name: {{ $sessionCookie }}
+    {{- end }}
+    {{- end }}
     {{- if .regexUri }}
     - name: proxy-rewrite
       enable: true
