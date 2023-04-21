@@ -49,11 +49,7 @@ local schema = {
             minimum = 1,
             default = 5
         },
-        expose_user_id = {
-            type = "boolean",
-            default = false
-        },
-        session_cookie_name = {
+        org_cookie_name = {
             type = "string"
         },
     },
@@ -62,8 +58,8 @@ local schema = {
 
 local _M = {
     version = 0.1,
-    priority = 3,
-    name = "session",
+    priority = 2,
+    name = "credits",
     schema = schema
 }
 
@@ -72,25 +68,19 @@ function _M.check_schema(conf)
 end
 
 function _M.access(conf, ctx)
-    local session_cookie_name = string.lower(conf.session_cookie_name or "ory_kratos_session")
-
-    local cookie_header = string.lower("cookie_" .. session_cookie_name)
+    local org_cookie_name = conf.org_cookie_name or "_hub_org"
+    local cookie_header = "cookie_" .. org_cookie_name
     local cookie_value = ngx.var[cookie_header]
+    
 
-    -- Try to get session token from $session_cookie_name cookie
-    local session_token = cookie_value
-
-    if not session_token then
-        return 
+    -- return early if operation is query
+    local operation = ctx.var.graphql_operation
+    if not operation or operation == "query" then
+        return
     end
 
-    local kratos_cookie = session_cookie_name .. "=" .. session_token
-
     local params = {
-        method = "POST",
-        headers = {
-            ["Cookie"] = kratos_cookie
-        },
+        method = "GET",
         keepalive = conf.keepalive,
         ssl_verify = conf.ssl_verify
     }
@@ -100,41 +90,28 @@ function _M.access(conf, ctx)
         params.keepalive_pool = conf.keepalive_pool
     end
 
-    local endpoint = conf.host .. "/sessions/whoami"
-
+    local endpoint = conf.host .. "/internal/organizations/" .. cookie_value
     local httpc = http.new()
     httpc:set_timeout(conf.timeout)
     local res, err = httpc:request_uri(endpoint, params)
 
-    -- block by default when user is not found
+    -- return internal server error if unable to contact credits service
     if not res then
-        return 401, json.encode({
-              message = err
-            })
+        return 500, json.encode({ message = err })
     end
 
-    -- parse the user data
     local data, err = json.decode(res.body)
     if not data then
-        return 401, json.encode({
-              message = err
-            })
-
+        return 500, json.encode({ message = err })
     end
 
-    -- block if user id is not found
-    if not data.id then
-        return 401, json.encode({
-              message = err
-            })
+    if not data.balance then
+        return 500, json.encode({ message = err })
     end
 
-    -- Expose user email and id on headers
     if conf.expose_user_id then
-        core.request.set_header(ctx, "X-USER-ID", data.identity.id)
-        core.response.set_header("X-USER-ID", data.identity.id)
-        core.request.set_header(ctx, "X-USER-EMAIL", data.identity.traits.email)
-        core.response.set_header("X-USER-EMAIL", data.identity.traits.email)
+        core.request.set_header(ctx, "X-CREDIT-BALANCE", data.balance)
+        core.response.set_header(ctx, "X-CREDIT-BALANCE", data.balance)
     end
 end
 

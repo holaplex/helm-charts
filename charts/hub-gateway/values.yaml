@@ -19,6 +19,8 @@ routes:
   authz:
     enabled: true
     policy: 'hub/graphql/main'
+  credits:
+    enabled: true
   regexUri:
     - "/graphql"
     - "/"
@@ -37,6 +39,8 @@ routes:
   authz:
     enabled: true
     policy: 'hub/graphql/main'
+  credits:
+    enabled: true
   regexUri:
     - "/graphql"
     - "/"
@@ -57,6 +61,8 @@ routes:
   authz:
     enabled: true
     policy: 'hub/graphql/main'
+  credits:
+    enabled: true
   regexUri:
     - "/graphql"
     - "/"
@@ -171,6 +177,12 @@ apisixPlugins:
     files:
       - plugins/authz.lua
       - plugins/authz-helper.lua
+  credits:
+    serviceName: hub-credits
+    servicePort: 80
+    files:
+      - plugins/credits.lua
+
 apisix:
   enabled: true
   fullnameOverride: apisix
@@ -271,6 +283,12 @@ apisix:
               path: "/opts/custom_plugins/apisix/plugins/authz.lua"
             - key: "authz-helper.lua"
               path: "/opts/custom_plugins/apisix/plugins/authz/helper.lua"
+      - name: "credits"
+        configMap:
+          name: "credits-plugin"
+          mounts:
+            - key: "credits.lua"
+              path: "/opts/custom_plugins/apisix/plugins/credits.lua"
 
   logs:
     enableAccessLog: true

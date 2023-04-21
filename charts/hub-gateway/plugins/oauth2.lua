@@ -63,7 +63,7 @@ local schema = {
 
 local _M = {
     version = 0.1,
-    priority = 3,
+    priority = 4,
     name = "oauth2",
     schema = schema
 }
