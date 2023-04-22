@@ -87,7 +87,7 @@ spec:
     - name: credits
       enable: true
       config:
-        host: {{ print "http://" $apisixPlugins.credits.serviceName  "." $namespace ".svc:" $apisixPlugins.session.servicePort | quote }}
+        host: {{ print "http://" $apisixPlugins.credits.serviceName  "." $namespace ".svc:" $apisixPlugins.credits.servicePort | quote }}
     {{- end }}
     {{- end }}
     {{- if .regexUri }}
