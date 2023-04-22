@@ -33,7 +33,7 @@ function _M.check_schema(conf)
 end
 
 function _M.access(ctx)
-    local user_id = core.request.header(ctx, "X-USER-ID")
+    local user_id = core.request.header(ctx, "X-User-Id")
 
     if not user_id then
         core.response.set_header("Content-Type", "application/json")

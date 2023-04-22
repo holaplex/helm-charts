@@ -30,8 +30,6 @@ spec:
     plugins:
     - name: request-id
       enable: true
-      config:
-        include_in_response: true
     {{- with .session }}
     {{- if .enabled | default false }}
     - name: session

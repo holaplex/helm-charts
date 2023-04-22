@@ -77,7 +77,7 @@ function _M.access(conf, ctx)
 
     -- Check if query is createOrganization
     if graphql_query:match("createOrganization") then
-        core.log.error("Creating Organization. Unable to continue.")
+        core.log.info("Skipping credits plugin - Creating Organization")
         return
     end
 

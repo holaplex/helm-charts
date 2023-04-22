@@ -101,7 +101,7 @@ function _M.build_opa_input(conf, ctx, subsystem)
     local data = {
         type    = subsystem,
         request = build_http_request(ctx),
-        var     = build_var(conf, ctx),
+        var     = build_var(ctx),
         graphql = build_graphql_data(ctx),
         keto_endpoint = conf.keto_endpoint
     }

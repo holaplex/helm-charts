@@ -43,7 +43,7 @@ end
 
 function _M.access(conf, ctx)
     local redirect_to = conf.redirect_to
-    local user_id = core.request.header(ctx, "X-USER-ID")
+    local user_id = core.request.header(ctx, "X-User-Id")
     local uri = ctx.var.uri
     local redirect_uri = conf.login_uri
 
