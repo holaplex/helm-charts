@@ -101,7 +101,7 @@ function _M.access(conf, ctx)
     local res, err = httpc:request_uri(endpoint, params)
 
     -- return internal server error if unable to contact credits service
-    if not res then
+    if err then
         return 500, json.encode({ message = err })
     end
 
