@@ -1,8 +1,8 @@
 hubNamespace: default
 domain: 127.0.0.1.nip.io
 port: 9080
-sessionCookieName: "hub_session"
-loginUri: "http://hub.127.0.0.1.nip.io:9080/login"
+sessionCookieName: 'hub_session'
+loginUri: 'http://hub.127.0.0.1.nip.io:9080/login'
 
 routes:
 - name: api
@@ -73,19 +73,19 @@ routes:
     - "/graphql"
     - "/"
 
-- name: hub-browser-api
-  serviceName: hub-orgs
-  servicePort: 80
-  subdomain: hub
-  paths:
-    - /browser/login
-    - /browser/organizations/*
-  methods:
-    - POST
-  session:
-    enabled: true
-  sessionRedirect:
-    enabled: true
+  - name: hub-browser-api
+    serviceName: hub-orgs
+    servicePort: 80
+    subdomain: hub
+    paths:
+      - /browser/login
+      - /browser/organizations/*
+    methods:
+      - POST
+    session:
+      enabled: true
+    sessionRedirect:
+      enabled: true
 
 - name: ui-private
   subdomain: hub
@@ -114,53 +114,53 @@ routes:
     - /credits
     - /credits/*
 
-- name: ui-private-invite
-  subdomain: hub
-  serviceName: hub-ui
-  servicePort: 80
-  session:
-    enabled: true
-  sessionRedirect:
-    enabled: true
-    redirectTo: true
-  methods:
-    - GET
-  paths:
-    - /invites/*
+  - name: ui-private-invite
+    subdomain: hub
+    serviceName: hub-ui
+    servicePort: 80
+    session:
+      enabled: true
+    sessionRedirect:
+      enabled: true
+      redirectTo: true
+    methods:
+      - GET
+    paths:
+      - /invites/*
 
-- name: ui-public
-  subdomain: hub
-  serviceName: hub-ui
-  servicePort: 80
-  websocket: true
-  methods:
-    - GET
-    - POST
-  paths:
-    - /
-    - /registration
-    - /verification
-    - /login
-    - /recovery
-    - /holaplex.svg
-    - /holaplex-small.svg
-    - /_next/static/*
-    - /_next/webpack-hmr
-    - /__nextjs_original-stack-frame
-    - /api/.ory/*
-    - /api/uploads
+  - name: ui-public
+    subdomain: hub
+    serviceName: hub-ui
+    servicePort: 80
+    websocket: true
+    methods:
+      - GET
+      - POST
+    paths:
+      - /
+      - /registration
+      - /verification
+      - /login
+      - /recovery
+      - /holaplex.svg
+      - /holaplex-small.svg
+      - /_next/static/*
+      - /_next/webpack-hmr
+      - /__nextjs_original-stack-frame
+      - /api/.ory/*
+      - /api/uploads
 
-- name: hub-auth-api
-  serviceName: hydra-public
-  servicePort: 4444
-  subdomain: api
-  paths:
-    - /auth
-  methods:
-    - POST
-  regexUri:
-    - "/auth"
-    - "/oauth2/token"
+  - name: hub-auth-api
+    serviceName: hydra-public
+    servicePort: 4444
+    subdomain: api
+    paths:
+      - /auth
+    methods:
+      - POST
+    regexUri:
+      - '/auth'
+      - '/oauth2/token'
 
 apisixPlugins:
   session:
@@ -208,7 +208,7 @@ apisix:
       repository: apache/apisix
       pullPolicy: IfNotPresent
       tag: 3.1.0-debian
-    timezone: "UTC"
+    timezone: 'UTC'
     enableIpv6: false
     httpRouter: radixtree_uri
 
@@ -268,33 +268,33 @@ apisix:
   customPlugins:
     enabled: true
     plugins:
-      - name: "session"
+      - name: 'session'
         configMap:
-          name: "session-plugin"
+          name: 'session-plugin'
           mounts:
-            - key: "session.lua"
-              path: "/opts/custom_plugins/apisix/plugins/session.lua"
-      - name: "oauth2"
+            - key: 'session.lua'
+              path: '/opts/custom_plugins/apisix/plugins/session.lua'
+      - name: 'oauth2'
         configMap:
-          name: "oauth2-plugin"
+          name: 'oauth2-plugin'
           mounts:
-            - key: "oauth2.lua"
-              path: "/opts/custom_plugins/apisix/plugins/oauth2.lua"
-      - name: "session-redirect"
+            - key: 'oauth2.lua'
+              path: '/opts/custom_plugins/apisix/plugins/oauth2.lua'
+      - name: 'session-redirect'
         configMap:
-          name: "session-redirect-plugin"
+          name: 'session-redirect-plugin'
           mounts:
-            - key: "session-redirect.lua"
-              path: "/opts/custom_plugins/apisix/plugins/session-redirect.lua"
-      - name: "session-json"
+            - key: 'session-redirect.lua'
+              path: '/opts/custom_plugins/apisix/plugins/session-redirect.lua'
+      - name: 'session-json'
         configMap:
-          name: "session-json-plugin"
+          name: 'session-json-plugin'
           mounts:
-            - key: "session-json.lua"
-              path: "/opts/custom_plugins/apisix/plugins/session-json.lua"
-      - name: "authz"
+            - key: 'session-json.lua'
+              path: '/opts/custom_plugins/apisix/plugins/session-json.lua'
+      - name: 'authz'
         configMap:
-          name: "authz-plugin"
+          name: 'authz-plugin'
           mounts:
             - key: "authz.lua"
               path: "/opts/custom_plugins/apisix/plugins/authz.lua"
@@ -315,12 +315,12 @@ apisix:
 
   logs:
     enableAccessLog: true
-    accessLog: "/dev/stdout"
+    accessLog: '/dev/stdout'
     access_log_format: |-
-            {"@timestamp": "$time_iso8601", "client_ip": "$remote_addr", "status": "$status", "referer": "$http_referer" "upstream": "$upstream_scheme://$upstream_host$upstream_uri", "upstream_response_time": "$upstream_response_time"}
+      {"@timestamp": "$time_iso8601", "client_ip": "$remote_addr", "status": "$status", "referer": "$http_referer" "upstream": "$upstream_scheme://$upstream_host$upstream_uri", "upstream_response_time": "$upstream_response_time"}
     accessLogFormatEscape: json
-    errorLog: "/dev/stderr"
-    errorLogLevel: "warn"
+    errorLog: '/dev/stderr'
+    errorLogLevel: 'warn'
 
   etcd:
     enabled: true
@@ -330,10 +330,10 @@ apisix:
       pullPolicy: IfNotPresent
       tag: 3.5.7-debian-11-r3
     persistence:
-      storageClass: "hostpath"
+      storageClass: 'hostpath'
       size: 1Gi
     replicaCount: 1
     host:
       - http://apisix-etcd:2379
-    prefix: "/apisix"
+    prefix: '/apisix'
     timeout: 30
