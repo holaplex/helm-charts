@@ -5,73 +5,73 @@ sessionCookieName: 'hub_session'
 loginUri: 'http://hub.127.0.0.1.nip.io:9080/login'
 
 routes:
-- name: api
-  serviceName: federated-router
-  servicePort: 80
-  subdomain: api
-  paths:
-    - /graphql
-  methods:
-    - POST
-    - OPTIONS
-  oauth2:
-    enabled: true
-  authz:
-    enabled: true
-    policy: 'hub/graphql/main'
-  orgLookup:
-    enabled: true
-  credits:
-    enabled: false
-  regexUri:
-    - "/graphql"
-    - "/"
+  - name: api
+    serviceName: federated-router
+    servicePort: 80
+    subdomain: api
+    paths:
+      - /graphql
+    methods:
+      - POST
+      - OPTIONS
+    oauth2:
+      enabled: true
+    authz:
+      enabled: true
+      policy: 'hub/graphql/main'
+    orgLookup:
+      enabled: true
+    credits:
+      enabled: false
+    regexUri:
+      - "/graphql"
+      - "/"
 
-- name: api-internal
-  serviceName: federated-router
-  servicePort: 80
-  host: apisix-gateway-internal.ingress-apisix.svc.cluster.local
-  paths:
-    - /graphql
-  methods:
-    - POST
-    - OPTIONS
-  session:
-    enabled: true
-  authz:
-    enabled: true
-    policy: 'hub/graphql/main'
-  orgLookup:
-    enabled: true
-  credits:
-    enabled: false
-  regexUri:
-    - "/graphql"
-    - "/"
+  - name: api-internal
+    serviceName: federated-router
+    servicePort: 80
+    host: apisix-gateway-internal.ingress-apisix.svc.cluster.local
+    paths:
+      - /graphql
+    methods:
+      - POST
+      - OPTIONS
+    session:
+      enabled: true
+    authz:
+      enabled: true
+      policy: 'hub/graphql/main'
+    orgLookup:
+      enabled: true
+    credits:
+      enabled: false
+    regexUri:
+      - "/graphql"
+      - "/"
 
-- name: hub-browser-graphql
-  serviceName: federated-router
-  servicePort: 80
-  subdomain: hub
-  paths:
-    - /graphql
-  methods:
-    - POST
-    - OPTIONS
-  session:
-    enabled: true
-  sessionJson:
-    enabled: true
-  authz:
-    enabled: true
-    policy: 'hub/graphql/main'
-  orgLookup:
-    enabled: true
-  credits:
-    enabled: false
-  regexUri:
-    - "/graphql"
-    - "/"
+  - name: hub-browser-graphql
+    serviceName: federated-router
+    servicePort: 80
+    subdomain: hub
+    paths:
+      - /graphql
+    methods:
+      - POST
+      - OPTIONS
+    session:
+      enabled: true
+    sessionJson:
+      enabled: true
+    authz:
+      enabled: true
+      policy: 'hub/graphql/main'
+    orgLookup:
+      enabled: true
+    credits:
+      enabled: false
+    regexUri:
+      - "/graphql"
+      - "/"
 
   - name: hub-browser-api
     serviceName: hub-orgs
@@ -87,32 +87,32 @@ routes:
     sessionRedirect:
       enabled: true
 
-- name: ui-private
-  subdomain: hub
-  serviceName: hub-ui
-  servicePort: 80
-  session:
-    enabled: true
-  sessionRedirect:
-    enabled: true
-  methods:
-    - GET
-  paths:
-    - /settings
-    - /webhooks
-    - /webhooks/*
-    - /members
-    - /members/*
-    - /organizations
-    - /organizations/*
-    - /projects
-    - /projects/*
-    - /treasuries
-    - /treasuries/*
-    - /credentials
-    - /credentials/*
-    - /credits
-    - /credits/*
+  - name: ui-private
+    subdomain: hub
+    serviceName: hub-ui
+    servicePort: 80
+    session:
+      enabled: true
+    sessionRedirect:
+      enabled: true
+    methods:
+      - GET
+    paths:
+      - /settings
+      - /webhooks
+      - /webhooks/*
+      - /members
+      - /members/*
+      - /organizations
+      - /organizations/*
+      - /projects
+      - /projects/*
+      - /treasuries
+      - /treasuries/*
+      - /credentials
+      - /credentials/*
+      - /credits
+      - /credits/*
 
   - name: ui-private-invite
     subdomain: hub
