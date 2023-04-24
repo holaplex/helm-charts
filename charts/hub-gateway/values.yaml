@@ -111,6 +111,8 @@ routes:
     - /treasuries/*
     - /credentials
     - /credentials/*
+    - /credits
+    - /credits/*
 
 - name: ui-private-invite
   subdomain: hub
