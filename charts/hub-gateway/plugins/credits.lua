@@ -49,21 +49,14 @@ local schema = {
             minimum = 1,
             default = 5
         },
-        expose_user_id = {
-            type = "boolean",
-            default = false
-        },
-        session_cookie_name = {
-            type = "string"
-        },
     },
     required = {"host"}
 }
 
 local _M = {
     version = 0.1,
-    priority = 5,
-    name = "session",
+    priority = 3,
+    name = "credits",
     schema = schema
 }
 
@@ -72,25 +65,26 @@ function _M.check_schema(conf)
 end
 
 function _M.access(conf, ctx)
-    local session_cookie_name = string.lower(conf.session_cookie_name or "ory_kratos_session")
 
-    local cookie_header = string.lower("cookie_" .. session_cookie_name)
-    local cookie_value = ngx.var[cookie_header]
-
-    -- Try to get session token from $session_cookie_name cookie
-    local session_token = cookie_value
-
-    if not session_token then
+    -- return early if operation is query
+    local operation = ctx.var.graphql_operation
+    if not operation or operation == "query" then
         return
     end
 
-    local kratos_cookie = session_cookie_name .. "=" .. session_token
+    local input = json.decode(core.request.get_body())
+    local graphql_query = input['query']
+
+    -- Check if query is createOrganization
+    if graphql_query:match("createOrganization") then
+        core.log.info("Skipping credits plugin - Creating Organization")
+        return
+    end
+
+    local org_id = core.request.header(ctx, "X-Organization-Id")
 
     local params = {
-        method = "POST",
-        headers = {
-            ["Cookie"] = kratos_cookie
-        },
+        method = "GET",
         keepalive = conf.keepalive,
         ssl_verify = conf.ssl_verify
     }
@@ -100,40 +94,31 @@ function _M.access(conf, ctx)
         params.keepalive_pool = conf.keepalive_pool
     end
 
-    local endpoint = conf.host .. "/sessions/whoami"
+    local endpoint = conf.host .. "/internal/organizations/" .. org_id
 
     local httpc = http.new()
     httpc:set_timeout(conf.timeout)
     local res, err = httpc:request_uri(endpoint, params)
 
-    -- block by default when user is not found
-    if not res then
-        return 401, json.encode({
-              message = err
-            })
+    -- return internal server error if unable to contact credits service
+    if err then
+        return 500, json.encode({ message = err })
     end
 
-    -- parse the user data
     local data, err_json = json.decode(res.body)
+
     if err_json then
-        return 401, json.encode({
-              message = err
-            })
-
+      return 500, json.encode({ message = err })
     end
 
-    -- block if user id is not found
-    if not data.id then
-        return 401, json.encode({
-              message = err
-            })
+    if not data.balance then
+        return 500, json.encode({ message = err })
     end
 
-    -- Expose user email and id on headers
-    if conf.expose_user_id then
-        core.request.set_header(ctx, "X-User-Id", data.identity.id)
-        core.response.set_header("X-User-Id", data.identity.id)
-        core.request.set_header(ctx, "X-User-Email", data.identity.traits.email)
+    -- respond the credit balance to the user too
+    if conf.expose_credit_balance then
+        core.request.set_header(ctx, "X-Credit-Balance", data.balance)
+        core.response.set_header(ctx, "X-Credit-Balance", data.balance)
     end
 end
 

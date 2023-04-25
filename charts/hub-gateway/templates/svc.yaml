@@ -12,5 +12,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app.kubernetes.io/instance: hub-gateway
-    app.kubernetes.io/name: apisix
+    {{- include "hub-gateway.selectorLabels" $ | nindent 4 }}

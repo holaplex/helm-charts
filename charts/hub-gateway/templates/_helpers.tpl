@@ -46,7 +46,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Selector labels
 */}}
 {{- define "hub-gateway.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "hub-gateway.name" . }}
+app.kubernetes.io/name: apisix
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 

@@ -63,7 +63,7 @@ local schema = {
 
 local _M = {
     version = 0.1,
-    priority = 3,
+    priority = 6,
     name = "oauth2",
     schema = schema
 }
@@ -103,15 +103,16 @@ function _M.access(conf, ctx)
     local res, err = httpc:request_uri(endpoint, params)
 
     -- block by default when introspection failed
-    if not res then
+    if err then
         return 401, json.encode({
               message = err
             })
     end
 
     -- parse the introspection data
-    local data, err = json.decode(res.body)
-    if not data then
+    local data, err_json = json.decode(res.body)
+
+    if err_json then
         return 401, err
     end
 
@@ -123,10 +124,10 @@ function _M.access(conf, ctx)
     end
 
     if conf.expose_client_id then
-        core.request.set_header(ctx, "X-CLIENT-ID", data.client_id)
-        core.response.set_header("X-CLIENT-ID", data.client_id)
+        core.request.set_header(ctx, "X-Client-Id", data.client_id)
+        core.response.set_header("X-Client-Id", data.client_id)
     end
-   
+
     -- Lookup full hydra client data
     local params = {
         method = "GET",
@@ -146,21 +147,26 @@ function _M.access(conf, ctx)
 
     local res, err = httpc:request_uri(endpoint, params)
 
+    -- block by default when unable to get client data
+    if err then
+        return 401, json.encode({message = err})
+    end
+
     local data, err = json.decode(res.body)
-    if not data then
+    if err then
         return 401, err
-    end 
+    end
 
     -- Expose hydra client owner id on request header
     if conf.expose_owner then
         if not data.owner then
           core.log.error("unable to get owner from response:", json.encode(data))
         end
-        core.request.set_header(ctx, "X-CLIENT-OWNER-ID", data.owner)
+        core.request.set_header(ctx, "X-Client-Owner-Id", data.owner)
 
         -- Get kratos user id from hydra client contacts and expose on x-user-id header
-        core.request.set_header(ctx, "X-USER-ID", data.contacts[1])
-        core.response.set_header("X-USER-ID", data.contacts[1])
+        core.request.set_header(ctx, "X-User-Id", data.contacts[1])
+        core.response.set_header("X-User-Id", data.contacts[1])
     end
 end
 

@@ -19,21 +19,25 @@ local core = require("apisix.core")
 local schema = {
     type = "object",
     properties = {
-        login_uri = {
-          type = "string"
+        query_cookie_name = {
+            type = "string",
+            default = "_hub_org"
         },
-        redirect_to = {
-          type = "boolean",
-          default = false
-        }
+        query_header_name = {
+            type = "string",
+            default = "X-Client-Owner-Id"
+        },
+        output_header_name = {
+            type = "string",
+            default = "X-Organization-Id"
+        },
     },
-    require = {"login_uri"}
 }
 
 local _M = {
     version = 0.1,
-    priority = 1,
-    name = "session-redirect",
+    priority = 4,
+    name = "org-lookup",
     schema = schema
 }
 
@@ -42,20 +46,22 @@ function _M.check_schema(conf)
 end
 
 function _M.access(conf, ctx)
-    local redirect_to = conf.redirect_to
-    local user_id = core.request.header(ctx, "X-User-Id")
-    local uri = ctx.var.uri
-    local redirect_uri = conf.login_uri
+    local cookie_name = conf.query_cookie_name
+    local cookie_header = "cookie_" .. cookie_name
 
-    if redirect_to then
-      redirect_uri = redirect_uri .. "?return_to=" .. uri
+    -- Get org id from cookie or header
+    local cookie_value = ngx.var[cookie_header]
+    local client_owner = core.request.header(ctx, conf.query_header_name)
+
+    local org_id = cookie_value or client_owner
+
+    -- Return if no org id is found
+    if not org_id then
+      return
     end
 
-    if not user_id then
-        core.response.set_header("Location", redirect_uri)
-
-        return 302, "Unauthorized please login"
-    end
+    -- Move value to header in conf.output_header_name
+    core.request.set_header(ctx, conf.output_header_name, org_id)
 end
 
 return _M
