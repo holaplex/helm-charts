@@ -145,7 +145,7 @@ routes:
       - /holaplex.svg
       - /holaplex-small.svg
       - /_next/static/*
-      - /_next/webpack-hmr
+      - /turbopack-hmr
       - /__nextjs_original-stack-frame
       - /api/.ory/*
       - /api/uploads
