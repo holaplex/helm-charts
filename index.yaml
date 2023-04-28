@@ -64,6 +64,19 @@ entries:
   hub-credits:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-04-28T00:45:08.344404474Z"
+    description: Helm chart for hub-credits
+    digest: db5805890c21ac33e7539551cc9d34b7a777e1304325983fcaebdb92437158b3
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-credits
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-credits-0.1.1/hub-credits-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-04-21T00:07:30.091919746Z"
     description: Helm chart for hub-credits
     digest: b40643d0336062cfe397ea4876e14351b18eec82d55da05f0075400cbc420556
@@ -1258,4 +1271,4 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/svix-0.0.1/svix-0.0.1.tgz
     version: 0.0.1
-generated: "2023-04-25T13:50:46.947511827Z"
+generated: "2023-04-28T00:45:08.344549073Z"
