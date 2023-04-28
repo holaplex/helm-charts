@@ -81,6 +81,7 @@ secrets:
 environment:
   logLevel: "info"
   port: 80
+  giftAmount: "1000"
   kafkaBrokers: "hub-eventbus-cluster-0.hub-eventbus-cluster.default.svc.cluster.local.:9093"
   kafkaSsl: false
   kafkaUsername: ""
