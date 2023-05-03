@@ -1,25 +1,7 @@
-{{- with .Values.creditSheet }}
-{{- if .enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ include "hub-credits.fullname" $ }}-credit-sheet
 data:
   credit-sheet.toml: |-
-    [MintEdition]
-    solana = 5
-    polygon = 10
-
-    [CreateDrop]
-    solana = 5
-    polygon = 15
-
-    [RetryMint]
-    solana = 5
-    polygon = 10
-
-    [TransferAsset]
-    solana = 5
-    polygon = 10
-{{- end }}
-{{- end }}
+    {{- .Values.creditSheet | indent 4 }}
