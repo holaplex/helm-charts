@@ -78,7 +78,7 @@ secrets:
     databaseUrl: ""
     kafkaPassword: ""
 
-creditSheet: |- 
+creditSheet: |-
   [MintEdition]
   solana = 5
   polygon = 10
