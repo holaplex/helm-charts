@@ -149,6 +149,7 @@ routes:
       - /__nextjs_original-stack-frame
       - /api/.ory/*
       - /api/uploads
+      - /favicon.ico
 
   - name: hub-auth-api
     serviceName: hydra-public
