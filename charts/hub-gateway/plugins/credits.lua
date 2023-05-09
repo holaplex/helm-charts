@@ -116,10 +116,8 @@ function _M.access(conf, ctx)
     end
 
     -- respond the credit balance to the user too
-    if conf.expose_credit_balance then
-        core.request.set_header(ctx, "X-Credit-Balance", data.balance)
-        core.response.set_header(ctx, "X-Credit-Balance", data.balance)
-    end
+    core.request.set_header(ctx, "X-Credit-Balance", data.balance)
+    core.response.set_header(ctx, "X-Credit-Balance", data.balance)
 end
 
 return _M
