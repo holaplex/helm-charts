@@ -17,6 +17,7 @@
 local core = require("apisix.core")
 local http = require("resty.http")
 local json = require("apisix.core.json")
+local type   = type
 
 local schema = {
     type = "object",
@@ -106,7 +107,7 @@ function _M.access(conf, ctx)
     end
 
     local data, err_json = json.decode(res.body)
-
+    
     if err_json then
       return 500, json.encode({ message = err })
     end
@@ -114,10 +115,12 @@ function _M.access(conf, ctx)
     if not data.balance then
         return 500, json.encode({ message = err })
     end
+    -- convert the balance value to a string 
+    local balance = tostring(data.balance) 
 
     -- respond the credit balance to the user too
-    core.request.set_header(ctx, "X-Credit-Balance", data.balance)
-    core.response.set_header(ctx, "X-Credit-Balance", data.balance)
+    core.request.set_header(ctx, "X-Credits-Balance", balance)
+    core.response.set_header("X-Credits-Balance", balance)
 end
 
 return _M
