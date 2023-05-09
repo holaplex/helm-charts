@@ -157,6 +157,26 @@ entries:
   hub-gateway:
   - apiVersion: v2
     appVersion: "0.3"
+    created: "2023-05-09T16:30:30.153677892Z"
+    dependencies:
+    - condition: apisix.enabled
+      name: apisix
+      repository: https://charts.apiseven.com
+      version: 1.3.1
+    description: Helm chart for hub-gateway
+    digest: ccba3c3fa54bbafff0f1063647d2eaba3545aa3b346b95633bc025d0dfcd139e
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-gateway
+    sources:
+    - https://github.com/holaplex/helm-charts
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-gateway-0.14.0/hub-gateway-0.14.0.tgz
+    version: 0.14.0
+  - apiVersion: v2
+    appVersion: "0.3"
     created: "2023-05-08T12:47:39.929479631Z"
     dependencies:
     - condition: apisix.enabled
@@ -838,6 +858,19 @@ entries:
   hub-nfts:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-05-09T16:30:30.334028607Z"
+    description: Helm chart for hub-nfts
+    digest: bc3fb900a07d12a02b6bc7a6cf541dc1271957c0fd6954069ba79b03796e84df
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-nfts
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-nfts-0.2.0/hub-nfts-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-03-06T14:06:29.909299769Z"
     description: Helm chart for hub-nfts
     digest: 5e65cba5489d7548e1f0ad6d64b05aca8c58b9ceb736acb008e35f7089d6fe16
@@ -1390,4 +1423,4 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/svix-0.0.1/svix-0.0.1.tgz
     version: 0.0.1
-generated: "2023-05-08T12:47:39.929897636Z"
+generated: "2023-05-09T16:30:30.334332902Z"
