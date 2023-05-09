@@ -72,6 +72,8 @@ tolerations: []
 
 affinity: {}
 
+creditSheetName:
+
 secrets:
   enabled: true
   entries:
