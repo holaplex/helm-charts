@@ -22,7 +22,7 @@ routes:
     orgLookup:
       enabled: true
     credits:
-      enabled: false
+      enabled: true
     regexUri:
       - "/graphql"
       - "/"
