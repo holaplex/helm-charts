@@ -117,8 +117,8 @@ function _M.access(conf, ctx)
     local balance = tostring(data.balance)
 
     -- respond the credit balance to the user too
-    core.request.set_header(ctx, "X-Credits-Balance", balance)
-    core.response.set_header("X-Credits-Balance", balance)
+    core.request.set_header(ctx, "X-Credit-Balance", balance)
+    core.response.set_header("X-Credit-Balance", balance)
 end
 
 return _M
