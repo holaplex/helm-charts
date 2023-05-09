@@ -11,4 +11,5 @@ data:
   KAFKA_SSL: {{ required "must set kafka ssl" .kafkaSsl | quote }}
   IPFS_ENDPOINT: {{ required "must set ipfs endpoint" .ipfsEndpoint | quote }}
   NFT_STORAGE_API_ENDPOINT: {{ required "must set nft storage api endpoint" .nftStorageApiEndpoint | quote }}
+  CREDIT_SHEET: /app/credit-sheet.toml
   {{- end }}
