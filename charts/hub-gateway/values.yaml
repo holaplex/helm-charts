@@ -150,6 +150,8 @@ routes:
       - /api/.ory/*
       - /api/uploads
       - /favicon.ico
+      - /terms-of-service
+      - /privacy-policy
 
   - name: hub-auth-api
     serviceName: hydra-public
