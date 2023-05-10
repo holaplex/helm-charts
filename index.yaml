@@ -64,6 +64,19 @@ entries:
   hub-credits:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-05-10T23:09:23.60171094Z"
+    description: Helm chart for hub-credits
+    digest: aab0194f7a3e40b77186a35a5ea5f3cd2161b547c58477ba3f584a1c83bd75d5
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-credits
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-credits-0.3.1/hub-credits-0.3.1.tgz
+    version: 0.3.1
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-05-10T22:00:14.018524371Z"
     description: Helm chart for hub-credits
     digest: 7914e0e2c320cf4c645a16759367a596a98f9b076239654dd7dfb7b910d76aa0
@@ -971,6 +984,19 @@ entries:
   hub-nfts:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-05-10T23:09:23.725732399Z"
+    description: Helm chart for hub-nfts
+    digest: 9e8426f69188726c68d350a615184e288e9fd49063466900782712c89215501d
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-nfts
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-nfts-0.3.1/hub-nfts-0.3.1.tgz
+    version: 0.3.1
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-05-10T22:00:14.177470117Z"
     description: Helm chart for hub-nfts
     digest: cc165b21414da771482bf433001d54437e4a37e93ed51bef197f376a92ac3597
@@ -1573,4 +1599,4 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/svix-0.0.1/svix-0.0.1.tgz
     version: 0.0.1
-generated: "2023-05-10T22:00:14.177653219Z"
+generated: "2023-05-10T23:09:23.725905102Z"
