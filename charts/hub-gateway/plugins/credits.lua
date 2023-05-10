@@ -118,7 +118,7 @@ function _M.access(conf, ctx)
     local pending_balance = tostring(data.pending_balance)
 
     -- respond the credit balance to the user too
-    core.request.set_header(ctx, "X-Credit-Balance", balance)
+    core.request.set_header(ctx, "X-Credit-Balance", current_balance)
     core.response.set_header("X-Credit-Balance", pending_balance)
 end
 
