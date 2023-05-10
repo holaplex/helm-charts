@@ -1,9 +1,0 @@
-dependencies:
-- name: keto
-  repository: https://k8s.ory.sh/helm/charts
-  version: 0.28.0
-- name: opa
-  repository: https://charts.holaplex.com
-  version: 0.1.0
-digest: sha256:b49106d0e2807ed6a67279bca99df858d0f7447f7a977cc39ce9eb899e1a0831
-generated: "2023-04-22T00:33:37.980699-03:00"
