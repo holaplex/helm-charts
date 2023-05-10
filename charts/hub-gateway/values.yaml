@@ -3,6 +3,7 @@ domain: 127.0.0.1.nip.io
 port: 9080
 sessionCookieName: 'hub_session'
 loginUri: 'http://hub.127.0.0.1.nip.io:9080/login'
+enableInternalService:  true
 
 routes:
   - name: api
@@ -210,7 +211,7 @@ apisix:
     image:
       repository: apache/apisix
       pullPolicy: IfNotPresent
-      tag: 3.1.0-debian
+      tag: 3.3.0-debian
     timezone: 'UTC'
     enableIpv6: false
     httpRouter: radixtree_uri
@@ -331,7 +332,7 @@ apisix:
     image:
       repository: bitnami/etcd
       pullPolicy: IfNotPresent
-      tag: 3.5.7-debian-11-r3
+      tag: 3.5.8
     persistence:
       storageClass: 'hostpath'
       size: 1Gi
