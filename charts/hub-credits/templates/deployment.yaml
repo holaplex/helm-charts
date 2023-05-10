@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "hub-credits.labels" . | nindent 4 }}
   annotations:
-    configmap.reloader.stakater.com/reload: "hub-credits-credit-sheet"
+    configmap.reloader.stakater.com/reload: {{ include "hub-credits.fullname" $ }}-credit-sheet
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
