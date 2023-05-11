@@ -113,12 +113,11 @@ function _M.access(conf, ctx)
     if not data.balance then
         return 500, json.encode({ message = err })
     end
-    -- convert the balance value to a string
-    local current_balance = tostring(data.balance)
+
     local pending_balance = tostring(data.pending_balance)
 
-    -- respond the credit balance to the user too
-    core.request.set_header(ctx, "X-Credit-Balance", current_balance)
+    -- respond the pending credit balance back to the user
+    core.request.set_header(ctx, "X-Credit-Balance", pending_balance)
     core.response.set_header("X-Credit-Balance", pending_balance)
 end
 
