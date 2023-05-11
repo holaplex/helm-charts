@@ -984,6 +984,19 @@ entries:
   hub-nfts:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-05-11T11:36:40.102484339Z"
+    description: Helm chart for hub-nfts
+    digest: d6dcdc75de1790b78e04957eaaf8d9a060bf4dcd3eb18d2f0fe90d31e7d40dd2
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-nfts
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-nfts-0.4.0/hub-nfts-0.4.0.tgz
+    version: 0.4.0
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-05-10T23:09:23.725732399Z"
     description: Helm chart for hub-nfts
     digest: 9e8426f69188726c68d350a615184e288e9fd49063466900782712c89215501d
@@ -1113,6 +1126,19 @@ entries:
     - https://github.com/holaplex/helm-charts/releases/download/hub-nfts-0.1.0/hub-nfts-0.1.0.tgz
     version: 0.1.0
   hub-orgs:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-05-11T11:36:40.309157603Z"
+    description: Helm chart for hub-orgs
+    digest: e1ab45815194da6f3f2b82f23a2bef8a6a13ea2022ba2fb22dc3bc14344e3f38
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-orgs
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-orgs-0.5.0/hub-orgs-0.5.0.tgz
+    version: 0.5.0
   - apiVersion: v2
     appVersion: 1.16.0
     created: "2023-03-01T20:38:35.901163242Z"
@@ -1599,4 +1625,4 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/svix-0.0.1/svix-0.0.1.tgz
     version: 0.0.1
-generated: "2023-05-10T23:09:23.725905102Z"
+generated: "2023-05-11T11:36:40.309419004Z"
