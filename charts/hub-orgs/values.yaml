@@ -86,3 +86,4 @@ environment:
   kafkaSsl: false
   ketoReadUrl: http://keto-read
   ketoWriteUrl: http://keto-write
+  assetCdn: http://assets.holaplex.tools
