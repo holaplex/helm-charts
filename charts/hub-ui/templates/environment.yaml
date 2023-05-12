@@ -9,4 +9,6 @@ data:
   GRAPHQL_ENDPOINT: {{ .internalGraphqlEndpoint | quote }}
   IPFS_GATEWAY: {{ .ipfsGateway | quote }}
   STRIPE_PRICE_ID: {{ .stripePriceId | quote }}
+  FQDN: {{ .fqdn | quote }}
+  {{- end }}
   {{- end }}

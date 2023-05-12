@@ -71,6 +71,7 @@ environment:
   internalGraphqlEndpoint: http://apisix-gateway-internal.ingress-apisix.svc.cluster.local/graphql
   ipfsGateway: https://nftstorage.link/ipfs
   stripePriceId: price_1N3jCQJTCxUDawcrxMYNTOPS
+  fqdn: http://hub.127.0.0.1:9080
 
 secrets:
   enabled: true
