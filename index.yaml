@@ -1494,19 +1494,6 @@ entries:
   hub-ui:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2023-05-12T18:08:44.386134852Z"
-    description: Helm chart for hub-ui
-    digest: 7cb2004a63fc13005e11c0cd18b14905e376694b8271af9ba8e56ee8696c7585
-    maintainers:
-    - email: engineering@holaplex.com
-      name: Holaplex Engineering
-    name: hub-ui
-    type: application
-    urls:
-    - https://github.com/holaplex/helm-charts/releases/download/hub-ui-0.3.1/hub-ui-0.3.1.tgz
-    version: 0.3.1
-  - apiVersion: v2
-    appVersion: 0.1.0
     created: "2023-05-12T15:04:18.699556981Z"
     description: Helm chart for hub-ui
     digest: 82458957926f1380a191abb86680db882938b329363681bd5fc88cdf05697f9b
