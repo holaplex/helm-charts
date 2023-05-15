@@ -12,4 +12,5 @@ data:
   KAFKA_USERNAME: {{ required "must set kafka username" .kafkaUsername | quote }}
   FIREBLOCKS_ENDPOINT: {{ required "must set fireblocks api endpoint" .fireblocksEndpoint | quote }}
   FIREBLOCKS_SUPPORTED_ASSET_IDS: {{ .fireblocksSupportedAssetIds | quote }}
+  CREDIT_SHEET: /app/credit-sheet.toml
   {{- end }}
