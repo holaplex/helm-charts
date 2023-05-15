@@ -72,6 +72,8 @@ tolerations: []
 
 affinity: {}
 
+creditSheetName: hub-credits-credit-sheet
+
 secrets:
   enabled: true
   entries:
