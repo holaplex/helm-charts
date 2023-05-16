@@ -77,6 +77,8 @@ secrets:
   entries:
     databaseUrl: ""
     kafkaPassword: ""
+    stripeSecretKey: ""
+    stripeWebhookSecret: ""
 
 creditSheet: |-
   [MintEdition]
