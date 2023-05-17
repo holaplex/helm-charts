@@ -170,14 +170,12 @@ routes:
     serviceName: hub-ui
     servicePort: 80
     subdomain: hub
+    session:
+      enabled: true
     paths:
       - /browser/credits/purchase
     methods:
       - POST
-    session:
-      enabled: true
-    sessionRedirect:
-      enabled: false
 
   - name: ui-public-api
     subdomain: hub
