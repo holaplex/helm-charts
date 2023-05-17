@@ -153,6 +153,8 @@ routes:
       - /favicon.ico
       - /terms-of-service
       - /privacy-policy
+      - /api/.ory/*
+      - /api/uploads
 
   - name: hub-auth-api
     serviceName: hydra-public
@@ -176,16 +178,6 @@ routes:
       - /browser/credits/purchase
     methods:
       - POST
-
-  - name: ui-public-api
-    subdomain: hub
-    serviceName: hub-ui
-    servicePort: 80
-    methods:
-      - POST
-    paths:
-      - /api/.ory/*
-      - /api/uploads
 
   - name: hub-credits-webhooks
     subdomain: hub
