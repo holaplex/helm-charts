@@ -194,7 +194,7 @@ routes:
     methods:
       - POST
     paths:
-      - /webhooks/credits
+      - /webhooks/stripe
 
 apisixPlugins:
   session:
