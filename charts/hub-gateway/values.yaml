@@ -76,7 +76,7 @@ routes:
       - "/graphql"
       - "/"
 
-  - name: hub-browser-api
+  - name: hub-orgs-browser-api
     serviceName: hub-orgs
     servicePort: 80
     subdomain: hub
@@ -88,7 +88,7 @@ routes:
     session:
       enabled: true
     sessionRedirect:
-      enabled: true
+      enabled: false
 
   - name: ui-private
     subdomain: hub
@@ -100,7 +100,6 @@ routes:
       enabled: true
     methods:
       - GET
-      - POST
     paths:
       - /settings
       - /webhooks
@@ -117,7 +116,6 @@ routes:
       - /credentials/*
       - /credits
       - /credits/*
-      - /browser/credits/purchase
 
   - name: ui-private-invite
     subdomain: hub
@@ -152,8 +150,6 @@ routes:
       - /_next/static/*
       - /_next/webpack-hmr
       - /__nextjs_original-stack-frame
-      - /api/.ory/*
-      - /api/uploads
       - /favicon.ico
       - /terms-of-service
       - /privacy-policy
@@ -169,6 +165,38 @@ routes:
     regexUri:
       - '/auth'
       - '/oauth2/token'
+
+  - name: hub-ui-browser-api
+    serviceName: hub-ui
+    servicePort: 80
+    subdomain: hub
+    paths:
+      - /browser/credits/purchase
+    methods:
+      - POST
+    session:
+      enabled: true
+    sessionRedirect:
+      enabled: false
+
+  - name: ui-public-api
+    subdomain: hub
+    serviceName: hub-ui
+    servicePort: 80
+    methods:
+      - POST
+    paths:
+      - /api/.ory/*
+      - /api/uploads
+
+  - name: hub-credits-webhooks
+    subdomain: hub
+    serviceName: hub-credits
+    servicePort: 80
+    methods:
+      - POST
+    paths:
+      - /webhooks/credits
 
 apisixPlugins:
   session:
