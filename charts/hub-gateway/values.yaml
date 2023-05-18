@@ -129,7 +129,10 @@ routes:
       - /registration
       - /verification
       - /login
+      - /profile/edit
       - /recovery
+      - /recovery/code
+      - /recovery/reset
       - /holaplex.svg
       - /holaplex-small.svg
       - /_next/static/*
