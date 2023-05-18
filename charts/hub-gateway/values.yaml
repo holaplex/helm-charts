@@ -87,6 +87,7 @@ routes:
       - GET
     paths:
       - /settings
+      - /profile/edit
       - /webhooks
       - /webhooks/*
       - /members
@@ -129,7 +130,6 @@ routes:
       - /registration
       - /verification
       - /login
-      - /profile/edit
       - /recovery
       - /recovery/code
       - /recovery/reset
