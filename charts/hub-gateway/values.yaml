@@ -27,8 +27,8 @@ routes:
     credits:
       enabled: true
     regexUri:
-      - "/graphql"
-      - "/"
+      - '/graphql'
+      - '/'
 
   - name: api-internal
     serviceName: federated-router
@@ -49,8 +49,8 @@ routes:
     credits:
       enabled: true
     regexUri:
-      - "/graphql"
-      - "/"
+      - '/graphql'
+      - '/'
 
   - name: hub-browser-graphql
     serviceName: federated-router
@@ -73,8 +73,8 @@ routes:
     credits:
       enabled: true
     regexUri:
-      - "/graphql"
-      - "/"
+      - '/graphql'
+      - '/'
 
   - name: hub-orgs-browser-api
     serviceName: hub-orgs
@@ -103,6 +103,7 @@ routes:
     paths:
       - /settings
       - /profile/edit
+      - /profile/password/edit
       - /webhooks
       - /webhooks/*
       - /members
@@ -221,10 +222,10 @@ apisixPlugins:
       - plugins/credits.lua
   orgLookup:
     query:
-      cookieName: "_hub_org"
-      headerName: "X-Client-Owner-Id"
+      cookieName: '_hub_org'
+      headerName: 'X-Client-Owner-Id'
     output:
-      headerName: "X-Organization-Id"
+      headerName: 'X-Organization-Id'
     files:
       - plugins/org-lookup.lua
 
@@ -325,22 +326,22 @@ apisix:
         configMap:
           name: 'authz-plugin'
           mounts:
-            - key: "authz.lua"
-              path: "/opts/custom_plugins/apisix/plugins/authz.lua"
-            - key: "authz-helper.lua"
-              path: "/opts/custom_plugins/apisix/plugins/authz/helper.lua"
-      - name: "credits"
+            - key: 'authz.lua'
+              path: '/opts/custom_plugins/apisix/plugins/authz.lua'
+            - key: 'authz-helper.lua'
+              path: '/opts/custom_plugins/apisix/plugins/authz/helper.lua'
+      - name: 'credits'
         configMap:
-          name: "credits-plugin"
+          name: 'credits-plugin'
           mounts:
-            - key: "credits.lua"
-              path: "/opts/custom_plugins/apisix/plugins/credits.lua"
-      - name: "org-lookup"
+            - key: 'credits.lua'
+              path: '/opts/custom_plugins/apisix/plugins/credits.lua'
+      - name: 'org-lookup'
         configMap:
-          name: "org-lookup-plugin"
+          name: 'org-lookup-plugin'
           mounts:
-            - key: "org-lookup.lua"
-              path: "/opts/custom_plugins/apisix/plugins/org-lookup.lua"
+            - key: 'org-lookup.lua'
+              path: '/opts/custom_plugins/apisix/plugins/org-lookup.lua'
 
   logs:
     enableAccessLog: true
