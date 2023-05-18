@@ -102,6 +102,7 @@ routes:
       - GET
     paths:
       - /settings
+      - /profile/edit
       - /webhooks
       - /webhooks/*
       - /members
@@ -145,6 +146,8 @@ routes:
       - /verification
       - /login
       - /recovery
+      - /recovery/code
+      - /recovery/reset
       - /holaplex.svg
       - /holaplex-small.svg
       - /_next/static/*
