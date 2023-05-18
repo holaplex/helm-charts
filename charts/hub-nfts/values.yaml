@@ -72,6 +72,8 @@ tolerations: []
 
 affinity: {}
 
+creditSheetName:
+
 secrets:
   enabled: true
   entries:
@@ -90,3 +92,4 @@ environment:
   solanaKeyPairPath: "/app/keypair.json"
   nftStorageApiEndpoint: "https://api.nft.storage"
   ipfsEndpoint: "https://ipfs.io/ipfs/"
+  assetCdn: http://assets.holaplex.tools

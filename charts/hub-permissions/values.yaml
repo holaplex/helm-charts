@@ -82,7 +82,7 @@ opa:
   replicaCount: 1
   image:
     repository: openpolicyagent/opa
-    tag: 0.48.0-rootless
+    tag: 0.52.0-static
     pullPolicy: IfNotPresent
 
   secrets:

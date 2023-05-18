@@ -16,18 +16,15 @@
 
 local core        = require("apisix.core")
 local get_service = require("apisix.http.service").get
-local http        = require("resty.http")
 local json        = require("apisix.core.json")
 local ngx         = ngx
 local ngx_time    = ngx.time
-local re_match    = ngx.re.match
-local type        = type
 local _M = {}
 
 
 -- build a table of Nginx variables with some generality
 -- between http subsystem and stream subsystem
-local function build_var(conf, ctx)
+local function build_var(ctx)
     return {
         server_addr = ctx.var.server_addr,
         server_port = ctx.var.server_port,
@@ -37,7 +34,7 @@ local function build_var(conf, ctx)
     }
 end
 
-local function build_http_request(conf, ctx)
+local function build_http_request(ctx)
     return {
         scheme  = core.request.get_scheme(ctx),
         method  = core.request.get_method(),
@@ -50,7 +47,7 @@ local function build_http_request(conf, ctx)
 end
 
 
-local function build_http_route(conf, ctx, remove_upstream)
+local function build_http_route(ctx, remove_upstream)
     local route = core.table.clone(ctx.matched_route).value
 
     if remove_upstream and route and route.upstream then
@@ -61,7 +58,7 @@ local function build_http_route(conf, ctx, remove_upstream)
 end
 
 
-local function build_http_service(conf, ctx)
+local function build_http_service(ctx)
     local service_id = ctx.service_id
 
     -- possible that there is no service bound to the route
@@ -81,7 +78,7 @@ local function build_http_service(conf, ctx)
     return nil
 end
 
-local function build_graphql_data(conf, ctx)
+local function build_graphql_data(ctx)
     local input = json.decode(core.request.get_body())
     return {
         query = input['query'],
@@ -91,7 +88,7 @@ local function build_graphql_data(conf, ctx)
     }
 end
 
-local function build_http_consumer(conf, ctx)
+local function build_http_consumer(ctx)
     -- possible that there is no consumer bound to the route
     if ctx.consumer then
         return core.table.clone(ctx.consumer)
@@ -103,24 +100,24 @@ end
 function _M.build_opa_input(conf, ctx, subsystem)
     local data = {
         type    = subsystem,
-        request = build_http_request(conf, ctx),
-        var     = build_var(conf, ctx),
-        graphql = build_graphql_data(conf, ctx),
+        request = build_http_request(ctx),
+        var     = build_var(ctx),
+        graphql = build_graphql_data(ctx),
         keto_endpoint = conf.keto_endpoint
     }
 
     if conf.with_route then
-        data.route = build_http_route(conf, ctx, true)
+        data.route = build_http_route(ctx, true)
     end
-    
+
     if conf.with_consumer then
-        data.consumer = build_http_consumer(conf, ctx)
+        data.consumer = build_http_consumer(ctx)
     end
 
     if conf.with_service then
-        data.service = build_http_service(conf, ctx)
+        data.service = build_http_service(ctx)
     end
-    
+
     return {
         input = data,
     }

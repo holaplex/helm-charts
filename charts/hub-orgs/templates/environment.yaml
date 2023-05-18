@@ -10,4 +10,5 @@ data:
   KAFKA_SSL: {{ required "must set kafka ssl" .kafkaSsl | quote }}
   KETO_READ_URL: {{ required "must set keto read url" .ketoReadUrl | quote }}
   KETO_WRITE_URL: {{ required "must set keto write url" .ketoWriteUrl | quote }}
+  ASSET_CDN: {{ .assetCdn | quote }}
   {{- end }}

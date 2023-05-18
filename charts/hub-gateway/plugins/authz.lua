@@ -90,16 +90,16 @@ function _M.access(conf, ctx)
     local res, err = httpc:request_uri(endpoint, params)
 
     -- block by default when decision is unavailable
-    if not res then
+    if err then
         return 403, json.encode({
           message = "OPA Decision is unavailable. Errors found in policy"
         })
     end
 
     -- parse the results of the decision
-    local data, err = json.decode(res.body)
+    local data, err_json = json.decode(res.body)
 
-    if not data then
+    if err_json then
         return 503, json.encode({
           message = "Invalid response body"
         })

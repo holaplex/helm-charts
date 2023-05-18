@@ -4,6 +4,9 @@ port: 9080
 sessionCookieName: 'hub_session'
 loginUri: 'http://hub.127.0.0.1.nip.io:9080/login'
 
+internalService:
+  enabled: true
+
 routes:
   - name: api
     serviceName: federated-router
@@ -19,9 +22,13 @@ routes:
     authz:
       enabled: true
       policy: 'hub/graphql/main'
+    orgLookup:
+      enabled: true
+    credits:
+      enabled: true
     regexUri:
-      - '/graphql'
-      - '/'
+      - "/graphql"
+      - "/"
 
   - name: api-internal
     serviceName: federated-router
@@ -37,9 +44,13 @@ routes:
     authz:
       enabled: true
       policy: 'hub/graphql/main'
+    orgLookup:
+      enabled: true
+    credits:
+      enabled: true
     regexUri:
-      - '/graphql'
-      - '/'
+      - "/graphql"
+      - "/"
 
   - name: hub-browser-graphql
     serviceName: federated-router
@@ -57,11 +68,15 @@ routes:
     authz:
       enabled: true
       policy: 'hub/graphql/main'
+    orgLookup:
+      enabled: true
+    credits:
+      enabled: true
     regexUri:
-      - '/graphql'
-      - '/'
+      - "/graphql"
+      - "/"
 
-  - name: hub-browser-api
+  - name: hub-orgs-browser-api
     serviceName: hub-orgs
     servicePort: 80
     subdomain: hub
@@ -73,7 +88,7 @@ routes:
     session:
       enabled: true
     sessionRedirect:
-      enabled: true
+      enabled: false
 
   - name: ui-private
     subdomain: hub
@@ -138,6 +153,9 @@ routes:
       - /_next/static/*
       - /_next/webpack-hmr
       - /__nextjs_original-stack-frame
+      - /favicon.ico
+      - /terms-of-service
+      - /privacy-policy
       - /api/.ory/*
       - /api/uploads
 
@@ -152,6 +170,26 @@ routes:
     regexUri:
       - '/auth'
       - '/oauth2/token'
+
+  - name: hub-ui-browser-api
+    serviceName: hub-ui
+    servicePort: 80
+    subdomain: hub
+    session:
+      enabled: true
+    paths:
+      - /browser/credits/purchase
+    methods:
+      - POST
+
+  - name: hub-credits-webhooks
+    subdomain: hub
+    serviceName: hub-credits
+    servicePort: 80
+    methods:
+      - POST
+    paths:
+      - /webhooks/stripe
 
 apisixPlugins:
   session:
@@ -176,6 +214,20 @@ apisixPlugins:
     files:
       - plugins/authz.lua
       - plugins/authz-helper.lua
+  credits:
+    serviceName: hub-credits
+    servicePort: 80
+    files:
+      - plugins/credits.lua
+  orgLookup:
+    query:
+      cookieName: "_hub_org"
+      headerName: "X-Client-Owner-Id"
+    output:
+      headerName: "X-Organization-Id"
+    files:
+      - plugins/org-lookup.lua
+
 apisix:
   enabled: true
   fullnameOverride: apisix
@@ -184,7 +236,7 @@ apisix:
     image:
       repository: apache/apisix
       pullPolicy: IfNotPresent
-      tag: 3.1.0-debian
+      tag: 3.3.0-debian
     timezone: 'UTC'
     enableIpv6: false
     httpRouter: radixtree_uri
@@ -235,6 +287,7 @@ apisix:
   plugins:
     - mocking
     - cors
+    - request-id
     - redirect
     - serverless-pre-function
     - serverless-post-function
@@ -272,10 +325,22 @@ apisix:
         configMap:
           name: 'authz-plugin'
           mounts:
-            - key: 'authz.lua'
-              path: '/opts/custom_plugins/apisix/plugins/authz.lua'
-            - key: 'authz-helper.lua'
-              path: '/opts/custom_plugins/apisix/plugins/authz/helper.lua'
+            - key: "authz.lua"
+              path: "/opts/custom_plugins/apisix/plugins/authz.lua"
+            - key: "authz-helper.lua"
+              path: "/opts/custom_plugins/apisix/plugins/authz/helper.lua"
+      - name: "credits"
+        configMap:
+          name: "credits-plugin"
+          mounts:
+            - key: "credits.lua"
+              path: "/opts/custom_plugins/apisix/plugins/credits.lua"
+      - name: "org-lookup"
+        configMap:
+          name: "org-lookup-plugin"
+          mounts:
+            - key: "org-lookup.lua"
+              path: "/opts/custom_plugins/apisix/plugins/org-lookup.lua"
 
   logs:
     enableAccessLog: true
@@ -292,7 +357,7 @@ apisix:
     image:
       repository: bitnami/etcd
       pullPolicy: IfNotPresent
-      tag: 3.5.7-debian-11-r3
+      tag: 3.5.8
     persistence:
       storageClass: 'hostpath'
       size: 1Gi

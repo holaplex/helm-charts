@@ -1,3 +1,4 @@
+{{- if .Values.internalService.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -12,5 +13,5 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app.kubernetes.io/instance: hub-gateway
-    app.kubernetes.io/name: apisix
+    {{- include "hub-gateway.selectorLabels" $ | nindent 4 }}
+{{- end }}

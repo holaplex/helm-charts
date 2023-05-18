@@ -70,8 +70,10 @@ environment:
   kratosPublicEndpoint: http://kratos-public
   internalGraphqlEndpoint: http://apisix-gateway-internal.ingress-apisix.svc.cluster.local/graphql
   ipfsGateway: https://nftstorage.link/ipfs
+  stripePriceId: price_1N3jCQJTCxUDawcrxMYNTOPS
 
 secrets:
   enabled: true
   entries:
     nftStorageToken:
+    stripeSecretKey:

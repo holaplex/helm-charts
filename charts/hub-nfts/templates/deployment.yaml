@@ -4,6 +4,8 @@ metadata:
   name: {{ include "hub-nfts.fullname" . }}
   labels:
     {{- include "hub-nfts.labels" . | nindent 4 }}
+  annotations:
+    configmap.reloader.stakater.com/reload: {{ required "must provide credit sheet configmap name" .Values.creditSheetName }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
@@ -47,6 +49,10 @@ spec:
               mountPath: /app/keypair.json
               subPath: keypair.json
               readOnly: true 
+            - name: credit-sheet
+              mountPath: /app/credit-sheet.toml
+              subPath: credit-sheet.toml
+              readOnly: true
           livenessProbe:
             httpGet:
               path: /health
@@ -61,6 +67,10 @@ spec:
         - name: solana-keypair
           secret:
             secretName: {{ print (include "hub-nfts.fullname" .) "-keypair" }}
+            optional: false
+        - name: credit-sheet
+          configMap:
+            name: {{ required "must provide credit sheet configmap name" .Values.creditSheetName }}
             optional: false
       {{- with .Values.nodeSelector }}
       nodeSelector:

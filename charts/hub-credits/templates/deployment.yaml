@@ -4,6 +4,8 @@ metadata:
   name: {{ include "hub-credits.fullname" . }}
   labels:
     {{- include "hub-credits.labels" . | nindent 4 }}
+  annotations:
+    configmap.reloader.stakater.com/reload: {{ include "hub-credits.fullname" $ }}-credit-sheet
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
@@ -27,6 +29,10 @@ spec:
       serviceAccountName: {{ include "hub-credits.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      volumes:
+        - name: credit-sheet
+          configMap:
+            name: {{ include "hub-credits.fullname" . }}-credit-sheet
       containers:
         - name: app
           securityContext:
@@ -52,6 +58,10 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: credit-sheet
+              mountPath: /credit-sheet.toml
+              subPath: credit-sheet.toml
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -6,7 +6,9 @@ data:
   {{- with .Values.environment }}
   RUST_LOG: {{ .logLevel }}
   PORT: {{ .port | quote }}
+  GIFT_AMOUNT: {{ .giftAmount | quote }}
   KAFKA_BROKERS: {{ required "must set kafka brokers" .kafkaBrokers | quote }}
   KAFKA_SSL: {{ default "false" .kafkaSsl | quote }}
   KAFKA_USERNAME: {{ required "must set kafka username" .kafkaUsername | quote }}
+  CREDIT_SHEET: {{ required "must set credit sheet path" .creditSheet | quote }}
   {{- end }}
