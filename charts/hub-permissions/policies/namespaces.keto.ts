@@ -1,13 +1,17 @@
 import { Namespace, Context } from "@ory/keto-namespace-types"
-class User implements Namespace {
+class User implements Namespace {}
+
+class Member implements Namespace {
   related: {
     parents: Organization[]
   }
 
   permits = {
-    reactivate: (ctx: Context): boolean =>
+    view: (ctx: Context): boolean =>
+      this.related.parents.traverse((parent) => parent.permits.view(ctx)),
+    edit: (ctx: Context): boolean =>
       this.related.parents.traverse((parent) => parent.permits.delete(ctx)),
-    deactivate: (ctx: Context): boolean =>
+    delete: (ctx: Context): boolean =>
       this.related.parents.traverse((parent) => parent.permits.delete(ctx)),
   }
 }
