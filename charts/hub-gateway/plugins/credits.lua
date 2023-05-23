@@ -75,11 +75,12 @@ function _M.access(conf, ctx)
     local input = json.decode(core.request.get_body())
     local graphql_query = input['query']
 
-    -- Check if query is createOrganization
-    if graphql_query:match("createOrganization") then
-        core.log.info("Skipping credits plugin - Creating Organization")
+    -- Check if query is createOrganization or AcceptInvite
+    if graphql_query:match("createOrganization") or graphql_query:match("acceptInvite") then
+        core.log.info("Skipping credits plugin - Creating Organization or Accepting Invite")
         return
     end
+
 
     local org_id = core.request.header(ctx, "X-Organization-Id")
 
