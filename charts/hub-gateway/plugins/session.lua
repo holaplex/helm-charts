@@ -147,8 +147,7 @@ function _M.access(conf, ctx)
       end
 
       if not verified then
-        local current_uri = ctx.var.uri
-        local redirect_uri = verification_uri .. "?return_to=" .. ctx.var.uri
+        local redirect_uri = conf.verification_uri .. "?return_to=" .. ctx.var.uri
 
         core.response.set_header("Location", redirect_uri)
         return 302, "Please verify your account address"
@@ -157,8 +156,8 @@ function _M.access(conf, ctx)
 
     -- Expose user email and id on headers
     if conf.expose_user_id then
-        core.request.set_header(ctx, "X-User-Id", data.identity.id)
         core.response.set_header("X-User-Id", data.identity.id)
+        core.request.set_header(ctx, "X-User-Id", data.identity.id)
         core.request.set_header(ctx, "X-User-Email", data.identity.traits.email)
     end
 end
