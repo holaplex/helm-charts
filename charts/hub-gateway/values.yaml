@@ -3,6 +3,8 @@ domain: 127.0.0.1.nip.io
 port: 9080
 sessionCookieName: 'hub_session'
 loginUri: 'http://hub.127.0.0.1.nip.io:9080/login'
+forceVerification: false
+verificationUri: 'http://hub.127.0.0.1.nip.io:9080/verification'
 
 internalService:
   enabled: true
@@ -192,6 +194,19 @@ routes:
     paths:
       - /webhooks/stripe
 
+  - name: hub-identity-self-service
+    serviceName: hub-ui
+    servicePort: 80
+    subdomain: hub
+    paths:
+      - /id
+      - /id/*
+    methods:
+      - GET
+    regexUri:
+      - "^/id/(.*)"
+      - "/api/.ory/${1}"
+
 apisixPlugins:
   session:
     serviceName: kratos-public
@@ -360,7 +375,6 @@ apisix:
       pullPolicy: IfNotPresent
       tag: 3.5.8
     persistence:
-      storageClass: 'hostpath'
       size: 1Gi
     replicaCount: 1
     host:
