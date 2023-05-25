@@ -56,6 +56,13 @@ local schema = {
         session_cookie_name = {
             type = "string"
         },
+        force_verification = {
+            type = "boolean",
+            default = false
+        },
+        verification_uri = {
+            type = "string"
+        },
     },
     required = {"host"}
 }
@@ -87,7 +94,7 @@ function _M.access(conf, ctx)
     local kratos_cookie = session_cookie_name .. "=" .. session_token
 
     local params = {
-        method = "POST",
+        method = "GET",
         headers = {
             ["Cookie"] = kratos_cookie
         },
@@ -127,6 +134,25 @@ function _M.access(conf, ctx)
         return 401, json.encode({
               message = err
             })
+    end
+
+    if conf.force_verification then
+      -- redirect if user address is not verified
+      local verified = false
+      for i=1, #data.identity.verifiable_addresses do
+        if data.identity.verifiable_addresses[i].verified then
+            verified = true
+            break
+        end
+      end
+
+      if not verified then
+        local current_uri = ctx.var.uri
+        local redirect_uri = verification_uri .. "?return_to=" .. ctx.var.uri
+
+        core.response.set_header("Location", redirect_uri)
+        return 302, "Please verify your account address"
+      end
     end
 
     -- Expose user email and id on headers
