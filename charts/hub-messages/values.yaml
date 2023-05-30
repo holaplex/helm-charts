@@ -73,6 +73,8 @@ environment:
   kafkaBrokers: "hub-eventbus-cluster-0.hub-eventbus-cluster.default.svc.cluster.local.:9093"
   kafkaSsl: false
   kafkaUsername: ""
-  smtpServer: ""
-  smtpPort: ""
-  smtpPoolSize: ""
+  smtpServer: smtp.postmarkapp.com
+  smtpPort: "587"
+  smtpPoolSize: "100"
+  smtpFromEmail: ""
+  domainUrl: http://hub.127.0.0.1.nip.io:9080

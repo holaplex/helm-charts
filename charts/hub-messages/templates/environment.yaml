@@ -11,4 +11,6 @@ data:
   SERVER: {{ required "must set SMTP server" .smtpServer | quote }}
   PLAINTEXT_PORT: {{ required "must set SMTP port" .smtpPort | quote }}
   POOL_SIZE: {{ default "100" .smtpPoolSize | quote }}
+  SOURCE_EMAIL: {{ required "must set SMTP from" .smtpFromEmail | quote }}
+  DOMAIN: {{ required "must set domain" .domainUrl | quote }}
   {{- end }}
