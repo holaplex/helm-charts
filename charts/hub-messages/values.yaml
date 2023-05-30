@@ -65,10 +65,14 @@ secrets:
   enabled: true
   entries:
     kafkaPassword: ""
-    smtpUri: ""
+    smtpUser: ""
+    smtpPassword: ""
 
 environment:
   logLevel: "info"
   kafkaBrokers: "hub-eventbus-cluster-0.hub-eventbus-cluster.default.svc.cluster.local.:9093"
   kafkaSsl: false
   kafkaUsername: ""
+  smtpServer: ""
+  smtpPort: ""
+  smtpPoolSize: ""
