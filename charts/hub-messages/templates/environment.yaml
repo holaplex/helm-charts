@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "hub-messages.fullname" . }}
+data:
+  {{- with .Values.environment }}
+  RUST_LOG: {{ .logLevel }}
+  KAFKA_BROKERS: {{ required "must set kafka brokers" .kafkaBrokers | quote }}
+  KAFKA_SSL: {{ default "false" .kafkaSsl | quote }}
+  KAFKA_USERNAME: {{ required "must set kafka username" .kafkaUsername | quote }}
+  SERVER: {{ required "must set SMTP server" .smtpServer | quote }}
+  PLAINTEXT_PORT: {{ required "must set SMTP port" .smtpPort | quote }}
+  POOL_SIZE: {{ default "100" .smtpPoolSize | quote }}
+  {{- end }}
