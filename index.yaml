@@ -1223,6 +1223,21 @@ entries:
   hub-messages:
   - apiVersion: v2
     appVersion: "0.1"
+    created: "2023-05-30T18:27:09.033183971Z"
+    description: Helm chart for hub-messages
+    digest: 7837380a77193ae996b9767c255d5df1c46dd31bf4f223661c69d0b1bc3b401a
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-messages
+    sources:
+    - https://github.com/holaplex/helm-charts
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-messages-0.1.0/hub-messages-0.1.0.tgz
+    version: 0.1.0
+  - apiVersion: v2
+    appVersion: "0.1"
     created: "2023-05-30T14:10:35.294420893Z"
     description: Helm chart for hub-messages
     digest: 84f237e9efe606a21df3c02e66f3c1375d2fddc14cb7b7dc386a2bc86d708805
@@ -1982,4 +1997,4 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/svix-0.0.1/svix-0.0.1.tgz
     version: 0.0.1
-generated: "2023-05-30T14:10:35.294608794Z"
+generated: "2023-05-30T18:27:09.033461372Z"
