@@ -8,7 +8,7 @@ data:
   KAFKA_BROKERS: {{ required "must set kafka brokers" .kafkaBrokers | quote }}
   KAFKA_SSL: {{ default "false" .kafkaSsl | quote }}
   KAFKA_USERNAME: {{ required "must set kafka username" .kafkaUsername | quote }}
-  SMTP_SERVER: {{ required "must set SMTP server" .smtpServer | quote }}
-  SMTP_PORT: {{ required "must set SMTP port" .smtpPort | quote }}
-  SMTP_POOL_SIZE: {{ default "100" .smtpPoolSize | quote }}
+  SERVER: {{ required "must set SMTP server" .smtpServer | quote }}
+  PLAINTEXT_PORT: {{ required "must set SMTP port" .smtpPort | quote }}
+  POOL_SIZE: {{ default "100" .smtpPoolSize | quote }}
   {{- end }}
