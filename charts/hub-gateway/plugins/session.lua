@@ -135,6 +135,8 @@ function _M.access(conf, ctx)
               message = err
             })
     end
+    local user_email = data.identity.traits.email
+    local user_id = data.identity.id
 
     if conf.force_verification then
       -- redirect if user address is not verified
@@ -147,7 +149,7 @@ function _M.access(conf, ctx)
       end
 
       if not verified then
-        local redirect_uri = conf.verification_uri .. "?return_to=" .. ctx.var.uri
+        local redirect_uri = conf.verification_uri .. "?email=" .. user_email .. "&return_to=" .. ctx.var.uri
 
         core.response.set_header("Location", redirect_uri)
         return 302, "Please verify your account address"
@@ -156,9 +158,9 @@ function _M.access(conf, ctx)
 
     -- Expose user email and id on headers
     if conf.expose_user_id then
-        core.response.set_header("X-User-Id", data.identity.id)
-        core.request.set_header(ctx, "X-User-Id", data.identity.id)
-        core.request.set_header(ctx, "X-User-Email", data.identity.traits.email)
+        core.response.set_header("X-User-Id", user_id)
+        core.request.set_header(ctx, "X-User-Id", user_id)
+        core.request.set_header(ctx, "X-User-Email", user_email)
     end
 end
 
