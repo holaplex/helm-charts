@@ -35,7 +35,7 @@ local schema = {
             type = "integer",
             minimum = 1,
             maximum = 60000,
-            default = 3000,
+            default = 4000,
             description = "timeout in milliseconds",
         },
         keepalive = {type = "boolean", default = true},
@@ -92,7 +92,7 @@ function _M.access(conf, ctx)
     -- block by default when decision is unavailable
     if err then
         return 403, json.encode({
-          message = "OPA Decision is unavailable. Errors found in policy"
+          message = "OPA Decision is unavailable. Err: " .. err
         })
     end
 
@@ -101,13 +101,13 @@ function _M.access(conf, ctx)
 
     if err_json then
         return 503, json.encode({
-          message = "Invalid response body"
+          message = "Invalid response body: " .. err_json
         })
     end
 
     if not data.result then
         return 503, json.encode({
-          message = "Invalid decision format: " .. res.body .. " Err: `result field does not exist"
+          message = "Invalid decision format: " .. res.body .. " Err: result field does not exist"
         })
     end
 
