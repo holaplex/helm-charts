@@ -74,7 +74,7 @@ affinity: {}
 
 initContainer:
   image: curlimages/curl
-  tag: latest
+  tag: 8.1.1
 
 secrets:
   enabled: true
