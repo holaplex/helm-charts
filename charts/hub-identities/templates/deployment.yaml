@@ -40,7 +40,7 @@ spec:
                 name: {{ include "hub-identities.fullname" . }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: {{ .Values.environment.port }}
               protocol: TCP
           livenessProbe:
             httpGet:

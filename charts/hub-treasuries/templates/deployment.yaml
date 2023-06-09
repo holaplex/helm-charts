@@ -42,13 +42,13 @@ spec:
                 name: {{ include "hub-treasuries.fullname" . }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: {{ .Values.environment.port }}
               protocol: TCP
           volumeMounts:
             - name: fireblocks-privkey
               mountPath: /app/secret.key
               subPath: secret.key
-              readOnly: true 
+              readOnly: true
             - name: credit-sheet
               mountPath: /app/credit-sheet.toml
               subPath: credit-sheet.toml
