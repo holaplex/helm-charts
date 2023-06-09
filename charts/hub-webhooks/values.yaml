@@ -35,13 +35,12 @@ podAnnotations: {}
 podSecurityContext: {}
   # fsGroup: 2000
 
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 10000
+  runAsGroup: 10000
 
 service:
   type: ClusterIP
@@ -84,7 +83,7 @@ secrets:
     kafkaPassword: ""
 
 environment:
-  port: "80"
+  port: "3000"
   kafkaBrokers: "hub-eventbus-cluster-0.hub-eventbus-cluster.default.svc.cluster.local.:9093"
   kafkaUsername: ""
   kafkaSsl: false
