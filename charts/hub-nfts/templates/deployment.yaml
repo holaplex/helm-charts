@@ -45,10 +45,6 @@ spec:
               containerPort: {{ .Values.environment.port }}
               protocol: TCP
           volumeMounts:
-            - name: solana-keypair
-              mountPath: /app/keypair.json
-              subPath: keypair.json
-              readOnly: true
             - name: credit-sheet
               mountPath: /app/credit-sheet.toml
               subPath: credit-sheet.toml
@@ -64,10 +60,6 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
-        - name: solana-keypair
-          secret:
-            secretName: {{ print (include "hub-nfts.fullname" .) "-keypair" }}
-            optional: false
         - name: credit-sheet
           configMap:
             name: {{ required "must provide credit sheet configmap name" .Values.creditSheetName }}

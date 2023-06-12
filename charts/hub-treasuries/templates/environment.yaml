@@ -6,11 +6,14 @@ data:
   {{- with .Values.environment }}
   RUST_LOG: {{ .logLevel }}
   PORT: {{ .port | quote }}
-  SECRET_PATH: "/app/secret.key"
+  FIREBLOCKS_SECRET_PATH: "/app/secret.key"
   KAFKA_BROKERS: {{ required "must set kafka brokers" .kafkaBrokers | quote }}
   KAFKA_SSL: {{ default "false" .kafkaSsl | quote }}
   KAFKA_USERNAME: {{ required "must set kafka username" .kafkaUsername | quote }}
   FIREBLOCKS_ENDPOINT: {{ required "must set fireblocks api endpoint" .fireblocksEndpoint | quote }}
   FIREBLOCKS_SUPPORTED_ASSET_IDS: {{ .fireblocksSupportedAssetIds | quote }}
+  FIREBLOCKS_WHITELISTED_CONTRACT_WALLET_ID: {{ .fireblocksWhitelistedContractWalletId | quote }}
+  FIREBLOCKS_TREASURY_VAULT_ID: {{ .fireblocksTreasuryVaultId | quote }}
+  FIREBLOCKS_TEST_MODE: {{ .fireblocksTestMode | quote }}
   CREDIT_SHEET: /app/credit-sheet.toml
   {{- end }}
