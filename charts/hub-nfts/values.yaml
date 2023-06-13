@@ -79,16 +79,12 @@ secrets:
     databaseUrl: ""
     kafkaPassword: ""
     nftStorageAuthToken: ""
-    solanaEndpoint: "https://api.devnet.solana.com"
-    solanaKeyPair: |
-      ""
 
 environment:
   port: "3000"
   kafkaBrokers: "hub-eventbus-cluster-0.hub-eventbus-cluster.default.svc.cluster.local.:9093"
   kafkaUsername: ""
   kafkaSsl: false
-  solanaKeyPairPath: "/app/keypair.json"
   nftStorageApiEndpoint: "https://api.nft.storage"
   ipfsEndpoint: "https://ipfs.io/ipfs/"
   assetCdn: https://assets.holaplex.tools
