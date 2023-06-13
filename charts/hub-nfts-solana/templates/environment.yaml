@@ -4,7 +4,7 @@ metadata:
   name: {{ include "hub-nfts-solana.fullname" . }}
 data:
   {{- with .Values.environment }}
-  SOLANA_TREASURY_WALLET: {{ required "must set solana treasury wallet" .solanaTreasuryWallet | quote }}
+  SOLANA_TREASURY_WALLET_ADDRESS: {{ required "must set solana treasury wallet" .solanaTreasuryWalletAddress | quote }}
   KAFKA_BROKERS: {{ required "must set kafka brokers" .kafkaBrokers | quote }}
   KAFKA_USERNAME: {{ required "must set kafka username" .kafkaUsername | quote }}
   KAFKA_SSL: {{ required "must set kafka ssl" .kafkaSsl | quote }}
