@@ -1262,6 +1262,19 @@ entries:
   hub-graphql-playground:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-06-15T20:23:29.268003637Z"
+    description: Helm chart for hub-graphql-playground
+    digest: 60dd9ecce40d69704b365c98a2228cc63feb68ab333fb9bd91440b7d15ae2d04
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-graphql-playground
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-graphql-playground-0.1.1/hub-graphql-playground-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-06-15T20:18:59.828762248Z"
     description: Helm chart for hub-graphql-playground
     digest: 81f9dedf35e82fdb81c074a61b78085fc7221fad2be39f1e69f14d15e28ba421
@@ -2321,4 +2334,4 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/svix-0.0.1/svix-0.0.1.tgz
     version: 0.0.1
-generated: "2023-06-15T20:18:59.829147655Z"
+generated: "2023-06-15T20:23:29.268585346Z"
