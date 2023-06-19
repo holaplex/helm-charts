@@ -69,8 +69,8 @@ networkPolicies:
   enabled: false
   extraEgress: []
   extraIngress: []
-  #Example:
-  #extraEgress:
+  # Example:
+  # extraEgress:
   #  - to:
   #      - ipBlock:
   #          cidr: 1.2.3.4/16
@@ -78,7 +78,7 @@ networkPolicies:
   #      - podSelector:
   #          matchLabels:
   #            app.kubernetes.io/name: postgresql
-  #extraIngress: []
+  # extraIngress: []
 
 nodeSelector: {}
 
@@ -96,7 +96,7 @@ secrets:
 environment:
   port: "3000"
   kafkaBrokers: "hub-eventbus-cluster-0.hub-eventbus-cluster.default.svc.cluster.local.:9093"
-  kafkaUsername: "admin"
+  kafkaUsername: ""
   kafkaSsl: false
   ketoReadUrl: http://keto-read
   ketoWriteUrl: http://keto-write
