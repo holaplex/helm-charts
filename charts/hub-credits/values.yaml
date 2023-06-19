@@ -85,21 +85,27 @@ secrets:
 creditSheet: |-
   [MintEdition]
   solana = 5
+  polygon = 2
 
   [CreateDrop]
   solana = 5
+  polygon = 3
 
   [RetryMint]
   solana = 0
+  polygon = 0
 
   [TransferAsset]
   solana = 5
+  polygon = 2
 
   [CreateWallet]
   solana = 5
+  polygon = 5
 
   [RetryDrop]
   solana = 0
+  polygon = 0
 
 environment:
   logLevel: "info"
