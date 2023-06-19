@@ -77,7 +77,7 @@ networkPolicies:
   #  - to:
   #      - podSelector:
   #          matchLabels:
-  #            app.kubernetes.io/name: postgresql
+  #            app.kubernetes.io/name: hub-services-db
   # extraIngress: []
 
 nodeSelector: {}
