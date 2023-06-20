@@ -68,6 +68,21 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
+networkPolicies:
+  enabled: false
+  extraEgress: []
+  extraIngress: []
+  # Example:
+  # extraEgress:
+  #  - to:
+  #      - ipBlock:
+  #          cidr: 1.2.3.4/16
+  #  - to:
+  #      - podSelector:
+  #          matchLabels:
+  #            app.kubernetes.io/name: hub-services-db
+  # extraIngress: []
+
 nodeSelector: {}
 
 tolerations: []

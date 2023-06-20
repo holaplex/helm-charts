@@ -2,13 +2,13 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: {{ include "hub-orgs.fullname" . }}
+  name: {{ include "hub-graphql-playground.fullname" . }}
   labels:
-    {{- include "hub-orgs.labels" . | nindent 4 }}
+    {{- include "hub-graphql-playground.labels" . | nindent 4 }}
 spec:
   podSelector:
     matchLabels:
-      {{- include "hub-orgs.selectorLabels" . | nindent 8 }}
+      {{- include "hub-graphql-playground.selectorLabels" . | nindent 8 }}
   egress:
     - to:
         - ipBlock:
@@ -17,20 +17,6 @@ spec:
               - 10.0.0.0/8
               - 192.168.0.0/16
               - 172.16.0.0/20
-    - to:
-        - podSelector:
-            matchLabels:
-              app.kubernetes.io/name: redpanda
-      ports:
-        - port: 9093
-          protocol: TCP
-    - to:
-        - podSelector:
-            matchLabels:
-              app.kubernetes.io/name: postgresql
-      ports:
-        - port: 5432
-          protocol: TCP
     - to:
         - namespaceSelector: {}
           podSelector:
@@ -61,14 +47,7 @@ spec:
             matchLabels:
               app.kubernetes.io/name: apisix
       ports:
-        - port: {{ .Values.environment.port }}
-          protocol: TCP
-    - from:
-        - podSelector:
-            matchLabels:
-              app.kubernetes.io/name: router
-      ports:
-        - port: {{ .Values.environment.port }}
+        - port: 8080
           protocol: TCP
 {{- if .Values.networkPolicies.extraIngress }}
 {{ toYaml .Values.networkPolicies.extraIngress | indent 4 }}

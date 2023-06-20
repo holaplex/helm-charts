@@ -27,9 +27,11 @@ spec:
     - to:
         - podSelector:
             matchLabels:
-              app.kubernetes.io/name: postgresql
+              app.kubernetes.io/name: hydra
       ports:
-        - port: 5432
+        - port: 4445
+          protocol: TCP
+        - port: 4444
           protocol: TCP
     - to:
         - namespaceSelector: {}

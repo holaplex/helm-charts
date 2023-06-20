@@ -8,7 +8,5 @@ data:
   KAFKA_BROKERS: {{ required "must set kafka brokers" .kafkaBrokers | quote }}
   KAFKA_USERNAME: {{ required "must set kafka username" .kafkaUsername | quote }}
   KAFKA_SSL: {{ required "must set kafka ssl" .kafkaSsl | quote }}
-  KETO_READ_URL: {{ required "must set keto read url" .ketoReadUrl | quote }}
-  KETO_WRITE_URL: {{ required "must set keto write url" .ketoWriteUrl | quote }}
   ASSET_CDN: {{ .assetCdn | quote }}
   {{- end }}

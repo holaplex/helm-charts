@@ -2,13 +2,13 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: {{ include "hub-orgs.fullname" . }}
+  name: {{ include "hub-credits.fullname" . }}
   labels:
-    {{- include "hub-orgs.labels" . | nindent 4 }}
+    {{- include "hub-credits.labels" . | nindent 4 }}
 spec:
   podSelector:
     matchLabels:
-      {{- include "hub-orgs.selectorLabels" . | nindent 8 }}
+      {{- include "hub-credits.selectorLabels" . | nindent 8 }}
   egress:
     - to:
         - ipBlock:
