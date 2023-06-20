@@ -51,7 +51,7 @@ spec:
                 name: {{ include "hub-nfts-polygon.fullname" . }}
             - secretRef:
                 name: {{ include "hub-nfts-polygon.fullname" . }}
-          command: ["/usr/local/bin/hub-nfts-polygon-indexer"]
+          command: ["/usr/local/bin/holaplex-hub-nfts-polygon-indexer"]
           ports:
             - name: http
               containerPort: {{ .Values.environment.port }}
