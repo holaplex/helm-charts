@@ -67,14 +67,19 @@ tolerations: []
 
 affinity: {}
 
+indexer:
+  enabled: true
+
 secrets:
   enabled: true
   entries:
     polygonEndpoint: ""
     kafkaPassword: ""
     databaseUrl: ""
+    webhookSigningKey: ""
 
 environment:
+  port: "3000"
   kafkaBrokers: "hub-eventbus-cluster-0.hub-eventbus-cluster.default.svc.cluster.local.:9093"
   kafkaUsername: ""
   kafkaSsl: false
