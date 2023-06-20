@@ -48,9 +48,9 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
             - configMapRef:
-                name: {{ include "hub-nfts.fullname" . }}
+                name: {{ include "hub-nfts-polygon.fullname" . }}
             - secretRef:
-                name: {{ include "hub-nfts.fullname" . }}
+                name: {{ include "hub-nfts-polygon.fullname" . }}
           command: ["/usr/local/bin/hub-nfts-polygon-indexer"]
           ports:
             - name: http
