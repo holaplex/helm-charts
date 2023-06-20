@@ -194,6 +194,15 @@ routes:
     paths:
       - /webhooks/stripe
 
+  - name: hub-nfts-polygon-webhooks
+    subdomain: hub
+    serviceName: hub-nfts-polygon
+    servicePort: 80
+    methods:
+      - POST
+    paths:
+      - /webhooks/polygon
+
   - name: hub-identity-self-service
     serviceName: hub-ui
     servicePort: 80
