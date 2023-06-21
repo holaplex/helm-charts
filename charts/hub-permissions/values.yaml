@@ -96,7 +96,7 @@ opa:
   replicaCount: 1
   image:
     repository: openpolicyagent/opa
-    tag: 0.53.0-static
+    tag: 0.53.1-static
     pullPolicy: IfNotPresent
 
   secrets:

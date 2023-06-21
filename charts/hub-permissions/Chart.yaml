@@ -37,4 +37,5 @@ dependencies:
   - name: opa
     condition: opa.enabled
     version: 0.2.0
-    repository: https://charts.holaplex.com
+    #repository: https://charts.holaplex.com
+    repository: "file://../opa"

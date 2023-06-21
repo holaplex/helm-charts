@@ -52,13 +52,21 @@ spec:
 {{- if .Values.networkPolicies.extraEgress }}
 {{ toYaml .Values.networkPolicies.extraEgress | indent 4 }}
 {{- end }}
-{{- if .Values.networkPolicies.extraIngress }}
   ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: ingress-apisix
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: apisix
+      ports:
+        - port: {{ .Values.environment.port }}
+          protocol: TCP
+{{- if .Values.networkPolicies.extraIngress }}
 {{ toYaml .Values.networkPolicies.extraIngress | indent 4 }}
 {{- end }}
   policyTypes:
-{{- if .Values.networkPolicies.extraIngress }}
     - Ingress
-{{- end }}
     - Egress
 {{- end }}
