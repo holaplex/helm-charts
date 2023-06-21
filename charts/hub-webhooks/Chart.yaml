@@ -28,5 +28,5 @@ appVersion: "0.2.0"
 dependencies:
   - name: svix
     condition: svix.enabled
-    version: 0.1.0
+    version: 0.2.0
     repository: https://charts.holaplex.com

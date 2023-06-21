@@ -40,7 +40,7 @@ spec:
                 name: {{ include "svix.fullname" . }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: {{ .Values.environment.listenPort }}
               protocol: TCP
           livenessProbe:
             httpGet:

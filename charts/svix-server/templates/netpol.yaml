@@ -11,13 +11,6 @@ spec:
       {{- include "svix.selectorLabels" . | nindent 8 }}
   egress:
     - to:
-        - ipBlock:
-            cidr: 0.0.0.0/0
-            except:
-              - 10.0.0.0/8
-              - 192.168.0.0/16
-              - 172.16.0.0/20
-    - to:
         - podSelector:
             matchLabels:
               app.kubernetes.io/name: redis
@@ -58,7 +51,7 @@ spec:
             matchLabels:
               app.kubernetes.io/name: hub-webhooks
       ports:
-        - port: {{ .Values.environment.port }}
+        - port: {{ .Values.environment.listenPort }}
           protocol: TCP
 {{- if .Values.networkPolicies.extraIngress }}
 {{ toYaml .Values.networkPolicies.extraIngress | indent 4 }}
