@@ -202,6 +202,9 @@ routes:
       - POST
     paths:
       - /webhooks/polygon
+    regexUri:
+      - '/webhooks/polygon'
+      - '/'
 
   - name: hub-identity-self-service
     serviceName: hub-ui
