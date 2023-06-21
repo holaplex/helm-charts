@@ -29,5 +29,4 @@ dependencies:
   - name: svix
     condition: svix.enabled
     version: 0.3.0
-   #repository: https://charts.holaplex.com
-    repository: "file://../svix-server"
+    repository: https://charts.holaplex.com
