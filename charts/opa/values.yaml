@@ -1,7 +1,7 @@
 replicaCount: 1
 image:
   repository: openpolicyagent/opa
-  tag: 0.52.0-static
+  tag: 0.53.1-static
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -52,6 +52,20 @@ autoscaling:
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
+
+networkPolicies:
+  enabled: false
+  extraEgress: []
+  extraIngress: []
+  # extraEgress:
+  #  - to:
+  #      - ipBlock:
+  #          cidr: 1.2.3.4/16
+  #  - to:
+  #      - podSelector:
+  #          matchLabels:
+  #            app.kubernetes.io/name: hub-services-db
+  # extraIngress: []
 
 nodeSelector: {}
 
