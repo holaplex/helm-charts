@@ -2,13 +2,13 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: {{ include "hub-orgs.fullname" . }}
+  name: {{ include "hub-credentials.fullname" . }}
   labels:
-    {{- include "hub-orgs.labels" . | nindent 4 }}
+    {{- include "hub-credentials.labels" . | nindent 4 }}
 spec:
   podSelector:
     matchLabels:
-      {{- include "hub-orgs.selectorLabels" . | nindent 8 }}
+      {{- include "hub-credentials.selectorLabels" . | nindent 8 }}
   egress:
     - to:
         - ipBlock:
@@ -55,16 +55,6 @@ spec:
 {{ toYaml .Values.networkPolicies.extraEgress | indent 4 }}
 {{- end }}
   ingress:
-    - from:
-        - namespaceSelector:
-            matchLabels:
-              kubernetes.io/metadata.name: ingress-apisix
-          podSelector:
-            matchLabels:
-              app.kubernetes.io/name: apisix
-      ports:
-        - port: {{ .Values.environment.port }}
-          protocol: TCP
     - from:
         - podSelector:
             matchLabels:

@@ -54,16 +54,6 @@ spec:
 {{- end }}
   ingress:
     - from:
-        - namespaceSelector:
-            matchLabels:
-              kubernetes.io/metadata.name: ingress-apisix
-          podSelector:
-            matchLabels:
-              app.kubernetes.io/name: apisix
-      ports:
-        - port: {{ .Values.environment.port }}
-          protocol: TCP
-    - from:
         - podSelector:
             matchLabels:
               app.kubernetes.io/name: router
