@@ -52,18 +52,13 @@ spec:
 {{- if .Values.networkPolicies.extraEgress }}
 {{ toYaml .Values.networkPolicies.extraEgress | indent 4 }}
 {{- end }}
-  ingress:
-    - from:
-        - podSelector:
-            matchLabels:
-              app.kubernetes.io/name: router
-      ports:
-        - port: {{ .Values.environment.port }}
-          protocol: TCP
 {{- if .Values.networkPolicies.extraIngress }}
+  ingress:
 {{ toYaml .Values.networkPolicies.extraIngress | indent 4 }}
 {{- end }}
   policyTypes:
+{{- if .Values.networkPolicies.extraIngress }}
     - Ingress
+{{- end }}
     - Egress
 {{- end }}
