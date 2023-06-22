@@ -256,6 +256,9 @@ apisixPlugins:
     files:
       - plugins/org-lookup.lua
 
+networkPolicies:
+  enabled: false
+
 apisix:
   enabled: true
   fullnameOverride: apisix
