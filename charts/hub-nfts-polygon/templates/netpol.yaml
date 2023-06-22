@@ -22,7 +22,7 @@ spec:
             matchLabels:
               app.kubernetes.io/name: redpanda
       ports:
-        - port: 9093
+        - port: 9092
           protocol: TCP
     - to:
         - podSelector:
