@@ -46,10 +46,8 @@ spec:
       config:
         with_mock_header: false
         response_status: 503
-        content_type: text/html; charset=utf-8
+        content_type: "text/html; charset=utf-8"
         response_example: ""
-      enable: true
-      name: mocking
       {{- else }}
     - name: mocking
       enable: true
