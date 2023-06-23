@@ -68,7 +68,7 @@ spec:
             matchLabels:
               kubernetes.io/metadata.name: {{ .Values.hubNamespace }}
       ports:
-        - port: 4444
+        - port: 4445
           protocol: TCP
     - to:
         - podSelector:
