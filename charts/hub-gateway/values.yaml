@@ -9,6 +9,9 @@ verificationUri: 'http://hub.127.0.0.1.nip.io:9080/verification'
 internalService:
   enabled: true
 
+maintenanceMode:
+  enabled: false
+
 routes:
   - name: api
     serviceName: federated-router
