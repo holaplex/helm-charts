@@ -6,6 +6,9 @@ loginUri: 'http://hub.127.0.0.1.nip.io:9080/login'
 forceVerification: false
 verificationUri: 'http://hub.127.0.0.1.nip.io:9080/verification'
 
+maintenanceMode:
+  enabled: false
+
 internalService:
   enabled: true
 
