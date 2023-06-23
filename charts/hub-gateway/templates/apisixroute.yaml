@@ -6,6 +6,7 @@
 {{- $verificationUri := .Values.verificationUri -}}
 {{- $orgCookie := .Values.orgCookieName -}}
 {{- $loginUri := .Values.loginUri -}}
+{{- $maintenanceMode := .Values.maintenanceMode.enabled -}}
 {{- with .Values.routes }}
 {{- range . }}
 apiVersion: apisix.apache.org/v2
@@ -32,6 +33,30 @@ spec:
     plugins:
     - name: request-id
       enable: true
+    {{- if $maintenanceMode }}
+      {{- if eq .subdomain "hub" }}
+    - name: response-rewrite
+      enable: true
+      config:
+        status_code: 503
+        body: PCFET0NUWVBFIGh0bWw+CjxodG1sPgogIDxoZWFkPgogICAgPHRpdGxlPkhvbGFwbGV4IEh1YiB8IE1haW50ZW5hbmNlPC90aXRsZT4KICAgIDxtZXRhIGNoYXJzZXQ9InV0Zi04IiAvPgogICAgPG1ldGEgbmFtZT0icm9ib3RzIiBjb250ZW50PSJub2luZGV4IiAvPgogICAgPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xLjAiIC8+CiAgICA8c3R5bGU+CiAgICAgIGJvZHkgewogICAgICAgIHRleHQtYWxpZ246IGNlbnRlcjsKICAgICAgICBwYWRkaW5nOiAyMHB4OwogICAgICAgIGZvbnQ6IDIwcHggSGVsdmV0aWNhLCBzYW5zLXNlcmlmOwogICAgICAgIGNvbG9yOiAjZWZlOGU4OwogICAgICB9CiAgICAgIEBtZWRpYSAobWluLXdpZHRoOiA3NjhweCkgewogICAgICAgIGJvZHkgewogICAgICAgICAgcGFkZGluZy10b3A6IDE1MHB4OwogICAgICAgIH0KICAgICAgfQogICAgICBoMSB7CiAgICAgICAgZm9udC1zaXplOiA1MHB4OwogICAgICB9CiAgICAgIGFydGljbGUgewogICAgICAgIGRpc3BsYXk6IGJsb2NrOwogICAgICAgIHRleHQtYWxpZ246IGxlZnQ7CiAgICAgICAgbWF4LXdpZHRoOiA2MzBweDsKICAgICAgICBtYXJnaW46IDAgYXV0bzsKICAgICAgfQogICAgICBhIHsKICAgICAgICBjb2xvcjogI2YzZjM2ZDsKICAgICAgICB0ZXh0LWRlY29yYXRpb246IG5vbmU7CiAgICAgIH0KICAgICAgYTpob3ZlciB7CiAgICAgICAgY29sb3I6ICM2MTYxMzg7CiAgICAgICAgdGV4dC1kZWNvcmF0aW9uOiBub25lOwogICAgICB9CiAgICA8L3N0eWxlPgogIDwvaGVhZD4KICA8Ym9keSBiZ2NvbG9yPSIxYTFhMWQiPgogICAgPGFydGljbGU+CiAgICAgIDxoMT5OZXcgZmVhdHVyZXMgaW5jb21pbmchICYjMTI4NjQwOzwvaDE+CiAgICAgIDxkaXY+CiAgICAgICAgPHA+CiAgICAgICAgICBXZSZyc3F1bztyZSBjdXJyZW50bHkgcGVyZm9ybWluZyBtYWludGVuYW5jZSB0YXNrcyB3aGljaCByZXF1aXJlZCB1cwogICAgICAgICAgdG8gc3RvcCB0aGUgc2VydmljZSBmb3IgYSBmZXcgbWludXRlcy4gSWYgeW91IG5lZWQgaGVscCB5b3UgY2FuIGFsd2F5cwogICAgICAgICAgPGEgaHJlZj0ibWFpbHRvOnN1cHBvcnRAaG9sYXBsZXguY29tIj5jb250YWN0IHVzPC9hPiwgb3RoZXJ3aXNlCiAgICAgICAgICB3ZSZyc3F1bztsbCBiZSBiYWNrIG9ubGluZSBzaG9ydGx5ITxiciAvPgogICAgICAgICAgU29ycnkgZm9yIHRoZSBpbmNvbnZlbmllbmNlLgogICAgICAgIDwvcD4KICAgICAgICA8cD4mbWRhc2g7IFRoZSBIb2xhcGxleCBUZWFtPC9wPgogICAgICA8L2Rpdj4KICAgIDwvYXJ0aWNsZT4KICA8L2JvZHk+CjwvaHRtbD4K
+        body_base64: true
+    - name: mocking
+      enable: true
+      config:
+        with_mock_header: false
+        response_status: 503
+        content_type: "text/html; charset=utf-8"
+        response_example: ""
+      {{- else }}
+    - name: mocking
+      enable: true
+      config:
+        response_status: 503
+        with_mock_header: false
+        response_example: "{\"error\": 503,\"message\": \"We’re currently performing maintenance tasks which required us to stop the service for a few minutes. If you need help you can always contact us at support@holaplex.com, otherwise we’ll be back online shortly! Sorry for the inconvenience. — The Holaplex Team\"}"
+      {{- end }}
+    {{- end }}
     {{- with .session }}
     {{- if .enabled | default false }}
     - name: session
