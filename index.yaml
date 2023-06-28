@@ -2020,6 +2020,30 @@ entries:
   hub-permissions:
   - apiVersion: v2
     appVersion: "0.1"
+    created: "2023-06-28T19:06:18.577404022Z"
+    dependencies:
+    - condition: keto.enabled
+      name: keto
+      repository: https://k8s.ory.sh/helm/charts
+      version: 0.28.0
+    - condition: opa.enabled
+      name: opa
+      repository: https://charts.holaplex.com
+      version: 0.2.0
+    description: Helm chart for hub-permissions
+    digest: ba74d608530a7ace41ffebf8e147f76d54847c45ac7c20be08e51dcf18c0101b
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-permissions
+    sources:
+    - https://github.com/holaplex/helm-charts
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-permissions-0.4.1/hub-permissions-0.4.1.tgz
+    version: 0.4.1
+  - apiVersion: v2
+    appVersion: "0.1"
     created: "2023-06-28T19:01:09.956660684Z"
     dependencies:
     - condition: keto.enabled
@@ -2492,6 +2516,24 @@ entries:
   hub-webhooks:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-06-28T19:06:18.752290523Z"
+    dependencies:
+    - condition: svix.enabled
+      name: svix
+      repository: https://charts.holaplex.com
+      version: 0.3.1
+    description: Helm chart for hub-webhooks
+    digest: 7f489f9739ddc1341c92ed3ff86ee651c20b9443a7aa5e61c16a1d6afdee50a0
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-webhooks
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-webhooks-0.3.2/hub-webhooks-0.3.2.tgz
+    version: 0.3.2
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-06-28T19:01:10.382763382Z"
     dependencies:
     - condition: svix.enabled
@@ -2714,4 +2756,4 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/svix-0.0.1/svix-0.0.1.tgz
     version: 0.0.1
-generated: "2023-06-28T19:01:10.674816678Z"
+generated: "2023-06-28T19:06:18.75268074Z"
