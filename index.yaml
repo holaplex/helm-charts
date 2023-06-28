@@ -24,6 +24,19 @@ entries:
   hub-credentials:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-06-28T19:01:08.429424203Z"
+    description: Helm chart for hub-credentials
+    digest: a133059d3b68169455fe363e0c50a0551e3dcf0ee33bd64352d2e41bdfb1c9ce
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-credentials
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-credentials-0.4.0/hub-credentials-0.4.0.tgz
+    version: 0.4.0
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-06-09T01:49:55.751726944Z"
     description: Helm chart for hub-credentials
     digest: 12c9b7af648c59342c2717bdf45487ca1d47462f1b0851eea492971f1405f51a
@@ -75,6 +88,19 @@ entries:
     - https://github.com/holaplex/helm-charts/releases/download/hub-credentials-0.1.0/hub-credentials-0.1.0.tgz
     version: 0.1.0
   hub-credits:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-06-28T19:01:08.56377291Z"
+    description: Helm chart for hub-credits
+    digest: dac4988dc747251f68efd2600dd71ef15fb70f242456d1d1406bc2aad554cafc
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-credits
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-credits-0.8.0/hub-credits-0.8.0.tgz
+    version: 0.8.0
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2023-06-19T13:05:15.065193866Z"
@@ -234,6 +260,19 @@ entries:
   hub-customers:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-06-28T19:01:08.691720711Z"
+    description: Helm chart for hub-customers
+    digest: 6f810dcf7d09281250171d0c2da23077f529ab286c5191f2915abf8fbd41cc4e
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-customers
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-customers-0.3.0/hub-customers-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-06-09T01:49:56.08284282Z"
     description: Helm chart for hub-customers
     digest: bc189eec35bff81fafdeb33121bd3bf56dd2c81afa8b52ca0d800cbc3cd4e026
@@ -272,6 +311,26 @@ entries:
     - https://github.com/holaplex/helm-charts/releases/download/hub-customers-0.1.0/hub-customers-0.1.0.tgz
     version: 0.1.0
   hub-gateway:
+  - apiVersion: v2
+    appVersion: "0.3"
+    created: "2023-06-28T19:01:08.850683421Z"
+    dependencies:
+    - condition: apisix.enabled
+      name: apisix
+      repository: https://charts.apiseven.com
+      version: 1.3.1
+    description: Helm chart for hub-gateway
+    digest: 42db5647a444c9ca7e21004e312830e4c88f159768d5937f54e5a900fbced19e
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-gateway
+    sources:
+    - https://github.com/holaplex/helm-charts
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-gateway-0.23.0/hub-gateway-0.23.0.tgz
+    version: 0.23.0
   - apiVersion: v2
     appVersion: "0.3"
     created: "2023-06-23T01:06:51.651977682Z"
@@ -1335,6 +1394,19 @@ entries:
   hub-graphql-playground:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-06-28T19:01:08.994092377Z"
+    description: Helm chart for hub-graphql-playground
+    digest: 8c2162ce45e5cd4866aa27ff9273a57b9839e3c962bb96d58ca58337b44cea91
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-graphql-playground
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-graphql-playground-0.2.0/hub-graphql-playground-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-06-15T20:23:29.268003637Z"
     description: Helm chart for hub-graphql-playground
     digest: 60dd9ecce40d69704b365c98a2228cc63feb68ab333fb9bd91440b7d15ae2d04
@@ -1360,6 +1432,19 @@ entries:
     - https://github.com/holaplex/helm-charts/releases/download/hub-graphql-playground-0.1.0/hub-graphql-playground-0.1.0.tgz
     version: 0.1.0
   hub-identities:
+  - apiVersion: v2
+    appVersion: 0.2.1
+    created: "2023-06-28T19:01:09.130440216Z"
+    description: Helm chart for hub-identities
+    digest: eb8cdac72e2c4111cf09c2b5b02da4d584de7453edfec98a8539f836bb86f0c6
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-identities
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-identities-0.4.0/hub-identities-0.4.0.tgz
+    version: 0.4.0
   - apiVersion: v2
     appVersion: 0.2.1
     created: "2023-06-09T01:49:56.274644419Z"
@@ -1415,6 +1500,21 @@ entries:
   hub-messages:
   - apiVersion: v2
     appVersion: "0.1"
+    created: "2023-06-28T19:01:09.262004376Z"
+    description: Helm chart for hub-messages
+    digest: a2eaded09f459b2570844ed27ef636683ebe2db47514830fe4f037d524e2d9e9
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-messages
+    sources:
+    - https://github.com/holaplex/helm-charts
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-messages-0.2.0/hub-messages-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: "0.1"
     created: "2023-06-01T19:51:49.883089978Z"
     description: Helm chart for hub-messages
     digest: 30c5a14b9de7327e091db05cb107d449136fe33862eb1c7a79c5f1d853548171
@@ -1459,6 +1559,19 @@ entries:
     - https://github.com/holaplex/helm-charts/releases/download/hub-messages-0.0.1/hub-messages-0.0.1.tgz
     version: 0.0.1
   hub-nfts:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-06-28T19:01:09.403397398Z"
+    description: Helm chart for hub-nfts
+    digest: c36d5e13d67d8193f482302d062011b8d655df219d138a1d6aa72d6031dc3ed0
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-nfts
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-nfts-0.7.0/hub-nfts-0.7.0.tgz
+    version: 0.7.0
   - apiVersion: v2
     appVersion: 0.1.0
     created: "2023-06-13T13:37:06.50638372Z"
@@ -1644,6 +1757,19 @@ entries:
   hub-nfts-polygon:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2023-06-28T19:01:09.53197061Z"
+    description: Helm chart for hub-nfts-polygon
+    digest: ad6ce06dccaed61f44f4065d4cf5086a1e091b39abf06551f4ff54870423c8c5
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-nfts-polygon
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-nfts-polygon-0.3.0/hub-nfts-polygon-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2023-06-20T23:44:46.614944624Z"
     description: Helm chart for hub-nfts-polygon
     digest: 6d7e67055bf992e9cfc00093a73109941e170adff3ea6197b43b2566d64af176
@@ -1697,6 +1823,19 @@ entries:
   hub-nfts-solana:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2023-06-28T19:01:09.672936725Z"
+    description: Helm chart for hub-nfts-solana
+    digest: 5e57aedb207da31005887b9a9fec13ffe051d0c6315378fc9c1a0417739c7a34
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-nfts-solana
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-nfts-solana-0.2.0/hub-nfts-solana-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2023-06-13T14:10:37.025279478Z"
     description: Helm chart for hub-nfts-solana
     digest: bafb15b8887fe971d3afc3fe0a7a3d1076cea7fc2412625f0b22c2840625cb36
@@ -1735,6 +1874,19 @@ entries:
     - https://github.com/holaplex/helm-charts/releases/download/hub-nfts-solana-0.1.0/hub-nfts-solana-0.1.0.tgz
     version: 0.1.0
   hub-orgs:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-06-28T19:01:09.819175226Z"
+    description: Helm chart for hub-orgs
+    digest: aacab8c16c4622d67abc1e627dc636bc1d3b189b0b487f4bd62c41206f3c00f1
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-orgs
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-orgs-0.7.0/hub-orgs-0.7.0.tgz
+    version: 0.7.0
   - apiVersion: v2
     appVersion: 1.16.0
     created: "2023-06-09T01:49:56.594784427Z"
@@ -1866,6 +2018,30 @@ entries:
     - https://github.com/holaplex/helm-charts/releases/download/hub-orgs-0.1.0/hub-orgs-0.1.0.tgz
     version: 0.1.0
   hub-permissions:
+  - apiVersion: v2
+    appVersion: "0.1"
+    created: "2023-06-28T19:01:09.956660684Z"
+    dependencies:
+    - condition: keto.enabled
+      name: keto
+      repository: https://k8s.ory.sh/helm/charts
+      version: 0.28.0
+    - condition: opa.enabled
+      name: opa
+      repository: https://charts.holaplex.com
+      version: 0.1.0
+    description: Helm chart for hub-permissions
+    digest: d150de688b1893e18e7f5f04c1263bcf48590d50129c0861cfd6917052b6eb87
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-permissions
+    sources:
+    - https://github.com/holaplex/helm-charts
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-permissions-0.4.0/hub-permissions-0.4.0.tgz
+    version: 0.4.0
   - apiVersion: v2
     appVersion: "0.1"
     created: "2023-06-09T01:49:56.758857207Z"
@@ -2080,6 +2256,19 @@ entries:
   hub-treasuries:
   - apiVersion: v2
     appVersion: 0.0.1
+    created: "2023-06-28T19:01:10.098678916Z"
+    description: Helm chart for hub-treasuries
+    digest: 8c468211c5ad63a6501e3f8598065d596e8ff04cc900fa83414675b91c27bfb2
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-treasuries
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-treasuries-0.6.0/hub-treasuries-0.6.0.tgz
+    version: 0.6.0
+  - apiVersion: v2
+    appVersion: 0.0.1
     created: "2023-06-19T18:48:19.163312952Z"
     description: Helm chart for hub-treasuries
     digest: 90bc260675ffdadc139173eecacb0aa9104685a731c521b47bc894aaf59d0aa7
@@ -2224,6 +2413,19 @@ entries:
   hub-ui:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-06-28T19:01:10.228933255Z"
+    description: Helm chart for hub-ui
+    digest: 5e0e6b1989d28ecbd26f56c96b7670a5860496612a1f28ddf236416ac3da970e
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-ui
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-ui-0.4.0/hub-ui-0.4.0.tgz
+    version: 0.4.0
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-05-12T15:04:18.699556981Z"
     description: Helm chart for hub-ui
     digest: 82458957926f1380a191abb86680db882938b329363681bd5fc88cdf05697f9b
@@ -2288,6 +2490,24 @@ entries:
     - https://github.com/holaplex/helm-charts/releases/download/hub-ui-0.1.0/hub-ui-0.1.0.tgz
     version: 0.1.0
   hub-webhooks:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-06-28T19:01:10.382763382Z"
+    dependencies:
+    - condition: svix.enabled
+      name: svix
+      repository: https://charts.holaplex.com
+      version: 0.1.0
+    description: Helm chart for hub-webhooks
+    digest: d076180241e10168acd0d198ec7d7cc0c394ebb8f3abcf2f6849ec1643fe5518
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-webhooks
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-webhooks-0.3.1/hub-webhooks-0.3.1.tgz
+    version: 0.3.1
   - apiVersion: v2
     appVersion: 0.1.4
     created: "2023-06-09T01:49:57.110122899Z"
@@ -2398,6 +2618,21 @@ entries:
     version: 0.1.0
   opa:
   - apiVersion: v2
+    appVersion: 0.53.1
+    created: "2023-06-28T19:01:10.526202437Z"
+    description: Helm chart for opa
+    digest: 33f1161f9e33a63be1c88326a85d7c73ff1dbeafd138c01a534d5d1398ad6edb
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: opa
+    sources:
+    - https://github.com/holaplex/helm-charts
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/opa-0.2.0/opa-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     appVersion: 0.48.0
     created: "2023-05-19T17:24:03.17963109Z"
     description: Helm chart for opa
@@ -2430,6 +2665,26 @@ entries:
   svix:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-06-28T19:01:10.674228768Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 17.8.2
+    description: Helm chart for Svix
+    digest: d73ebab5922499032725153a3ca039163f5c4a8f518d15b038e921dc9c1c5a61
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: svix
+    sources:
+    - https://github.com/holaplex/helm-charts
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/svix-0.3.1/svix-0.3.1.tgz
+    version: 0.3.1
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-03-01T21:37:19.513683758Z"
     dependencies:
     - condition: redis.enabled
@@ -2459,4 +2714,4 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/svix-0.0.1/svix-0.0.1.tgz
     version: 0.0.1
-generated: "2023-06-23T01:06:51.652341684Z"
+generated: "2023-06-28T19:01:10.674816678Z"
