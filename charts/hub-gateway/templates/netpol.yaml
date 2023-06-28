@@ -1,0 +1,123 @@
+{{- if .Values.networkPolicies.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "hub-gateway.fullname" . }}
+  labels:
+    {{- include "hub-gateway.labels" . | nindent 4 }}
+spec:
+  podSelector:
+    matchLabels:
+      {{- include "hub-gateway.selectorLabels" . | nindent 8 }}
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: hub-ui
+          namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: {{ .Values.hubNamespace }}
+      ports:
+        - port: 3000
+          protocol: TCP
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: router
+          namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: {{ .Values.hubNamespace }}
+      ports:
+        - port: 4000
+          protocol: TCP
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: hub-orgs
+          namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: {{ .Values.hubNamespace }}
+      ports:
+        - port: 3000
+          protocol: TCP
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: {{ .Values.hubNamespace }}
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: hub-credits
+      ports:
+        - port: 3000
+          protocol: TCP
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: hub-graphql-playground
+          namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: {{ .Values.hubNamespace }}
+      ports:
+        - port: 8080
+          protocol: TCP
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: hydra
+          namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: {{ .Values.hubNamespace }}
+      ports:
+        - port: 4445
+          protocol: TCP
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: kratos
+          namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: {{ .Values.hubNamespace }}
+      ports:
+        - port: 4433
+          protocol: TCP
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: opa
+          namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: {{ .Values.hubNamespace }}
+      ports:
+        - port: 8181
+          protocol: TCP
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: etcd
+      ports:
+        - port: 2379
+          protocol: TCP
+    - to:
+        - namespaceSelector: {}
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - port: 53
+          protocol: UDP
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: node-local-dns
+      ports:
+        - port: 53
+          protocol: UDP
+{{- if .Values.networkPolicies.extraEgress }}
+{{ toYaml .Values.networkPolicies.extraEgress | indent 4 }}
+{{- end }}
+  policyTypes:
+    - Egress
+{{- end }}

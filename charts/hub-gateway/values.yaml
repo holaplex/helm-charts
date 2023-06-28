@@ -12,6 +12,9 @@ maintenanceMode:
 internalService:
   enabled: true
 
+maintenanceMode:
+  enabled: false
+
 routes:
   - name: api
     serviceName: federated-router
@@ -258,6 +261,9 @@ apisixPlugins:
       headerName: 'X-Organization-Id'
     files:
       - plugins/org-lookup.lua
+
+networkPolicies:
+  enabled: false
 
 apisix:
   enabled: true

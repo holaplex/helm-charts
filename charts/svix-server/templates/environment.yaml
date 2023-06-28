@@ -6,7 +6,7 @@ data:
   {{- with .Values.environment }}
   SVIX_QUEUE_TYPE: {{ .queueType | default "memory" | quote }}
   RUST_LOG: {{ .logLevel | default "info" | quote }}
-  SVIX_LISTEN_ADDRESS: {{ print .listenAddress ":" $.Values.service.port }}
+  SVIX_LISTEN_ADDRESS: {{ print .listenAddress ":" .listenPort }}
   SVIX_REDIS_DSN: {{ .redisDsn }}
   WAIT_FOR: {{ .waitForServices | default "true" | quote }}
   {{- end }}
