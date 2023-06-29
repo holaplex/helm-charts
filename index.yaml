@@ -2529,6 +2529,24 @@ entries:
   hub-webhooks:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-06-29T20:45:33.024701268Z"
+    dependencies:
+    - condition: svix.enabled
+      name: svix
+      repository: https://charts.holaplex.com
+      version: 0.3.3
+    description: Helm chart for hub-webhooks
+    digest: 6bc0f77e35a0fa4a7fde6fbc13c641149fe2ae774553b71a106bd0b419aa79ab
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-webhooks
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-webhooks-0.3.3/hub-webhooks-0.3.3.tgz
+    version: 0.3.3
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-06-28T19:06:18.752290523Z"
     dependencies:
     - condition: svix.enabled
@@ -2789,4 +2807,4 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/svix-0.0.1/svix-0.0.1.tgz
     version: 0.0.1
-generated: "2023-06-29T20:42:33.850247011Z"
+generated: "2023-06-29T20:45:33.025005776Z"
