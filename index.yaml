@@ -2720,6 +2720,26 @@ entries:
   svix:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-06-29T20:42:33.850004107Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 17.8.2
+    description: Helm chart for Svix
+    digest: f833158235e060f1dd556594e66270764712eafc051ed4b7a7a895be0466deb5
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: svix
+    sources:
+    - https://github.com/holaplex/helm-charts
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/svix-0.3.3/svix-0.3.3.tgz
+    version: 0.3.3
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-06-28T19:01:10.674228768Z"
     dependencies:
     - condition: redis.enabled
@@ -2769,4 +2789,4 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/svix-0.0.1/svix-0.0.1.tgz
     version: 0.0.1
-generated: "2023-06-29T17:19:54.756248235Z"
+generated: "2023-06-29T20:42:33.850247011Z"
