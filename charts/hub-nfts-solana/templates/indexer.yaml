@@ -1,14 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "hub-nfts-solana.fullname" . }}
+  name: {{ include "hub-nfts-solana.fullname" . }}-indexer
   labels:
     {{- include "hub-nfts-solana.labels" . | nindent 4 }}
+    app.kubernetes.io/component: indexer
 spec:
-  replicas: 1
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
   selector:
     matchLabels:
       {{- include "hub-nfts-solana.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: indexer
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -17,6 +21,7 @@ spec:
       {{- end }}
       labels:
         {{- include "hub-nfts-solana.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: indexer
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -26,11 +31,13 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ .Chart.Name }}-indexer
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- toYaml .Values.securityContext | nindent 12 }}
+          {{- with .Values.indexer.image }}
+          image: "{{ .repository }}:{{ .tag | default $.Chart.AppVersion }}"
+          imagePullPolicy: {{ .pullPolicy }}
+          {{- end }}
           envFrom:
             - configMapRef:
                 name: {{ include "hub-nfts-solana.fullname" . }}
