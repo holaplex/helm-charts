@@ -5,7 +5,9 @@ metadata:
   labels:
     {{- include "hub-nfts-solana.labels" . | nindent 4 }}
 spec:
-  replicas: 1
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
   selector:
     matchLabels:
       {{- include "hub-nfts-solana.selectorLabels" . | nindent 6 }}
