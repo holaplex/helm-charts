@@ -12,6 +12,7 @@ migrate:
     tag: "latest"
 
 indexer:
+  enabled: false
   image:
     repository: holaplex/hub-nfts-solana-indexer
     pullPolicy: IfNotPresent
