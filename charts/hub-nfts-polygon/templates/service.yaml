@@ -4,6 +4,7 @@ metadata:
   name: {{ include "hub-nfts-polygon.fullname" . }}
   labels:
     {{- include "hub-nfts-polygon.labels" . | nindent 4 }}
+    app.kubernetes.io/component: indexer
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -13,3 +14,4 @@ spec:
       name: http
   selector:
     {{- include "hub-nfts-polygon.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: indexer
