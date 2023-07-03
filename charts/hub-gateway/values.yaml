@@ -12,7 +12,7 @@ maintenanceMode:
 internalService:
   enabled: true
 
-maintenanceMode:
+networkPolicies:
   enabled: false
 
 routes:
@@ -261,9 +261,6 @@ apisixPlugins:
       headerName: 'X-Organization-Id'
     files:
       - plugins/org-lookup.lua
-
-networkPolicies:
-  enabled: false
 
 apisix:
   enabled: true
