@@ -11,6 +11,14 @@ migrate:
     # Overrides the image tag whose default is the chart appVersion.
     tag: "latest"
 
+indexer:
+  enabled: false
+  image:
+    repository: holaplex/hub-nfts-polygon-indexer
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "latest"
+
 image:
   repository: holaplex/hub-nfts-polygon
   pullPolicy: IfNotPresent
@@ -85,9 +93,6 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
-indexer:
-  enabled: true
 
 secrets:
   enabled: true

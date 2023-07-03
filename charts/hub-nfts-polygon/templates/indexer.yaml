@@ -1,9 +1,11 @@
+{{- if .Values.indexer.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "hub-nfts-polygon.fullname" . }}
+  name: {{ include "hub-nfts-polygon.fullname" . }}-indexer
   labels:
     {{- include "hub-nfts-polygon.labels" . | nindent 4 }}
+    app.kubernetes.io/component: indexer
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
@@ -11,6 +13,7 @@ spec:
   selector:
     matchLabels:
       {{- include "hub-nfts-polygon.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: indexer
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -19,6 +22,7 @@ spec:
       {{- end }}
       labels:
         {{- include "hub-nfts-polygon.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: indexer
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -28,37 +32,24 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: indexer
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- with .Values.indexer.image }}
+          image: "{{ .repository }}:{{ .tag }}"
+          imagePullPolicy: {{ .pullPolicy }}
+          {{- end }}
           envFrom:
             - configMapRef:
                 name: {{ include "hub-nfts-polygon.fullname" . }}
             - secretRef:
                 name: {{ include "hub-nfts-polygon.fullname" . }}
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-        {{- if .Values.indexer.enabled }}
-        - name: {{ .Chart.Name }}-indexer
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          envFrom:
-            - configMapRef:
-                name: {{ include "hub-nfts-polygon.fullname" . }}
-            - secretRef:
-                name: {{ include "hub-nfts-polygon.fullname" . }}
-          command: ["/usr/local/bin/holaplex-hub-nfts-polygon-indexer"]
           ports:
             - name: http
               containerPort: {{ .Values.environment.port }}
               protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-        {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -71,3 +62,4 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+{{- end }}
