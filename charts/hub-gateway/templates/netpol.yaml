@@ -10,7 +10,7 @@ spec:
     matchLabels:
       app.kubernetes.io/name: apisix
   ingress:
-    - from: {}
+    - {}
   egress:
     - to:
         - podSelector:
