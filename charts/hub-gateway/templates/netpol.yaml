@@ -8,7 +8,9 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      {{- include "hub-gateway.selectorLabels" . | nindent 8 }}
+      app.kubernetes.io/name: apisix
+  ingress:
+    - to: {}
   egress:
     - to:
         - podSelector:
@@ -120,4 +122,5 @@ spec:
 {{- end }}
   policyTypes:
     - Egress
+    - Ingress
 {{- end }}
