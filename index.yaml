@@ -1830,6 +1830,19 @@ entries:
   hub-nfts-polygon:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2023-07-03T19:45:04.494145871Z"
+    description: Helm chart for hub-nfts-polygon
+    digest: 25fb883633d50855b804b70fb44c32695b515f10469da242a459accd5b738659
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-nfts-polygon
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-nfts-polygon-0.4.0/hub-nfts-polygon-0.4.0.tgz
+    version: 0.4.0
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2023-06-28T19:01:09.53197061Z"
     description: Helm chart for hub-nfts-polygon
     digest: ad6ce06dccaed61f44f4065d4cf5086a1e091b39abf06551f4ff54870423c8c5
@@ -2880,4 +2893,4 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/svix-0.0.1/svix-0.0.1.tgz
     version: 0.0.1
-generated: "2023-07-03T16:10:05.504885224Z"
+generated: "2023-07-03T19:45:04.494769575Z"
