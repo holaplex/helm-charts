@@ -25,6 +25,17 @@ spec:
     - to:
         - podSelector:
             matchLabels:
+              app.kubernetes.io/name: hub-nfts-polygon
+              app.kubernetes.io/component: indexer
+          namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: {{ .Values.hubNamespace }}
+      ports:
+        - port: 3000
+          protocol: TCP
+    - to:
+        - podSelector:
+            matchLabels:
               app.kubernetes.io/name: router
           namespaceSelector:
             matchLabels:
