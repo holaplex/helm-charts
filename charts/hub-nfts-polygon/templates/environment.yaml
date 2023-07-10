@@ -6,6 +6,7 @@ data:
   {{- with .Values.environment }}
   PORT: {{ .port | quote }}
   POLYGON_EDITION_CONTRACT: {{ required "must set polygon edition contract address" .polygonEditionContractAddress | quote }}
+  CONTRACT_DEPLOYER: {{ required "must set polygon edition contract address" .polygonContractDeployer | quote }}
   KAFKA_BROKERS: {{ required "must set kafka brokers" .kafkaBrokers | quote }}
   KAFKA_USERNAME: {{ required "must set kafka username" .kafkaUsername | quote }}
   KAFKA_SSL: {{ required "must set kafka ssl" .kafkaSsl | quote }}

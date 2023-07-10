@@ -108,3 +108,4 @@ environment:
   kafkaUsername: ""
   kafkaSsl: false
   polygonEditionContractAddress: ""
+  polygonContractDeployer: ""
