@@ -187,7 +187,7 @@ routes:
     session:
       enabled: true
     paths:
-      - /browser/credits/purchase
+      - /api/credits/purchase
     methods:
       - POST
 
