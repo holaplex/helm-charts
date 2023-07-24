@@ -8,4 +8,7 @@ data:
   KAFKA_BROKERS: {{ required "must set kafka brokers" .kafkaBrokers | quote }}
   KAFKA_USERNAME: {{ required "must set kafka username" .kafkaUsername | quote }}
   KAFKA_SSL: {{ required "must set kafka ssl" .kafkaSsl | quote }}
+  TREE_AUTHORITY: {{ required "must set tree authority" .treeAuthority | quote }}
+  TREE_DELEGATE: {{ required "must set tree delegate" .treeDelegate | quote }}
+  MERKLE_TREE: {{ required "must set merkle tree" .merkleTree | quote }}
   {{- end }}
