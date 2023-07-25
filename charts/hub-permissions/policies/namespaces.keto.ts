@@ -90,7 +90,7 @@ class Mint implements Namespace {
     owners: User[]
     editors: User[]
     viewers: User[]
-    parents: Drop[]
+    parents: (Drop | Collection)[]
   }
 
   permits = {
