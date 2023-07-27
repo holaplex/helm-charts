@@ -98,7 +98,7 @@ secrets:
     databaseUrl: ""
     dragonMouthEndpoint: ""
     dragonMouthXToken: ""
-    digitalAssetsApiEndpoint: ""
+    digitalAssetApiEndpoint: ""
 
 environment:
   kafkaBrokers: "hub-eventbus-cluster-0.hub-eventbus-cluster.default.svc.cluster.local.:9093"
