@@ -1,0 +1,43 @@
+{{- $organizationName  := .Values.organization -}}
+{{- range .Values.runners }}
+  {{- $runner := . -}}
+  {{- range .architectures }}
+---
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: RunnerDeployment
+metadata:
+  name: {{ $runner.name }}-{{ . }}
+  namespace: actions-runner-system
+spec:
+  template:
+    spec:
+      labels:
+      - {{ . }}
+      {{- if eq . "amd64" }}
+      - self-hosted
+      {{- end }}
+      nodeSelector:
+        kubernetes.io/arch: {{ . }}
+      tolerations:
+      - key: "kubernetes.io/arch"
+        operator: "Equal"
+        value: {{ . }}
+        effect: "NoSchedule"
+      repository: {{ $organizationName }}/{{ $runner.name }}
+---
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: HorizontalRunnerAutoscaler
+metadata:
+  name: {{ $runner.name }}-{{ . }}
+spec:
+  scaleTargetRef:
+    kind: RunnerDeployment
+    name: {{ $runner.name }}-{{ . }}
+  minReplicas: {{ $runner.replicas.min }}
+  maxReplicas: {{ $runner.replicas.max }}
+  metrics:
+  - type: TotalNumberOfQueuedAndInProgressWorkflowRuns
+    repositoryNames:
+    - {{ $organizationName }}/{{ $runner.name }}
+  {{- end }}
+{{- end }}

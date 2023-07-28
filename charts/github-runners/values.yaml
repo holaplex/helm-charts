@@ -1,0 +1,10 @@
+organization: holaplex
+runners: []
+# - name: hub-nfts-polygon
+#   repository: hub-nfts-polygon
+#   architectures:
+#     - arm64
+#     - amd64
+#   replicas:
+#     min: 0
+#     max: 5
