@@ -19,8 +19,6 @@ local core   = require("apisix.core")
 local http   = require("resty.http")
 local helper = require("apisix.plugins.authz.helper")
 local json = require("apisix.core.json")
-local type   = type
-
 
 local schema = {
     type = "object",
@@ -124,7 +122,7 @@ function _M.access(conf, ctx)
         end
 
         local req_id = core.request.header(ctx, "X-Request-Id")
-        reason = json.encode({
+        local reason = json.encode({
           code = status_code,
           message = "Unauthorized",
           request_id = req_id
