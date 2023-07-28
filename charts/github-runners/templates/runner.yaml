@@ -23,7 +23,7 @@ spec:
         operator: "Equal"
         value: {{ . }}
         effect: "NoSchedule"
-      repository: {{ $organizationName }}/{{ $runner.name }}
+      repository: {{ $organizationName }}/{{ $runner.repository }}
 ---
 apiVersion: actions.summerwind.dev/v1alpha1
 kind: HorizontalRunnerAutoscaler
@@ -38,6 +38,6 @@ spec:
   metrics:
   - type: TotalNumberOfQueuedAndInProgressWorkflowRuns
     repositoryNames:
-    - {{ $organizationName }}/{{ $runner.name }}
+    - {{ $organizationName }}/{{ $runner.repository }}
   {{- end }}
 {{- end }}
