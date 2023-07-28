@@ -128,6 +128,13 @@ function _M.access(conf, ctx)
             reason = type(result.reason) == "table"
                 and json.encode(result.reason)
                 or result.reason
+        else
+          local req_id = core.request.header(ctx, "X-Request-Id")
+          reason = json.encode({
+            code = status_code,
+            message = "Unauthorized",
+            request_id = req_id
+          })
         end
 
         return status_code, reason
