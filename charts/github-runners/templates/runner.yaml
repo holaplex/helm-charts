@@ -16,6 +16,11 @@ spec:
   template:
     spec:
       repository: {{ $organizationName }}/{{ $runner.repository }}
+      {{- with $runner.extraSpecs }}
+      {{- range $key, $value := . }}
+      {{ $key }}: {{ $value }}
+      {{- end }}
+      {{- end }}
       labels:
       - {{ . }}
       {{- if eq . "amd64" }}
