@@ -2,6 +2,21 @@ apiVersion: v1
 entries:
   github-runners:
   - apiVersion: v2
+    appVersion: 0.1.2
+    created: "2023-07-30T20:43:21.009451737Z"
+    description: A Helm chart to create GitHub Actions runners
+    digest: 96d826f091aa6a48545b4949fbdbcc5c8d9037821ec5f4e6acddff8fd3035f15
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: github-runners
+    sources:
+    - https://github.com/holaplex/helm-charts
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/github-runners-0.1.2/github-runners-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     appVersion: 0.1.1
     created: "2023-07-28T22:23:01.679586822Z"
     description: A Helm chart to create GitHub Actions runners
@@ -3071,4 +3086,4 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/svix-0.0.1/svix-0.0.1.tgz
     version: 0.0.1
-generated: "2023-07-28T22:23:01.680447525Z"
+generated: "2023-07-30T20:43:21.009764742Z"
