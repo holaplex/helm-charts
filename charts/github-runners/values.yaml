@@ -5,6 +5,9 @@ runners: []
 #   architectures:
 #     - arm64
 #     - amd64
+#   extraTolerations: []
+#   extraConstraints: []
+#   extraSpecs: []
 #   replicas:
 #     min: 0
 #     max: 5

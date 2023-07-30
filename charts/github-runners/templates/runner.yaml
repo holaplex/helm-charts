@@ -8,9 +8,19 @@ kind: RunnerDeployment
 metadata:
   name: {{ $runner.name }}-{{ . }}
   namespace: actions-runner-system
+  labels:
+    arch: {{ . }}
+    organization: {{ $organizationName }}
 spec:
+  replicas: {{ $runner.replicas.min }}
   template:
     spec:
+      repository: {{ $organizationName }}/{{ $runner.repository }}
+      {{- with $runner.extraSpecs }}
+      {{- range $key, $value := . }}
+      {{ $key }}: {{ $value }}
+      {{- end }}
+      {{- end }}
       labels:
       - {{ . }}
       {{- if eq . "amd64" }}
@@ -19,11 +29,24 @@ spec:
       nodeSelector:
         kubernetes.io/arch: {{ . }}
       tolerations:
+      {{- if $runner.extraTolerations }}
+      {{ toYaml $runner.extraTolerations | indent 8 }}
+      {{- end }}
       - key: "kubernetes.io/arch"
         operator: "Equal"
         value: {{ . }}
         effect: "NoSchedule"
-      repository: {{ $organizationName }}/{{ $runner.repository }}
+      topologySpreadConstraints:
+      {{- if $runner.extraConstraints }}
+      {{ toYaml $runner.extraConstraints | indent 8 }}
+      {{- end }}
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: ScheduleAnyway
+        labelSelector:
+          matchLabels:
+            arch: {{ . }}
+            organization: {{ $organizationName }}
 ---
 apiVersion: actions.summerwind.dev/v1alpha1
 kind: HorizontalRunnerAutoscaler
