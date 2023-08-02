@@ -102,6 +102,10 @@ creditSheet: |-
   solana = 5
   polygon = 2
 
+  [Mint]
+  solana = 5
+  polygon = 2
+
   [CreateDrop]
   solana = 5
   polygon = 3
@@ -111,14 +115,26 @@ creditSheet: |-
   polygon = 0
 
   [TransferAsset]
-  solana = 5
-  polygon = 2
+  solana = 1
+  polygon = 1
 
   [CreateWallet]
   solana = 5
   polygon = 5
 
   [RetryDrop]
+  solana = 0
+  polygon = 0
+
+  [CreateCollection]
+  solana = 5
+  polygon = 0
+
+  [MintCompressed]
+  solana = 1
+  polygon = 0
+
+  [RetryCollection]
   solana = 0
   polygon = 0
 
