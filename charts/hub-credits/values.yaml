@@ -115,8 +115,8 @@ creditSheet: |-
   polygon = 0
 
   [TransferAsset]
-  solana = 1
-  polygon = 1
+  solana = 5
+  polygon = 2
 
   [CreateWallet]
   solana = 5
