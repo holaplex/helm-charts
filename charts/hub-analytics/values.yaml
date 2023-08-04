@@ -55,6 +55,21 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
+networkPolicies:
+  enabled: false
+  extraEgress: []
+  extraIngress: []
+  # Example:
+  # extraEgress:
+  #  - to:
+  #      - ipBlock:
+  #          cidr: 1.2.3.4/16
+  #  - to:
+  #      - podSelector:
+  #          matchLabels:
+  #            app.kubernetes.io/name: hub-services-db
+  # extraIngress: []
+
 nodeSelector: {}
 
 tolerations: []
@@ -65,68 +80,10 @@ secrets:
   enabled: true
   entries:
     kafkaPassword: ""
-    influxdbPassword: ""
-    influxdbToken: ""
+    databaseUrl: ""
 
 environment:
   logLevel: "info"
   kafkaBrokers: "hub-eventbus-cluster-0.hub-eventbus-cluster.default.svc.cluster.local.:9093"
   kafkaSsl: false
   kafkaUsername: ""
-  influxdbUrl: http://hub-analytics-influxdb2
-  influxdbOrg: holaplex
-  influxdbBucket: hub-analytics
-
-influxdb2:
-  enabled: true
-  image:
-    repository: influxdb
-    tag: 2.6.1
-    pullPolicy: IfNotPresent
-
-  persistence:
-    enabled: true
-    # storageClass: "-"
-    accessMode: ReadWriteOnce
-    size: 8Gi
-    mountPath: /var/lib/influxdb2
-
-  enterprise:
-    enabled: false
-
-  adminUser:
-    organization: "holaplex"
-    bucket: "hub-analytics"
-    user: "admin"
-    retention_policy: "0s"
-    existingSecret: hub-analytics
-
-  ingress:
-    enabled: false
-
-  pdb:
-    create: false
-    minAvailable: 1
-
-  backup:
-    enabled: false
-    resources:
-      requests:
-        ephemeral-storage: "8Gi"
-    persistence:
-      enabled: false
-      # storageClass: "-"
-      annotations:
-      accessMode: ReadWriteOnce
-      size: 8Gi
-    schedule: "0 0 * * *"
-
-  backupRetention:
-    enabled: false
-    resources:
-      requests:
-      schedule: "0 0 * * *"
-    startingDeadlineSeconds:
-    annotations: {}
-    podAnnotations: {}
-    daysToRetain: 7
