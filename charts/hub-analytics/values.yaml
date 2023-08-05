@@ -93,3 +93,9 @@ environment:
   kafkaBrokers: "hub-eventbus-cluster-0.hub-eventbus-cluster.default.svc.cluster.local.:9093"
   kafkaSsl: false
   kafkaUsername: ""
+
+cube:
+  enabled: false
+
+cubestore:
+  enabled: false
