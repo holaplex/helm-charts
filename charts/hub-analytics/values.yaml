@@ -4,6 +4,13 @@
 
 replicaCount: 1
 
+migrate:
+  image:
+    repository: holaplex/hub-analytics-migrations
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "latest"
+
 image:
   repository: holaplex/hub-analytics
   pullPolicy: IfNotPresent
@@ -28,13 +35,12 @@ podAnnotations: {}
 podSecurityContext: {}
   # fsGroup: 2000
 
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 10000
+  runAsGroup: 10000
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
