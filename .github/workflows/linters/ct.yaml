@@ -9,6 +9,7 @@ chart-repos:
   - ory=https://k8s.ory.sh/helm/charts
   - bitnami=https://charts.bitnami.com/bitnami
   - influxdata=https://helm.influxdata.com
+  - cube=https://gadsme.github.io/charts
 helm-extra-args: --timeout 600s
 validate-maintainers: false
 excluded-charts:
