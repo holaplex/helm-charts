@@ -85,6 +85,29 @@ class Customer implements Namespace {
   }
 }
 
+class UpdateHistory implements Namespace {
+  related: {
+    owners: User[]
+    editors: User[]
+    viewers: User[]
+    parents: Mint[]
+  }
+
+  permits = {
+    view: (ctx: Context): boolean =>
+      this.related.viewers.includes(ctx.subject) ||
+      this.related.parents.traverse((parent) => parent.permits.view(ctx)) ||
+      this.permits.edit(ctx),
+    edit: (ctx: Context): boolean =>
+      this.related.editors.includes(ctx.subject) ||
+      this.related.parents.traverse((parent) => parent.permits.edit(ctx)) ||
+      this.permits.delete(ctx),
+    delete: (ctx: Context): boolean =>
+      this.related.owners.includes(ctx.subject) ||
+      this.related.parents.traverse((parent) => parent.permits.delete(ctx)),
+  }
+}
+
 class Mint implements Namespace {
   related: {
     owners: User[]
