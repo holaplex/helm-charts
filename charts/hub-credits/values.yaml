@@ -99,24 +99,23 @@ secrets:
 
 creditSheet: |-
   [MintEdition]
-  solana = 5
-  polygon = 2
+  solana = 30
+  polygon = 20
 
   [Mint]
-  solana = 5
-  polygon = 2
+  solana = 30
 
   [CreateDrop]
-  solana = 5
-  polygon = 3
+  solana = 25
+  polygon = 25
 
   [RetryMint]
   solana = 0
   polygon = 0
 
   [TransferAsset]
-  solana = 5
-  polygon = 2
+  solana = 10
+  polygon = 10
 
   [CreateWallet]
   solana = 5
@@ -127,14 +126,15 @@ creditSheet: |-
   polygon = 0
 
   [CreateCollection]
-  solana = 5
-  polygon = 0
+  solana = 25
 
   [MintCompressed]
   solana = 1
-  polygon = 0
 
   [RetryCollection]
+  solana = 0
+
+  [UpdateMint]
   solana = 0
   polygon = 0
 
