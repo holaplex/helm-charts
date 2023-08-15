@@ -1,0 +1,205 @@
+{{- if .Values.cube.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cube-schemas
+data:
+  organizations.yml: |
+    cubes:
+    - name: organizations
+      sql_table: public.organizations
+      data_source: default
+
+      joins: []
+
+      dimensions:
+        - name: id
+          sql: id
+          type: string
+          primary_key: true
+
+        - name: name
+          sql: name
+          type: string
+
+      measures:
+        - name: count
+          type: count
+
+      pre_aggregations:
+
+  projects.yml: |
+    cubes:
+    - name: projects
+      sql_table: public.projects
+      data_source: default
+
+      joins:
+        - name: organizations
+          sql: "{CUBE}.organization_id = {organizations}.id"
+          relationship: many_to_one
+
+      dimensions:
+        - name: id
+          sql: id
+          type: string
+          primary_key: true
+
+        - name: organization_id
+          sql: organization_id
+          type: string
+
+        - name: name
+          sql: name
+          type: string
+
+      measures:
+        - name: count
+          type: count
+
+      pre_aggregations:
+
+  customers.yml: |
+    cubes:
+    - name: customers
+      sql_table: public.customers
+      data_source: default
+
+      joins:
+        - name: projects
+          sql: "{CUBE}.project_id = {projects}.id"
+          relationship: many_to_one
+
+      dimensions:
+        - name: id
+          sql: id
+          type: string
+          primary_key: true
+
+        - name: project_id
+          sql: project_id
+          type: string
+
+        - name: timestamp
+          sql: timestamp
+          type: time
+
+      measures:
+        - name: count
+          type: count
+
+      pre_aggregations:
+
+  collections.yml: |
+    cubes:
+    - name: collections
+      sql_table: public.collections
+      data_source: default
+
+      joins:
+        - name: projects
+          sql: "{CUBE}.project_id = {projects}.id"
+          relationship: many_to_one
+
+      dimensions:
+        - name: id
+          sql: id
+          type: string
+          primary_key: true
+
+        - name: project_id
+          sql: project_id
+          type: string
+
+        - name: name
+          sql: name
+          type: string
+
+        - name: blockchain
+          sql: blockchain
+          type: string
+
+        - name: timestamp
+          sql: timestamp
+          type: time
+
+      measures:
+        - name: count
+          type: count
+
+      pre_aggregations:
+
+  wallets.yml: |
+    cubes:
+      - name: wallets
+        sql_table: public.wallets
+        data_source: default
+
+        joins:
+          - name: projects
+            sql: "{CUBE}.project_id = {projects}.id"
+            relationship: many_to_one
+
+        dimensions:
+          - name: id
+            sql: id
+            type: string
+            primary_key: true
+
+          - name: project_id
+            sql: project_id
+            type: string
+
+          - name: blockchain
+            sql: blockchain
+            type: string
+
+          - name: timestamp
+            sql: timestamp
+            type: time
+
+        measures:
+          - name: count
+            type: count
+
+        pre_aggregations:
+
+  mints.yml: |
+    cubes:
+      - name: mints
+        sql_table: public.mints
+        data_source: default
+
+        joins:
+          - name: collections
+            sql: "{CUBE}.collection_id = {collections}.id"
+            relationship: many_to_one
+
+          - name: projects
+            sql: "{CUBE}.project_id = {projects}.id"
+            relationship: many_to_one
+
+        dimensions:
+          - name: id
+            sql: id
+            type: string
+            primary_key: true
+
+          - name: collection_id
+            sql: collection_id
+            type: string
+
+          - name: project_id
+            sql: project_id
+            type: string
+
+          - name: timestamp
+            sql: timestamp
+            type: time
+
+        measures:
+          - name: count
+            type: count
+
+        pre_aggregations:
+{{- end }}

@@ -87,15 +87,45 @@ secrets:
   entries:
     kafkaPassword: ""
     databaseUrl: ""
+    cubeAuthToken: ""
 
 environment:
-  logLevel: "info"
+  logLevel: info
   kafkaBrokers: "hub-eventbus-cluster-0.hub-eventbus-cluster.default.svc.cluster.local.:9093"
   kafkaSsl: false
   kafkaUsername: ""
-
-cube:
-  enabled: false
+  cubeBaseUrl: http://hub-analytics-cube
 
 cubestore:
   enabled: false
+
+cube:
+  enabled: false
+  image:
+    repository: cubejs/cube
+    tag: v0.33
+  commonAnnotations:
+     configmap.reloader.stakater.com/reload: "cube-schemas"
+  cubestore:
+    host: ""
+    port: ""
+  config:
+    devMode: true
+    apiPort: 80
+    authSecret: ""
+    logLevel: info
+    volumes:
+      - name: schema
+        configMap:
+          name: cube-schemas
+      - name: config
+        configMap:
+          name: cube-config
+    volumeMounts:
+      - name: schema
+        readOnly: true
+        mountPath: /cube/conf/schema
+      - name: config
+        readOnly: false
+        mountPath: /cube/conf/cube.js
+        subPath: cube.js
