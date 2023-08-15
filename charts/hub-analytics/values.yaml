@@ -105,7 +105,7 @@ cube:
     repository: cubejs/cube
     tag: v0.33
   commonAnnotations:
-     configmap.reloader.stakater.com/reload: "cube-schemas"
+    configmap.reloader.stakater.com/reload: "cube-schemas"
   cubestore:
     host: ""
     port: ""
