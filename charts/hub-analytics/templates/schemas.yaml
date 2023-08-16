@@ -140,6 +140,10 @@ data:
             sql: "{CUBE}.project_id = {projects}.id"
             relationship: many_to_one
 
+          - name: customers
+            sql: "{CUBE}.customer_id = {customers}.id"
+            relationship: many_to_one
+
         dimensions:
           - name: id
             sql: id
@@ -148,6 +152,10 @@ data:
 
           - name: project_id
             sql: project_id
+            type: string
+
+          - name: customer_id
+            sql: customer_id
             type: string
 
           - name: blockchain
