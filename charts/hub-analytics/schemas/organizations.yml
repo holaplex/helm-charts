@@ -1,0 +1,22 @@
+cubes:
+  - name: organizations
+    sql_table: public.organizations
+    data_source: default
+
+    joins: []
+
+    dimensions:
+      - name: id
+        sql: id
+        type: string
+        primary_key: true
+
+      - name: name
+        sql: name
+        type: string
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:

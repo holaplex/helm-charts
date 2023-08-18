@@ -1,0 +1,37 @@
+cubes:
+  - name: webhooks
+    sql_table: public.webhooks
+    data_source: default
+
+    joins:
+      - name: organizations
+        sql: "{CUBE}.organization_id = {organizations}.id"
+        relationship: many_to_one
+
+      - name: projects
+        sql: "{CUBE}.project_id = {projects}.id"
+        relationship: many_to_one
+
+    dimensions:
+      - name: id
+        sql: id
+        type: string
+        primary_key: true
+
+      - name: organization_id
+        sql: organization_id
+        type: string
+
+      - name: project_id
+        sql: project_id
+        type: string
+
+      - name: timestamp
+        sql: timestamp
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:

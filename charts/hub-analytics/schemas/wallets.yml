@@ -1,0 +1,41 @@
+cubes:
+  - name: wallets
+    sql_table: public.wallets
+    data_source: default
+
+    joins:
+      - name: projects
+        sql: "{CUBE}.project_id = {projects}.id"
+        relationship: many_to_one
+
+      - name: customers
+        sql: "{CUBE}.customer_id = {customers}.id"
+        relationship: many_to_one
+
+    dimensions:
+      - name: id
+        sql: id
+        type: string
+        primary_key: true
+
+      - name: project_id
+        sql: project_id
+        type: string
+
+      - name: customer_id
+        sql: customer_id
+        type: string
+
+      - name: blockchain
+        sql: blockchain
+        type: string
+
+      - name: timestamp
+        sql: timestamp
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
