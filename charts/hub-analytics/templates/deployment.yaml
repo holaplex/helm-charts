@@ -38,6 +38,18 @@ spec:
                 name: {{ include "hub-analytics.fullname" . }}
             - secretRef:
                 name: {{ include "hub-analytics.fullname" . }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.environment.port }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
