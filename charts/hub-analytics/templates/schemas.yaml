@@ -1,0 +1,8 @@
+{{- if .Values.cube.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cube-schemas
+data:
+{{ (.Files.Glob "schemas/**.yml").AsConfig | indent 2 }}
+{{- end }}

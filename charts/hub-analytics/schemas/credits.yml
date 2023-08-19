@@ -1,0 +1,33 @@
+cubes:
+  - name: credits
+    sql_table: public.credits
+    data_source: default
+
+    joins:
+      - name: organizations
+        sql: "{CUBE}.organization_id = {organizations}.id"
+        relationship: many_to_one
+
+    dimensions:
+      - name: id
+        sql: id
+        type: string
+        primary_key: true
+
+      - name: organization_id
+        sql: organization_id
+        type: string
+
+      - name: timestamp
+        sql: timestamp
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+      - name: amount
+        sql: amount
+        type: sum
+
+    pre_aggregations:

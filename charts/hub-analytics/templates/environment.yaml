@@ -8,4 +8,5 @@ data:
   KAFKA_BROKERS: {{ required "must set kafka brokers" .kafkaBrokers | quote }}
   KAFKA_SSL: {{ default "false" .kafkaSsl | quote }}
   KAFKA_USERNAME: {{ required "must set kafka username" .kafkaUsername | quote }}
+  CUBE_BASE_URL: {{ required "must set cube base url" .cubeBaseUrl | quote }}
   {{- end }}

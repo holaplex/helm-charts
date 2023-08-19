@@ -1,0 +1,31 @@
+{{- if .Values.cube.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cube-config
+data:
+  cube.js: |
+    const path = require("path");
+    const fs = require("fs");
+
+    module.exports = {
+      repositoryFactory: () => ({
+        dataSchemaFiles: async () => {
+          const files = await fs.promises.readdir(
+            path.join(process.cwd(), "schema")
+          );
+          return await Promise.all(
+            files
+              .filter((file) => file.endsWith(".js") || file.endsWith(".yml"))
+              .map(async (file) => ({
+                fileName: file,
+                content: await fs.promises.readFile(
+                  path.join(process.cwd(), "schema", file),
+                  "utf-8"
+                ),
+              }))
+          );
+        },
+      }),
+    };
+{{- end }}
