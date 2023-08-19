@@ -4,6 +4,7 @@ metadata:
   name: {{ include "hub-analytics.fullname" . }}
 data:
   {{- with .Values.environment }}
+  PORT: {{ .port | quote }}
   RUST_LOG: {{ .logLevel }}
   KAFKA_BROKERS: {{ required "must set kafka brokers" .kafkaBrokers | quote }}
   KAFKA_SSL: {{ default "false" .kafkaSsl | quote }}
