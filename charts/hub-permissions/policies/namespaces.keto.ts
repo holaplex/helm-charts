@@ -205,20 +205,18 @@ class Organization implements Namespace {
     owners: User[]
     editors: User[]
     viewers: User[]
-    parents: Organization[]
   }
 
   permits = {
     view: (ctx: Context): boolean =>
       this.related.viewers.includes(ctx.subject) ||
+      this.related.owners.includes(ctx.subject) ||
       this.permits.edit(ctx),
     edit: (ctx: Context): boolean =>
       this.related.editors.includes(ctx.subject) ||
-      this.permits.delete(ctx),
-    invite: (ctx: Context): boolean =>
-      this.permits.view(ctx),
-    delete: (ctx: Context): boolean =>
       this.related.owners.includes(ctx.subject) ||
-      this.related.parents.traverse((parent) => parent.permits.delete(ctx)),
+      this.permits.delete(ctx),
+    invite: (ctx: Context): boolean => this.permits.view(ctx),
+    delete: (ctx: Context): boolean => this.related.owners.includes(ctx.subject),
   }
 }
