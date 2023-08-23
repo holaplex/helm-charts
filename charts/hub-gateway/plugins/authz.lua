@@ -122,13 +122,14 @@ function _M.access(conf, ctx)
         end
 
         local req_id = core.request.header(ctx, "X-Request-Id")
-        local reason = json.encode({
+        local invalid = table.concat(result.invalid, ", ")
+        local response = json.encode({
           code = status_code,
-          message = "Unauthorized",
+          message = "Unauthorized. Unable to access " .. invalid,
           request_id = req_id
         })
 
-        return status_code, reason
+        return status_code, response
     end
 end
 
