@@ -110,8 +110,7 @@ routes:
       - GET
     paths:
       - /settings
-      - /profile/edit
-      - /profile/password/edit
+      - /profile/*
       - /webhooks
       - /webhooks/*
       - /members
