@@ -136,7 +136,9 @@ creditSheet: |-
 
   [UpdateMint]
   solana = 0
-  polygon = 0
+
+  [SwitchCollection]
+  solana = 10
 
 environment:
   logLevel: "info"
