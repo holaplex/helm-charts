@@ -152,7 +152,8 @@ routes:
       - /
       - /registration
       - /verification
-      - /login/*
+      - /login
+      - /login/2fa
       - /recovery
       - /recovery/code
       - /recovery/reset
