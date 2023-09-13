@@ -13,3 +13,29 @@ spec:
       name: http
   selector:
     {{- include "hub-nfts.selectorLabels" . | nindent 4 }}
+{{- if and (.Capabilities.APIVersions.Has "monitoring.coreos.com/v1") (.Values.serviceMonitor.enabled) }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "hub-nfts.fullname" . }}
+  {{- if .Release.Namespace }}
+  namespace: {{ .Release.Namespace }}
+  {{- end }}
+  labels:
+    {{- include "hub-nfts.labels" . | nindent 4 }}
+{{- with .Values.serviceMonitor.labels }}
+  {{- toYaml . | nindent 4 }}
+{{- end }}
+spec:
+  endpoints:
+  - path: /metrics
+    port: http
+    scheme: {{ .Values.serviceMonitor.scheme }}
+    interval: {{ .Values.serviceMonitor.scrapeInterval }}
+    scrapeTimeout: {{ .Values.serviceMonitor.scrapeTimeout }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "hub-nfts.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end -}}
