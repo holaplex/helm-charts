@@ -2824,6 +2824,19 @@ entries:
   hub-treasuries:
   - apiVersion: v2
     appVersion: 0.0.1
+    created: "2023-09-14T05:20:03.612591038Z"
+    description: Helm chart for hub-treasuries
+    digest: 52b4d1d2b8d24e7647389a6b0d65d1e613e6db27b11111b254da419759ad6a80
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-treasuries
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-treasuries-0.7.0/hub-treasuries-0.7.0.tgz
+    version: 0.7.0
+  - apiVersion: v2
+    appVersion: 0.0.1
     created: "2023-06-28T19:01:10.098678916Z"
     description: Helm chart for hub-treasuries
     digest: 8c468211c5ad63a6501e3f8598065d596e8ff04cc900fa83414675b91c27bfb2
@@ -3338,4 +3351,4 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/svix-0.0.1/svix-0.0.1.tgz
     version: 0.0.1
-generated: "2023-09-13T18:51:00.336681103Z"
+generated: "2023-09-14T05:20:03.612971944Z"
