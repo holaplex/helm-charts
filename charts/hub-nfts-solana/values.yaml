@@ -50,6 +50,17 @@ securityContext:
   runAsUser: 10000
   runAsGroup: 10000
 
+service:
+  type: ClusterIP
+  port: 80
+
+serviceMonitor:
+  enabled: true
+  scheme: http
+  scrapeInterval: 60s
+  scrapeTimeout: 30s
+  labels: {}
+
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
@@ -101,6 +112,7 @@ secrets:
     digitalAssetApiEndpoint: ""
 
 environment:
+  port: "3000"
   kafkaBrokers: "hub-eventbus-cluster-0.hub-eventbus-cluster.default.svc.cluster.local.:9093"
   kafkaUsername: ""
   kafkaSsl: false
