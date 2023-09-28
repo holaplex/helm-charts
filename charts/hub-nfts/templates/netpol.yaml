@@ -49,6 +49,16 @@ spec:
       ports:
         - port: 53
           protocol: UDP
+  {{- if .Values.redis.enabled }}
+    - to:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/instance: hub-nfts
+              app.kubernetes.io/name: redis
+      ports:
+        - port: 6379
+          protocol: TCP
+  {{- end }}
 {{- if .Values.networkPolicies.extraEgress }}
 {{ toYaml .Values.networkPolicies.extraEgress | indent 4 }}
 {{- end }}
