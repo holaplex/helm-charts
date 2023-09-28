@@ -113,4 +113,4 @@ environment:
   nftStorageApiEndpoint: "https://api.nft.storage"
   ipfsEndpoint: "https://ipfs.io/ipfs/"
   assetCdn: "https://assets.holaplex.tools"
-  redisUrl: "redis://nfts-redis-master:6379"
+  redisUrl: "redis://hub-nfts-redis-master:6379"
