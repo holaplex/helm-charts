@@ -95,6 +95,9 @@ affinity: {}
 
 creditSheetName: ""
 
+redis:
+  enabled: false
+
 secrets:
   enabled: true
   entries:
@@ -109,4 +112,5 @@ environment:
   kafkaSsl: false
   nftStorageApiEndpoint: "https://api.nft.storage"
   ipfsEndpoint: "https://ipfs.io/ipfs/"
-  assetCdn: https://assets.holaplex.tools
+  assetCdn: "https://assets.holaplex.tools"
+  redisUrl: "redis://nfts-redis-master:6379"

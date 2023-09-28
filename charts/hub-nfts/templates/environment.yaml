@@ -12,4 +12,5 @@ data:
   NFT_STORAGE_API_ENDPOINT: {{ required "must set nft storage api endpoint" .nftStorageApiEndpoint | quote }}
   CREDIT_SHEET: /app/credit-sheet.toml
   ASSET_CDN: {{ .assetCdn | quote }}
+  REDIS_URL: {{ required "must set redis url" .redisUrl | quote }}
   {{- end }}
