@@ -1931,6 +1931,24 @@ entries:
   hub-nfts:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-09-28T06:48:19.74853406Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 17.8.2
+    description: Helm chart for hub-nfts
+    digest: 3f33d4fcc2c51bcffda32f958b746b2787a866649b16e513c9acebfb39257976
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-nfts
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-nfts-0.9.0/hub-nfts-0.9.0.tgz
+    version: 0.9.0
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-09-13T18:51:00.335897993Z"
     description: Helm chart for hub-nfts
     digest: 43200e476d5ba5f3a7f0290091c485b24c860fc6ae8f59e19ddd8903a0d6abe5
@@ -3364,4 +3382,4 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/svix-0.0.1/svix-0.0.1.tgz
     version: 0.0.1
-generated: "2023-09-15T01:40:35.137810765Z"
+generated: "2023-09-28T06:48:19.749055461Z"
