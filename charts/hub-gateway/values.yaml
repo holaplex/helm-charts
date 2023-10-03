@@ -15,6 +15,11 @@ internalService:
 networkPolicies:
   enabled: false
 
+certificates:
+  deploy: false
+  devMode: true
+  email: ""
+
 routes:
   - name: api
     serviceName: federated-router

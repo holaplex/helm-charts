@@ -1,0 +1,38 @@
+{{- $namespace := .Values.hubNamespace -}}
+{{- $certEmail := .Values.certificates.email -}}
+{{- $devMode := .Values.certificates.devMode -}}
+{{- if $devMode }}
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: selfsigned
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: ca-issuer
+  namespace: {{ $namespace }}
+spec:
+  ca:
+    secretName: hub-certificates
+{{- else }}
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: {{ $certEmail }}
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    solvers:
+    - http01:
+        ingress:
+          class: apisix
+    - http01:
+        ingress:
+          class: nginx
+{{- end }}
