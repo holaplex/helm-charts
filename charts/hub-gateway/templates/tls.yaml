@@ -1,0 +1,22 @@
+{{- $domain := .Values.domain -}}
+{{- if .Values.certificates.deploy -}}
+apiVersion: apisix.apache.org/v2
+kind: ApisixTls
+metadata:
+  name: hub-domains-tls
+spec:
+  hosts:
+    {{- with .Values.routes }}
+    {{- $usedHosts := "" -}}
+    {{- range . }}
+    {{- $currentHost := .host | default (printf "%s.%s" .subdomain $domain) | quote -}}
+    {{- if not (contains $currentHost $usedHosts) }}
+    - {{ $currentHost }}
+    {{- $usedHosts = print $usedHosts $currentHost -}}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+  secret:
+    name: hub-certificates
+    namespace: ingress-apisix
+{{- end }}
