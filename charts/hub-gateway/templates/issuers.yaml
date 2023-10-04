@@ -1,6 +1,7 @@
 {{- $namespace := .Values.hubNamespace -}}
 {{- $certEmail := .Values.certificates.email -}}
 {{- $devMode := .Values.certificates.devMode -}}
+{{- if .Values.certificates.deploy -}}
 {{- if $devMode }}
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -35,4 +36,5 @@ spec:
     - http01:
         ingress:
           class: nginx
+{{- end }}
 {{- end }}
