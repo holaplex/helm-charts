@@ -145,6 +145,20 @@ routes:
     paths:
       - /invites/*
 
+  - name: ui-private-uploads
+    subdomain: hub
+    serviceName: hub-uploads
+    servicePort: 80
+    session:
+      enabled: true
+    sessionRedirect:
+      enabled: true
+      redirectTo: true
+    methods:
+      - POST
+    paths:
+      - /uploads
+
   - name: ui-public
     subdomain: hub
     serviceName: hub-ui
@@ -229,6 +243,17 @@ routes:
     regexUri:
       - "^/id/(.*)"
       - "/api/.ory/${1}"
+
+  - name: api-uploads
+    serviceName: hub-uploads
+    servicePort: 80
+    subdomain: api
+    paths:
+      - /uploads
+    methods:
+      - POST
+    oauth2:
+      enabled: true
 
 apisixPlugins:
   session:
