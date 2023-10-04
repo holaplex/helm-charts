@@ -145,6 +145,20 @@ routes:
     paths:
       - /invites/*
 
+  - name: ui-private-uploads
+    subdomain: hub
+    serviceName: hub-ui
+    servicePort: 80
+    session:
+      enabled: true
+    sessionRedirect:
+      enabled: true
+      redirectTo: true
+    methods:
+      - POST
+    paths:
+      - /uploads
+
   - name: ui-public
     subdomain: hub
     serviceName: hub-ui
@@ -171,7 +185,6 @@ routes:
       - /terms-of-service
       - /privacy-policy
       - /api/.ory/*
-      - /uploads
 
   - name: hub-auth-api
     serviceName: hydra-public
