@@ -171,7 +171,7 @@ routes:
       - /terms-of-service
       - /privacy-policy
       - /api/.ory/*
-      - /api/uploads
+      - /uploads
 
   - name: hub-auth-api
     serviceName: hydra-public
@@ -229,6 +229,21 @@ routes:
     regexUri:
       - "^/id/(.*)"
       - "/api/.ory/${1}"
+
+  - name: api-uploads
+    serviceName: hub-uploads
+    servicePort: 80
+    subdomain: api
+    paths:
+      - /uploads
+    methods:
+      - POST
+    oauth2:
+      enabled: true
+    regexUri:
+      - '/graphql'
+      - '/'
+
 
 apisixPlugins:
   session:
