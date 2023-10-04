@@ -240,10 +240,6 @@ routes:
       - POST
     oauth2:
       enabled: true
-    regexUri:
-      - '/graphql'
-      - '/'
-
 
 apisixPlugins:
   session:
