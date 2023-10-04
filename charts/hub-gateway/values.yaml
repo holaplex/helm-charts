@@ -147,7 +147,7 @@ routes:
 
   - name: ui-private-uploads
     subdomain: hub
-    serviceName: hub-ui
+    serviceName: hub-uploads
     servicePort: 80
     session:
       enabled: true
@@ -185,6 +185,7 @@ routes:
       - /terms-of-service
       - /privacy-policy
       - /api/.ory/*
+      - /api/uploads
 
   - name: hub-auth-api
     serviceName: hydra-public
