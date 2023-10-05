@@ -5,4 +5,5 @@ metadata:
 data:
   {{- with .Values.environment }}
   PORT: {{ .port | quote }}
+  WEB3_UP_GATEWAY: {{ .web3UpGateway | quote }}
   {{- end }}

@@ -94,3 +94,4 @@ secrets:
 
 environment:
   port: "3000"
+  web3UpGateway: https://w3s.link/ipfs
