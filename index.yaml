@@ -3195,6 +3195,19 @@ entries:
   hub-uploads:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-10-05T13:24:44.367283928Z"
+    description: Helm chart for hub-uploads
+    digest: fdc0ac9576ac20c3cead21687cb94663aa449f77b96e8bdd6e2dabebcad4a317
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-uploads
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-uploads-0.1.1/hub-uploads-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-10-04T18:46:16.640837091Z"
     description: Helm chart for hub-uploads
     digest: 0406fa5c6eaff46a1de9700675794c469bcd7a5bae934a3c4134b9f76f87c9be
@@ -3487,4 +3500,4 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/svix-0.0.1/svix-0.0.1.tgz
     version: 0.0.1
-generated: "2023-10-04T19:12:57.73973176Z"
+generated: "2023-10-05T13:24:44.367699531Z"
