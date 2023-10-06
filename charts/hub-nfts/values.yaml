@@ -32,7 +32,8 @@ serviceAccount:
 
 podAnnotations: {}
 
-podSecurityContext: {}
+podSecurityContext:
+  {}
   # fsGroup: 2000
 
 securityContext:
@@ -53,7 +54,8 @@ serviceMonitor:
   scrapeTimeout: 30s
   labels: {}
 
-resources: {}
+resources:
+  {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -103,14 +105,12 @@ secrets:
   entries:
     databaseUrl: ""
     kafkaPassword: ""
-    nftStorageAuthToken: ""
 
 environment:
   port: "3000"
   kafkaBrokers: "hub-eventbus-cluster-0.hub-eventbus-cluster.default.svc.cluster.local.:9093"
   kafkaUsername: ""
   kafkaSsl: false
-  nftStorageApiEndpoint: "https://api.nft.storage"
-  ipfsEndpoint: "https://ipfs.io/ipfs/"
   assetCdn: "https://assets.holaplex.tools"
   redisUrl: "redis://hub-nfts-redis-master:6379"
+  hubUploadsApiEndpoint: http://hub-uploads
