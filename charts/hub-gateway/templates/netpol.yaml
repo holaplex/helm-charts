@@ -64,6 +64,16 @@ spec:
         - port: 3000
           protocol: TCP
     - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: {{ .Values.hubNamespace }}
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: hub-uploads
+      ports:
+        - port: 3000
+          protocol: TCP
+    - to:
         - podSelector:
             matchLabels:
               app.kubernetes.io/name: hub-graphql-playground
