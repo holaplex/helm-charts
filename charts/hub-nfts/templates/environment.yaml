@@ -8,8 +8,7 @@ data:
   KAFKA_BROKERS: {{ required "must set kafka brokers" .kafkaBrokers | quote }}
   KAFKA_USERNAME: {{ required "must set kafka username" .kafkaUsername | quote }}
   KAFKA_SSL: {{ required "must set kafka ssl" .kafkaSsl | quote }}
-  IPFS_ENDPOINT: {{ required "must set ipfs endpoint" .ipfsEndpoint | quote }}
-  NFT_STORAGE_API_ENDPOINT: {{ required "must set nft storage api endpoint" .nftStorageApiEndpoint | quote }}
+  HUB_UPLOADS_API_ENDPOINT: {{ .hubUploadsApiEndpoint | quote }}
   CREDIT_SHEET: /app/credit-sheet.toml
   ASSET_CDN: {{ .assetCdn | quote }}
   REDIS_URL: {{ required "must set redis url" .redisUrl | quote }}
