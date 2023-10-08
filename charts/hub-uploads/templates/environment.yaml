@@ -5,5 +5,6 @@ metadata:
 data:
   {{- with .Values.environment }}
   PORT: {{ .port | quote }}
-  WEB3_UP_GATEWAY: {{ .web3UpGateway | quote }}
+  IRYS_GATEWAY: {{ .irysGateway | quote }}
+  IRYS_URL: {{ .irysUrl | quote }}
   {{- end }}
