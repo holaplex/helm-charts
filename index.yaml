@@ -2366,6 +2366,19 @@ entries:
   hub-nfts-solana:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2023-10-11T20:02:12.049582641Z"
+    description: Helm chart for hub-nfts-solana
+    digest: e9a0b9164971f1aedfedf92de329ee67c4b32626032ea42ce81657f021552806
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-nfts-solana
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-nfts-solana-0.5.2/hub-nfts-solana-0.5.2.tgz
+    version: 0.5.2
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2023-10-11T17:45:25.303376748Z"
     description: Helm chart for hub-nfts-solana
     digest: 26b6145cef55456ebe277b720624937144596de7bea2918b9f7cbdfc11c749c8
@@ -3590,4 +3603,4 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/svix-0.0.1/svix-0.0.1.tgz
     version: 0.0.1
-generated: "2023-10-11T17:45:25.303792663Z"
+generated: "2023-10-11T20:02:12.050137455Z"
