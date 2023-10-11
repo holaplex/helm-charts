@@ -43,7 +43,7 @@ spec:
             - secretRef:
                 name: {{ include "hub-nfts-solana.fullname" . }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml .Values.indexer.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
