@@ -2011,6 +2011,24 @@ entries:
   hub-nfts:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2023-10-12T15:08:51.169201083Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 17.8.2
+    description: Helm chart for hub-nfts
+    digest: e64628c73dcb5a8db0c94f98a5be003385595b23940f58c3adf137e34085a2d3
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-nfts
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-nfts-0.10.1/hub-nfts-0.10.1.tgz
+    version: 0.10.1
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2023-10-06T18:37:50.548386033Z"
     dependencies:
     - condition: redis.enabled
@@ -2364,6 +2382,19 @@ entries:
     - https://github.com/holaplex/helm-charts/releases/download/hub-nfts-polygon-0.1.0/hub-nfts-polygon-0.1.0.tgz
     version: 0.1.0
   hub-nfts-solana:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-10-12T15:08:51.398579509Z"
+    description: Helm chart for hub-nfts-solana
+    digest: 73bf2dd1b9a0711a63261290666a8413f7c8670e888344e06bb22e3a462c5f43
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-nfts-solana
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-nfts-solana-0.5.3/hub-nfts-solana-0.5.3.tgz
+    version: 0.5.3
   - apiVersion: v2
     appVersion: 1.16.0
     created: "2023-10-11T20:02:12.049582641Z"
@@ -2997,6 +3028,19 @@ entries:
   hub-treasuries:
   - apiVersion: v2
     appVersion: 0.0.1
+    created: "2023-10-12T15:08:51.655686098Z"
+    description: Helm chart for hub-treasuries
+    digest: 62e979fe3e4b01b6ab4109e1ce5a66ba369a6f96ed58df9ff7281dafcd200377
+    maintainers:
+    - email: engineering@holaplex.com
+      name: Holaplex Engineering
+    name: hub-treasuries
+    type: application
+    urls:
+    - https://github.com/holaplex/helm-charts/releases/download/hub-treasuries-0.7.1/hub-treasuries-0.7.1.tgz
+    version: 0.7.1
+  - apiVersion: v2
+    appVersion: 0.0.1
     created: "2023-09-14T05:20:03.612591038Z"
     description: Helm chart for hub-treasuries
     digest: 52b4d1d2b8d24e7647389a6b0d65d1e613e6db27b11111b254da419759ad6a80
@@ -3603,4 +3647,4 @@ entries:
     urls:
     - https://github.com/holaplex/helm-charts/releases/download/svix-0.0.1/svix-0.0.1.tgz
     version: 0.0.1
-generated: "2023-10-11T20:02:12.050137455Z"
+generated: "2023-10-12T15:08:51.656258007Z"
