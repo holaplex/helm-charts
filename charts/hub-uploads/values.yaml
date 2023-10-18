@@ -93,6 +93,7 @@ secrets:
   entries:
     solanaKeypair: ""
     solanaRpcUrl: ""
+    arweavePrivateKey: ""
 
 environment:
   port: "3000"
